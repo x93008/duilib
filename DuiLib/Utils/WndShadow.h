@@ -90,10 +90,10 @@ public:
 	operator HWND() const;
 	void Create(HWND hParentWnd);
 
-	// 使用图片只需要调用这个方法(rcHoleOffset作用是修复圆角显示空白的bug)
+	// Use image with corner settings (rcHoleOffset parameter fixes corner display bug)
 	bool SetImage(LPCTSTR image, RECT rcCorner, RECT rcHoleOffset);
 
-	// 使用颜色可以使用如下几个方法
+	// Use solid color shadow with the following methods
 	bool SetSize(int NewSize = 0);
 	bool SetSharpness(unsigned int NewSharpness = 5);
 	bool SetDarkness(unsigned int NewDarkness = 200);

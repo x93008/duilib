@@ -33,7 +33,7 @@ namespace DuiLib
 		LPCTSTR GetHotForeImage();
 		void SetHotForeImage(LPCTSTR pStrImage);
 
-		// 对应按钮的5个状态图
+		// Support 5-state button images
 		void SetFiveStatusImage(LPCTSTR pStrImage);
 		void SetFadeAlphaDelta(BYTE uDelta);
 		BYTE GetFadeAlphaDelta();

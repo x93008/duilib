@@ -37,18 +37,18 @@ namespace DuiLib
 		void	InitGifImage();
 		void	DeleteGif();
 		void    OnTimer( UINT_PTR idEvent );
-		void	DrawFrame( HDC hDC );		// 绘制GIF每帧
+		void	DrawFrame( HDC hDC );		// Draw GIF frame
 		Gdiplus::Image*	LoadGifFromFile(LPCTSTR pstrGifPath);
 		Gdiplus::Image* LoadGifFromMemory( LPVOID pBuf,size_t dwSize );
 	private:
 		Gdiplus::Image	*m_pGifImage;
-		UINT			m_nFrameCount;				// gif图片总帧数
-		UINT			m_nFramePosition;			// 当前放到第几帧
-		Gdiplus::PropertyItem*	m_pPropertyItem;	// 帧与帧之间间隔时间
+		UINT			m_nFrameCount;				// GIF frame count
+		UINT			m_nFramePosition;			// Current frame position
+		Gdiplus::PropertyItem*	m_pPropertyItem;	// 帧锟斤拷帧之锟斤拷锟斤拷时锟斤拷
 
 		CDuiString		m_sBkImage;
-		bool			m_bIsAutoPlay;				// 是否自动播放gif
-		bool			m_bIsAutoSize;				// 是否自动根据图片设置大小
+		bool			m_bIsAutoPlay;				// Auto play GIF
+		bool			m_bIsAutoSize;				// Auto resize to image size
 		bool			m_bIsPlaying;
 		IStream*	m_pStream;
 	};

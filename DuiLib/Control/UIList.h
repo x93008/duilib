@@ -329,7 +329,7 @@ public:
     bool IsExpanded() const;
     bool Expand(bool bExpand = true);
 
-    void Invalidate(); // 直接CControl::Invalidate会导致滚动条刷新，重写减少刷新区域
+    void Invalidate(); // Direct CControl::Invalidate causes scroll refresh issues, override to fix scroll refresh
     bool Activate();
 
     void DoEvent(TEventUI& event);
@@ -446,7 +446,7 @@ public:
     bool IsExpanded() const;
     bool Expand(bool bExpand = true);
 
-    void Invalidate(); // 直接CControl::Invalidate会导致滚动条刷新，重写减少刷新区域
+    void Invalidate(); // Direct CControl::Invalidate causes scroll refresh issues, override to fix scroll refresh
     bool Activate();
 
     void DoEvent(TEventUI& event);

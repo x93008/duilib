@@ -108,7 +108,7 @@ LRESULT WindowImplBase::OnNcCalcSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BO
 	}
 
 	if ( ::IsZoomed(m_hWnd))
-	{	// ×î´ó»¯Ê±£¬¼ÆËãµ±Ç°ÏÔÊ¾Æ÷×îÊÊºÏ¿í¸ß¶È
+	{	// ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ãµ±Ç°ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÏ¿ï¿½ï¿½ß¶ï¿½
 		MONITORINFO oMonitor = {};
 		oMonitor.cbSize = sizeof(oMonitor);
 		::GetMonitorInfo(::MonitorFromWindow(*this, MONITOR_DEFAULTTONEAREST), &oMonitor);
@@ -181,7 +181,7 @@ LRESULT WindowImplBase::OnGetMinMaxInfo(UINT uMsg, WPARAM wParam, LPARAM lParam,
 	CDuiRect rcMonitor = oMonitor.rcMonitor;
 	rcWork.Offset(-oMonitor.rcMonitor.left, -oMonitor.rcMonitor.top);
 
-	// ¼ÆËã×î´ó»¯Ê±£¬ÕýÈ·µÄÔ­µã×ø±ê
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	lpMMI->ptMaxPosition.x	= rcWork.left;
 	lpMMI->ptMaxPosition.y	= rcWork.top;
 
@@ -329,7 +329,7 @@ LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 	ASSERT(pRoot);
 	if (pRoot==NULL)
 	{
-		MessageBox(NULL,_T("¼ÓÔØ×ÊÔ´ÎÄ¼þÊ§°Ü"),_T("Duilib"),MB_OK|MB_ICONERROR);
+		MessageBox(NULL,_T("Failed to load skin file"),_T("Duilib"),MB_OK|MB_ICONERROR);
 		ExitProcess(1);
 		return 0;
 	}

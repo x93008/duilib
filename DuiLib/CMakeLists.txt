@@ -18,6 +18,14 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 add_library(duilib SHARED ${Control_src} ${Core_src} ${Layout_src} ${Utils_src} ${Root_src})
 
 add_definitions(-DUILIB_EXPORTS)
+
+# Set UTF-8 encoding for source files and runtime library to MT for static linking
+if(WIN32 AND MSVC)
+    target_compile_options(duilib PRIVATE /utf-8)
+    # Set runtime library to MT (MultiThreaded) for static linking
+    target_compile_options(duilib PRIVATE /MT$<$<CONFIG:Debug>:d>)
+endif()
+
 target_link_libraries(duilib comctl32)
 target_include_directories(duilib PUBLIC $<INSTALL_INTERFACE:include>)
 target_compile_definitions(duilib PRIVATE UILIB_EXPORTS)

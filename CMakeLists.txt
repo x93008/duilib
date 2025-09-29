@@ -6,7 +6,7 @@
 #  file for each app is under the related sub-dir
 #
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.26)
 
 project(dui)
 
@@ -16,6 +16,14 @@ message(STATUS," CMake project files for duilib")
 
 # this line is for UNICODE release,which is required by DuiDesigner 
 add_definitions(-DUNICODE -D_UNICODE)
+
+# Set UTF-8 encoding for source files
+if(WIN32 AND MSVC)
+    # Force UTF-8 encoding for both source and execution character sets
+    add_compile_options(
+        /utf-8
+    )
+endif()
 
 # add each CMake file
 add_subdirectory(duilib)

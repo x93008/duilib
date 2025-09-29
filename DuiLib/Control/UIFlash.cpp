@@ -211,7 +211,7 @@ namespace DuiLib
 		if( m_pFlash == NULL )
 			return E_NOTIMPL;
 
-		// 当前Web窗口不是焦点,不处理加速键
+		// 濡傛灉褰撳墠Web绐楀彛涓嶆槸鐒︾偣,鍒欎笉澶勭悊娑堟伅閲嶈浇
 		BOOL bIsChild = FALSE;
 		HWND hTempWnd = NULL;
 		HWND hWndFocus = ::GetFocus();

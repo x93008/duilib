@@ -890,7 +890,7 @@ namespace DuiLib
 					pItem->pPrev = NULL;
 					pItem->pNext = m_aT[slot];
 					pItem->pNext->pPrev = pItem;
-					//½«itemÒÆ¶¯ÖÁÁ´ÌõÍ·²¿
+					//å°†itemç§»åŠ¨åˆ°é“¾è¡¨å¤´éƒ¨
 					m_aT[slot] = pItem;
 				}
 				return pItem->Data;

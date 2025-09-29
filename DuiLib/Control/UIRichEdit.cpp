@@ -152,7 +152,7 @@ private:
     unsigned	fTimer				:1;	// A timer is set
     unsigned    fCaptured           :1;
 	unsigned    fShowCaret          :1;
-	unsigned    fNeedFreshCaret     :1; // ĞŞÕı¸Ä±ä´óĞ¡ºóµã»÷ÆäËûÎ»ÖÃÔ­À´¹â±ê²»ÄÜÏû³ıµÄÎÊÌâ
+	unsigned    fNeedFreshCaret     :1; // æ§åˆ¶æ–‡æœ¬æ¡†å…‰æ ‡é‡æ–°å®šä½åŸå› ï¼Œå¯èƒ½ä¸éœ€è¦åˆ·æ–°æ“ä½œ
 
 	INT         iCaretWidth;
 	INT         iCaretHeight;
@@ -500,7 +500,7 @@ BOOL CTxtWinHost::TxSetScrollPos (INT fnBar, INT nPos, BOOL fRedraw)
 
 void CTxtWinHost::TxInvalidateRect(LPCRECT prc, BOOL fMode)
 {
-    //Fixed Issue In Win 7£¬²»ÄÜÈÃInvalidateĞŞ¸ÄrcClient£¬·ñÔòÎÄ×Ö¿ÉÄÜ»á±»ËõĞ¡
+    //Fixed Issue In Win 7ï¼Œå½“è°ƒç”¨Invalidateä¿®æ”¹rcClientï¼Œå¯èƒ½ç•Œé¢å¯èƒ½ä¼šè¢«è£å‰ª
     RECT rc = {};
     if (prc == NULL)
         rc = rcClient;
@@ -1800,8 +1800,8 @@ void CRichEditUI::OnTxNotify(DWORD iNotify, void *pv)
 	}
 }
 
-// ¶àĞĞ·Çrich¸ñÊ½µÄricheditÓĞÒ»¸ö¹ö¶¯Ìõbug£¬ÔÚ×îºóÒ»ĞĞÊÇ¿ÕĞĞÊ±£¬LineDownºÍSetScrollPosÎŞ·¨¹ö¶¯µ½×îºó
-// ÒıÈëiPos¾ÍÊÇÎªÁËĞŞÕıÕâ¸öbug
+// è¿™æ˜¯érichæ ¼å¼çš„richeditçš„ä¸€ä¸ªæ»šåŠ¨æ¡bugï¼Œå½“æ»šåŠ¨ä¸€è¡Œï¼Œä¸”å¯è§æ—¶ï¼ŒLineDownæˆ–SetScrollPosæ— æ³•æ­£ç¡®æ»šåŠ¨å†…å®¹
+// æ‰€ä»¥iPoså‚æ•°ä¸ºæ»šåŠ¨æ¡è§£å†³bug
 void CRichEditUI::SetScrollPos(SIZE szPos)
 {
     int cx = 0;
@@ -1990,7 +1990,7 @@ void CRichEditUI::DoEvent(TEventUI& event)
 
 SIZE CRichEditUI::EstimateSize(SIZE szAvailable)
 {
-    //return CDuiSize(m_rcItem); // ÕâÖÖ·½Ê½ÔÚµÚÒ»´ÎÉèÖÃ´óĞ¡Ö®ºó¾Í´óĞ¡²»±äÁË
+    //return CDuiSize(m_rcItem); // è¿™ç§æ–¹å¼åœ¨ç¬¬ä¸€æ¬¡è®¾ç½®å¤§å°ä¹‹åå°±å¤§å°ä¸å˜äº†
     return CContainerUI::EstimateSize(szAvailable);
 }
 

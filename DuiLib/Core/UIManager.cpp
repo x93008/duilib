@@ -1200,7 +1200,7 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
                 ::SendMessage(m_hwndTooltip, TTM_TRACKACTIVATE, TRUE, (LPARAM)&m_ToolTip);
 
             }
-            // by jiangdong 2016-8-6 ĞŞ¸Ätooltip ĞüÍ£Ê±ºò ÉÁË¸bug
+            // by jiangdong 2016-8-6 ä¿®æ”¹tooltip æ‚¬åœæ—¶é—´ é—ªçƒbug
             if (m_pLastToolTip == NULL) {
                 m_pLastToolTip = pHover;
             }
@@ -1220,7 +1220,7 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
                     ::SendMessage(m_hwndTooltip, TTM_TRACKACTIVATE, TRUE, (LPARAM)&m_ToolTip);
                 }
             }
-            //ĞŞ¸ÄÔÚCListElementUI ÓĞÌáÊ¾ ×ÓÏîÎŞÌáÊ¾ÏÂÎŞ·¨¸úËæÒÆ¶¯£¡£¨°´ÀíËµ²»Ó¦¸ÃÒÆ¶¯µÄ£©
+            //ä¿®æ”¹åœ¨CListElementUI é¼ æ ‡æ˜¾ç¤º å…‰æ ‡é—®é¢˜æ˜¾ç¤ºæ‰‹æ— æ³•æ­£ç¡®ç§»åŠ¨ï¼Œä½†æ˜¯å®é™…ä¸Šåº”è¯¥ç§»åŠ¨çš„
             ::SendMessage(m_hwndTooltip, TTM_TRACKPOSITION, 0, (LPARAM)(DWORD)MAKELONG(pt.x, pt.y));
     }
         return true;
@@ -1368,12 +1368,12 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
             event.wKeyState = (WORD)wParam;
             event.dwTimestamp = ::GetTickCount();
 			// By daviyang35 at 2015-6-5 16:10:13
-			// ÔÚClickÊÂ¼şÖĞµ¯³öÁËÄ£Ì¬¶Ô»°¿ò£¬ÍË³ö½×¶Î´°¿ÚÊµÀı¿ÉÄÜÒÑ¾­É¾³ı
-			// this³ÉÔ±ÊôĞÔ¸³Öµ½«»áµ¼ÖÂheap´íÎó
-			// this³ÉÔ±º¯Êıµ÷ÓÃ½«»áµ¼ÖÂÒ°Ö¸ÕëÒì³£
-			// Ê¹ÓÃÕ»ÉÏµÄ³ÉÔ±À´µ÷ÓÃÏìÓ¦£¬ÌáÇ°Çå¿Õ³ÉÔ±
-			// µ±×èÈûµÄÄ£Ì¬´°¿Ú·µ»ØÊ±£¬»ØÕ»½×¶Î²»·ÃÎÊÈÎºÎÀàÊµÀı·½·¨»òÊôĞÔ
-			// ½«²»»á´¥·¢Òì³£
+			// åœ¨Clickäº‹ä»¶ä¸­çš„å¼¹å‡ºæ¨¡æ€å¯¹è¯æ¡†é€€å‡ºé˜¶æ®µè§¦å‘å®ä¾‹ï¼Œå¯èƒ½å·²ç»åˆ é™¤
+			// thisçš„æˆå‘˜å˜é‡èµ‹å€¼å¯èƒ½å¯¼è‡´heapé”™è¯¯
+			// thisçš„æˆå‘˜å˜é‡è®¾ç½®å°†ä¼šå¯¼è‡´é‡æŒ‡é’ˆå¼‚å¸¸
+			// ä½¿ç”¨æ ˆä¸Šçš„æˆå‘˜å˜é‡è¿›è¡Œå“åº”åº”è¯¥å½“å‰ç²˜è´´æˆå‘˜
+			// åœ¨å¼¹å‡ºå¯¹è¯æ¨¡æ€çª—å£è¿”å›æ—¶ï¼Œæ­¤æ ˆé˜¶æ®µä¸å­˜åœ¨ä»»ä½•ç±»å®ä¾‹ï¼Œå¯èƒ½ä¼šé€ æˆ
+			// é”™è¯¯ä¼šè§¦å‘å¼‚å¸¸
 			CControlUI* pClick = m_pEventClick;
 			m_pEventClick = NULL;
             pClick->Event(event);
@@ -2751,7 +2751,7 @@ const TImageInfo* CPaintManagerUI::AddImage(LPCTSTR bitmap, LPCTSTR type, DWORD 
 
 const TImageInfo* CPaintManagerUI::AddImage(LPCTSTR bitmap, HBITMAP hBitmap, int iWidth, int iHeight, bool bAlpha, bool bShared)
 {
-	// ÒòÎŞ·¨È·¶¨Íâ²¿HBITMAP¸ñÊ½£¬²»ÄÜÊ¹ÓÃhslµ÷Õû
+	// å¦‚æœæ— æ³•ç¡®å®šå¤–éƒ¨HBITMAPæ ¼å¼ï¼Œåˆ™ä¸ä½¿ç”¨hslè°ƒè‰²
 	if( bitmap == NULL || bitmap[0] == _T('\0') ) return NULL;
     if( hBitmap == NULL || iWidth <= 0 || iHeight <= 0 ) return NULL;
 
@@ -3509,7 +3509,7 @@ bool CPaintManagerUI::TranslateMessage(const LPMSG pMsg)
 	if (uChildRes != 0)
 	{
 		HWND hWndParent = ::GetParent(pMsg->hwnd);
-		//code by redrain 2014.12.3,½â¾öeditºÍwebbrowser°´tabÎŞ·¨ÇĞ»»½¹µãµÄbug
+		//code by redrain 2014.12.3,ä¿®å¤editå’Œwebbrowserçš„tabæ— æ³•åˆ‡æ¢ç„¦ç‚¹çš„bug
 		//		for( int i = 0; i < m_aPreMessages.GetSize(); i++ ) 
 		for( int i = m_aPreMessages.GetSize() - 1; i >= 0 ; --i ) 
 		{

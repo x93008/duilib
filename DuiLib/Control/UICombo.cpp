@@ -68,7 +68,7 @@ bool CComboBodyUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopContro
                         iDrawIndex += 1;
                     }
                     if (pListInfo && pListInfo->iHLineSize > 0) {
-                        // ÒòÎªÃ»ÓÐÎª×îºóÒ»¸öÔ¤Áô·Ö¸îÌõ³¤¶È£¬Èç¹ûlistÆÌÂú£¬×îºóÒ»Ìõ²»»áÏÔÊ¾
+                        // å› ä¸ºæ²¡æœ‰ä¸ºæœ€åŽä¸€è¡Œé¢„ç•™åˆ†éš”çº¿çš„å®½åº¦ï¼Œæ‰€ä»¥listæŽ§ä»¶éœ€è¦æœ€åŽä¸€è¡Œç‰¹æ®Šæ˜¾ç¤º
                         RECT rcPadding = pControl->GetPadding();
                         const RECT& rcPos = pControl->GetPos();
                         RECT rcBottomLine = { rcPos.left, rcPos.bottom + rcPadding.bottom, rcPos.right, rcPos.bottom + rcPadding.bottom + pListInfo->iHLineSize };
@@ -154,9 +154,9 @@ void CComboWnd::Init(CComboUI* pOwner)
     SIZE szDrop = m_pOwner->GetDropBoxSize();
     RECT rcOwner = pOwner->GetPos();
     RECT rc = rcOwner;
-    rc.top = rc.bottom;		// ¸¸´°¿Úleft¡¢bottomÎ»ÖÃ×÷Îªµ¯³ö´°¿ÚÆðµã
-    rc.bottom = rc.top + szDrop.cy;	// ¼ÆËãµ¯³ö´°¿Ú¸ß¶È
-    if( szDrop.cx > 0 ) rc.right = rc.left + szDrop.cx;	// ¼ÆËãµ¯³ö´°¿Ú¿í¶È
+    rc.top = rc.bottom;		// ä¿æŒåŽŸleftå’Œbottomä½ç½®ä½œä¸ºå¼¹å‡ºæ¡†åŸºå‡†ç‚¹
+    rc.bottom = rc.top + szDrop.cy;	// è®¡ç®—å¼¹å‡ºçª—å£é«˜åº¦
+    if( szDrop.cx > 0 ) rc.right = rc.left + szDrop.cx;	// è®¡ç®—å¼¹å‡ºçª—å£å®½åº¦
 
     SIZE szAvailable = { rc.right - rc.left, rc.bottom - rc.top };
     int cyFixed = 0;
@@ -166,7 +166,7 @@ void CComboWnd::Init(CComboUI* pOwner)
         SIZE sz = pControl->EstimateSize(szAvailable);
         cyFixed += sz.cy;
     }
-    cyFixed += 4; // CVerticalLayoutUI Ä¬ÈÏµÄInset µ÷Õû
+    cyFixed += 4; // CVerticalLayoutUI é»˜è®¤çš„Inset è¾¹è·
     rc.bottom = rc.top + MIN(cyFixed, szDrop.cy);
 
     ::MapWindowRect(pOwner->GetManager()->GetPaintWindow(), HWND_DESKTOP, &rc);

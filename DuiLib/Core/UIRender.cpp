@@ -1193,8 +1193,8 @@ void CRenderEngine::DrawGradient(HDC hDC, const RECT& rc, DWORD dwFirst, DWORD d
     {
         TRIVERTEX triv[2] = 
         {
-            { rcPaint.left, rcPaint.top, GetBValue(dwFirst) << 8, GetGValue(dwFirst) << 8, GetRValue(dwFirst) << 8, 0xFF00 },
-            { rcPaint.right, rcPaint.bottom, GetBValue(dwSecond) << 8, GetGValue(dwSecond) << 8, GetRValue(dwSecond) << 8, 0xFF00 }
+            { rcPaint.left, rcPaint.top, static_cast<COLOR16>(GetBValue(dwFirst) << 8), static_cast<COLOR16>(GetGValue(dwFirst) << 8), static_cast<COLOR16>(GetRValue(dwFirst) << 8), 0xFF00 },
+            { rcPaint.right, rcPaint.bottom, static_cast<COLOR16>(GetBValue(dwSecond) << 8), static_cast<COLOR16>(GetGValue(dwSecond) << 8), static_cast<COLOR16>(GetRValue(dwSecond) << 8), 0xFF00 }
         };
         GRADIENT_RECT grc = { 0, 1 };
         lpGradientFill(hPaintDC, triv, 2, &grc, 1, bVertical ? GRADIENT_FILL_RECT_V : GRADIENT_FILL_RECT_H);

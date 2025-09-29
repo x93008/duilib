@@ -20,9 +20,7 @@ add_definitions(-DUNICODE -D_UNICODE)
 # Set UTF-8 encoding for source files
 if(WIN32 AND MSVC)
     # Force UTF-8 encoding for both source and execution character sets
-    add_compile_options(
-        /utf-8
-    )
+    add_compile_options(/utf-8)
 endif()
 
 # add each CMake file

@@ -11,7 +11,7 @@ set(source_files
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-add_executable(FileTreeDemo ${source_files})
+add_executable(FileTreeDemo ${source_files} FileTree.rc)
 add_dependencies(FileTreeDemo duilib)
 target_link_libraries(FileTreeDemo duilib)
 set_target_properties(FileTreeDemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
@@ -33,6 +33,10 @@ install(FILES
   ${CMAKE_SOURCE_DIR}/assets/winbk.bmp
   ${CMAKE_SOURCE_DIR}/assets/scrollbar.bmp
   ${CMAKE_SOURCE_DIR}/assets/thumb.bmp
+  DESTINATION bin/assets
+)
+# Install FileTree's skin.xml
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/skin.xml
   DESTINATION bin/assets
 )
 

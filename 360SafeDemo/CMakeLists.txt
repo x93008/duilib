@@ -11,6 +11,11 @@ set_target_properties(360safedemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 add_dependencies(360safedemo duilib)
 target_link_libraries(360safedemo duilib)
 
+# Install assets directly to bin directory
+install(FILES ${CMAKE_SOURCE_DIR}/assets/skin/360SafeRes.zip
+  DESTINATION bin/assets/skin
+)
+
 install(
   TARGETS 360safedemo
   RUNTIME DESTINATION bin

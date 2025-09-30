@@ -25,6 +25,11 @@ if(WIN32 AND MSVC)
     target_compile_options(ScrCaptureDemo PRIVATE /MT$<$<CONFIG:Debug>:d>)
 endif()
 
+# Install assets directly to bin directory
+install(FILES ${CMAKE_SOURCE_DIR}/assets/ScrCapture.xml
+  DESTINATION bin/assets
+)
+
 install(
   TARGETS ScrCaptureDemo
   RUNTIME DESTINATION bin

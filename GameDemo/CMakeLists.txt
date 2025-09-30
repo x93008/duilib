@@ -11,6 +11,12 @@ add_dependencies(GameDemo duilib)
 target_link_libraries(GameDemo duilib)
 set_target_properties(GameDemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 
+# Install assets directly to bin directory
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets/skin/GameRes/
+  DESTINATION bin/assets/skin/GameRes
+  FILES_MATCHING PATTERN "*"
+)
+
 install(
   TARGETS GameDemo
   RUNTIME DESTINATION bin

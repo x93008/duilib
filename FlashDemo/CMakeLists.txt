@@ -11,6 +11,12 @@ add_dependencies(FlashDemo duilib)
 target_link_libraries(FlashDemo duilib)
 set_target_properties(FlashDemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 
+# Install assets directly to bin directory
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets/skin/FlashRes/
+  DESTINATION bin/assets/skin/FlashRes
+  FILES_MATCHING PATTERN "*"
+)
+
 install(
   TARGETS FlashDemo
   RUNTIME DESTINATION bin

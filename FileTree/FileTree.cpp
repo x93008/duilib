@@ -10,7 +10,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR 
 {
 
 	CPaintManagerUI::SetInstance(hInstance);
-	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("\\assets\\FileTree\\"));
+	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("assets\\"));
 	//CPaintManagerUI::SetResourceZip(_T("Control.zip"),true);
 
 	HRESULT Hr = ::CoInitialize(NULL);

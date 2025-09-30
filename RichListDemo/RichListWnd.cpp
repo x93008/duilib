@@ -177,12 +177,7 @@ void CRichListWnd::OnFinalMessage( HWND hWnd)
 
 CDuiString CRichListWnd::GetSkinFolder()
 {
-#ifdef _DEBUG
 	return _T("skin\\RichListRes\\");
-#else
-	return _T("skin\\");
-#endif
-	
 }
 
 CDuiString CRichListWnd::GetSkinFile()
@@ -201,7 +196,7 @@ UILIB_RESOURCETYPE CRichListWnd::GetResourceType() const
 
 CDuiString CRichListWnd::GetZIPFileName() const
 {
-	return _T("RichListRes.zip");
+	return _T("skin\\RichListRes.zip");
 }
 
 LPCTSTR CRichListWnd::GetWindowClassName( void ) const

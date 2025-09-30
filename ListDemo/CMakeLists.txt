@@ -11,6 +11,15 @@ add_dependencies(ListDemo duilib)
 target_link_libraries(ListDemo duilib)
 set_target_properties(ListDemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 
+# Install assets directly to bin directory
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets/skin/ListRes/
+  DESTINATION bin/assets/skin/ListRes
+  FILES_MATCHING PATTERN "*"
+)
+install(FILES ${CMAKE_SOURCE_DIR}/assets/skin/ListRes.zip
+  DESTINATION bin/assets/skin
+)
+
 install(
   TARGETS ListDemo
   RUNTIME DESTINATION bin

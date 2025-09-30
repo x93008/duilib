@@ -22,6 +22,20 @@ if(WIN32 AND MSVC)
     target_compile_options(FileTreeDemo PRIVATE /MT$<$<CONFIG:Debug>:d>)
 endif()
 
+# Install assets directly to bin directory
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets/Icon/
+  DESTINATION bin/assets/Icon
+  FILES_MATCHING PATTERN "*.png"
+)
+install(FILES 
+  ${CMAKE_SOURCE_DIR}/assets/bg.bmp
+  ${CMAKE_SOURCE_DIR}/assets/fg.bmp 
+  ${CMAKE_SOURCE_DIR}/assets/winbk.bmp
+  ${CMAKE_SOURCE_DIR}/assets/scrollbar.bmp
+  ${CMAKE_SOURCE_DIR}/assets/thumb.bmp
+  DESTINATION bin/assets
+)
+
 install(
   TARGETS FileTreeDemo
   RUNTIME DESTINATION bin

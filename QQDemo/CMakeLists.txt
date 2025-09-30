@@ -11,6 +11,11 @@ add_executable(QQDemo ${SRC} QQDemo.rc)
 set_target_properties(QQDemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 target_link_libraries(QQDemo duilib)
 
+# Install assets directly to bin directory
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/res/QQRes.zip
+  DESTINATION bin/assets/
+)
+
 install(
   TARGETS QQDemo
   RUNTIME DESTINATION bin

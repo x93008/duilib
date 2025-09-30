@@ -15,6 +15,19 @@ add_dependencies(TestApp1Demo duilib)
 target_link_libraries(TestApp1Demo duilib)
 set_target_properties(TestApp1Demo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 
+# Install assets directly to bin directory
+install(FILES 
+  ${CMAKE_SOURCE_DIR}/assets/test1.xml
+  ${CMAKE_SOURCE_DIR}/assets/LeftWithFill.png
+  ${CMAKE_SOURCE_DIR}/assets/voice_rect.png
+  ${CMAKE_SOURCE_DIR}/assets/scrollbar.xml
+  DESTINATION bin/assets
+)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets/Button/
+  DESTINATION bin/assets/Button
+  FILES_MATCHING PATTERN "*.png"
+)
+
 install(
   TARGETS TestApp1Demo
   RUNTIME DESTINATION bin

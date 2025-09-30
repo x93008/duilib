@@ -68,6 +68,15 @@ install(
   ARCHIVE DESTINATION lib
 )
 
+# Install PDB files for Debug builds on MSVC (shared library only)
+get_target_property(DUILIB_TYPE duilib TYPE)
+if(MSVC AND NOT DUILIB_TYPE STREQUAL "STATIC_LIBRARY")
+    install(FILES $<TARGET_PDB_FILE:duilib>
+            DESTINATION bin 
+            CONFIGURATIONS Debug RelWithDebInfo
+            OPTIONAL)
+endif()
+
 # Install cmake configure files
 install(EXPORT duilib-config
     NAMESPACE dui::

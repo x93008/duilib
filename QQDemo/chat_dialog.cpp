@@ -47,7 +47,7 @@ ChatDialog::ChatDialog(const CDuiString& bgimage, DWORD bkcolor, const FriendLis
 , italic_(false)
 , underline_(false)
 , font_size_(12)
-, font_face_name_(_T("Î¢ÈíÑÅºÚ"))
+, font_face_name_(_T("Î¢ï¿½ï¿½ï¿½Åºï¿½"))
 {}
 
 ChatDialog::~ChatDialog()
@@ -105,7 +105,7 @@ CDuiString ChatDialog::GetSkinFile()
 
 CDuiString ChatDialog::GetSkinFolder()
 {
-	return CDuiString(CPaintManagerUI::GetInstancePath()) + _T("skin\\");
+	return CDuiString(CPaintManagerUI::GetInstancePath()) + _T("assets\\skin\\");
 }
 
 LRESULT ChatDialog::OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -224,9 +224,9 @@ CDuiString GetCurrentTimeString()
 	TCHAR szTime[MAX_PATH] = {0};
 	::GetLocalTime( &time );
 #if defined(UNDER_CE)
-	_stprintf( szTime, _T("%04dÄê%02dÔÂ%02dÈÕ %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+	_stprintf( szTime, _T("%04dï¿½ï¿½%02dï¿½ï¿½%02dï¿½ï¿½ %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
 #else
-	_stprintf_s( szTime, MAX_PATH, _T("%04dÄê%02dÔÂ%02dÈÕ %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+	_stprintf_s( szTime, MAX_PATH, _T("%04dï¿½ï¿½%02dï¿½ï¿½%02dï¿½ï¿½ %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
 #endif
 
 	return szTime;
@@ -255,7 +255,7 @@ void ChatDialog::SendMsg()
 
     lSelEnd = lSelBegin = pRichEdit->GetTextLength();
     pRichEdit->SetSel(lSelEnd, lSelEnd);
-    pRichEdit->ReplaceSel(_T("Ä³ÈË"), false);
+    pRichEdit->ReplaceSel(_T("Ä³ï¿½ï¿½"), false);
 
     lSelEnd = pRichEdit->GetTextLength();
     pRichEdit->SetSel(lSelBegin, lSelEnd);

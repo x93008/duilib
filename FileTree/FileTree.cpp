@@ -1,4 +1,4 @@
-// FileTree.cpp : ¶¨ÒåÓ¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// FileTree.cpp : å®šä¹‰åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -10,7 +10,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR 
 {
 
 	CPaintManagerUI::SetInstance(hInstance);
-	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("\\FileTree\\"));
+	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("\\assets\\FileTree\\"));
 	//CPaintManagerUI::SetResourceZip(_T("Control.zip"),true);
 
 	HRESULT Hr = ::CoInitialize(NULL);

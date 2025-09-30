@@ -31,7 +31,7 @@ public:
             pActiveX->GetControl(IID_IUnknown, (void**)&pFlash);
             if( pFlash != NULL ) {
                 pFlash->put_WMode( _bstr_t(_T("Transparent") ) );
-                pFlash->put_Movie( _bstr_t(CPaintManagerUI::GetInstancePath() + _T("\\skin\\FlashRes\\test.swf")) );
+                pFlash->put_Movie( _bstr_t(CPaintManagerUI::GetInstancePath() + _T("\\assets\\skin\\FlashRes\\test.swf")) );
                 pFlash->DisableLocalSecurity();
                 pFlash->put_AllowScriptAccess(L"always");
                 BSTR response;
@@ -146,7 +146,7 @@ public:
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*lpCmdLine*/, int nCmdShow)
 {
     CPaintManagerUI::SetInstance(hInstance);
-    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("skin\\FlashRes"));
+    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("assets\\skin\\FlashRes"));
 
     HRESULT Hr = ::CoInitialize(NULL);
     if( FAILED(Hr) ) return 0;

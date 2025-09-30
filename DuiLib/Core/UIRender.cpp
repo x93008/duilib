@@ -1407,7 +1407,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
 	int cxLineWidth = 0;
     int cyLineHeight = 0;
 	int cxOffset = 0;
-    bool bLineDraw = false; // �еĵڶ��׶Σ�����
+    bool bLineDraw = false; // 行的第二阶段：绘制
     while( *pstrText != _T('\0') ) {
         if( pt.x >= rc.right || *pstrText == _T('\n') || bLineEnd ) {
             if( *pstrText == _T('\n') ) pstrText++;
@@ -1870,7 +1870,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                     if( pTm->tmItalic && pFontInfo->bItalic == false ) {
                         ABC abc;
                         ::GetCharABCWidths(hDC, _T(' '), _T(' '), &abc);
-                        pt.x += abc.abcC / 2; // ������һ��б����ŵ�����, ��ȷ����Ӧ����http://support.microsoft.com/kb/244798/en-us
+                        pt.x += abc.abcC / 2;// 简单修正一下斜体混排的问题, 正确做法应该是http://support.microsoft.com/kb/244798/en-us
 					}
                     pTm = &pFontInfo->tm;
                     ::SelectObject(hDC, pFontInfo->hFont);

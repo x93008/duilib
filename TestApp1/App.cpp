@@ -377,10 +377,10 @@ public:
                 }
             }
             else if( msg.pSender->GetName() == _T("changeskinbtn") ) {
-                if( CPaintManagerUI::GetResourcePath() == CPaintManagerUI::GetInstancePath() )
-                    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("skin\\FlashRes"));
+                if( CPaintManagerUI::GetResourcePath() == CPaintManagerUI::GetInstancePath() + _T("assets\\") )
+                    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("assets\\skin\\FlashRes"));
                 else
-                    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());
+                    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("assets\\"));
                 CPaintManagerUI::ReloadSkin();
             }
         }
@@ -437,7 +437,7 @@ public:
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*lpCmdLine*/, int nCmdShow)
 {
     CPaintManagerUI::SetInstance(hInstance);
-    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());
+    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("assets\\"));
 
     HRESULT Hr = ::CoInitialize(NULL);
     if( FAILED(Hr) ) return 0;
@@ -446,7 +446,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
 
     CFrameWindowWnd* pFrame = new CFrameWindowWnd();
     if( pFrame == NULL ) return 0;
-    pFrame->Create(NULL, _T("ÕâÊÇÒ»¸ö×î¼òµ¥µÄ²âÊÔÓÃexe£¬ÐÞ¸Ätest1.xml¾Í¿ÉÒÔ¿´µ½Ð§¹û"), UI_WNDSTYLE_FRAME|WS_CLIPCHILDREN, WS_EX_WINDOWEDGE);
+    pFrame->Create(NULL, _T("ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½òµ¥µÄ²ï¿½ï¿½ï¿½ï¿½ï¿½exeï¿½ï¿½ï¿½Þ¸ï¿½test1.xmlï¿½Í¿ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½Ð§ï¿½ï¿½"), UI_WNDSTYLE_FRAME|WS_CLIPCHILDREN, WS_EX_WINDOWEDGE);
     pFrame->CenterWindow();
     pFrame->ShowWindow(true);
     CPaintManagerUI::MessageLoop();

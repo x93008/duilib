@@ -96,7 +96,7 @@ CDuiString CColorPicker::GetSkinFile()
 
 CDuiString CColorPicker::GetSkinFolder()
 {
-	return CDuiString(CPaintManagerUI::GetInstancePath()) + _T("skin\\");
+	return CDuiString(CPaintManagerUI::GetInstancePath()) + _T("assets\\skin\\");
 }
 
 LRESULT CColorPicker::OnKillFocus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)

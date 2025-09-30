@@ -108,8 +108,8 @@ bool CListUI::SetItemIndex(CControlUI* pControl, int iIndex)
     if( m_iCurSel >= 0 ) pSelectedListItem = 
         static_cast<IListItemUI*>(GetItemAt(m_iCurSel)->GetInterface(DUI_CTR_ILISTITEM));
     if( !m_pList->SetItemIndex(pControl, iIndex) ) return false;
-    int iMinIndex = min(iOrginIndex, iIndex);
-    int iMaxIndex = max(iOrginIndex, iIndex);
+    int iMinIndex = MIN(iOrginIndex, iIndex);
+    int iMaxIndex = MAX(iOrginIndex, iIndex);
     for(int i = iMinIndex; i < iMaxIndex + 1; ++i) {
         CControlUI* p = m_pList->GetItemAt(i);
         IListItemUI* pListItem = static_cast<IListItemUI*>(p->GetInterface(DUI_CTR_ILISTITEM));
@@ -137,8 +137,8 @@ bool CListUI::SetMultiItemIndex(CControlUI* pStartControl, int iCount, int iNewS
     if( m_iCurSel >= 0 ) pSelectedListItem = 
         static_cast<IListItemUI*>(GetItemAt(m_iCurSel)->GetInterface(DUI_CTR_ILISTITEM));
     if( !m_pList->SetMultiItemIndex(pStartControl, iCount, iNewStartIndex) ) return false;
-    int iMinIndex = min(iStartIndex, iNewStartIndex);
-    int iMaxIndex = max(iStartIndex + iCount, iNewStartIndex + iCount);
+    int iMinIndex = DUILIB_MIN(iStartIndex, iNewStartIndex);
+    int iMaxIndex = DUILIB_MAX(iStartIndex + iCount, iNewStartIndex + iCount);
     for(int i = iMinIndex; i < iMaxIndex + 1; ++i) {
         CControlUI* p = m_pList->GetItemAt(i);
         IListItemUI* pListItem = static_cast<IListItemUI*>(p->GetInterface(DUI_CTR_ILISTITEM));
@@ -282,7 +282,7 @@ void CListUI::SetPos(RECT rc, bool bNeedInvalidate)
 		int iLeft = rc.left + m_rcInset.left;
 		int iRight = rc.right - m_rcInset.right;
 
-		m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+		m_ListInfo.nColumns = DUILIB_MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 
 		if( !m_pHeader->IsVisible() ) {
 			for( int it = m_pHeader->GetCount() - 1; it >= 0; it-- ) {
@@ -335,7 +335,7 @@ void CListUI::SetPos(RECT rc, bool bNeedInvalidate)
 		rc.bottom -= m_pHorizontalScrollBar->GetFixedHeight();
 	}
 
-	m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+	m_ListInfo.nColumns = DUILIB_MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 
 	if( !m_pHeader->IsVisible() ) {
 		for( int it = m_pHeader->GetCount() - 1; it >= 0; it-- ) {
@@ -1149,7 +1149,7 @@ void CListBodyUI::SetScrollPos(SIZE szPos)
         CListHeaderUI* pHeader = m_pOwner->GetHeader();
         if( pHeader == NULL ) return;
         TListInfoUI* pInfo = m_pOwner->GetListInfo();
-        pInfo->nColumns = MIN(pHeader->GetCount(), UILIST_MAX_COLUMNS);
+        pInfo->nColumns = DUILIB_MIN(pHeader->GetCount(), UILIST_MAX_COLUMNS);
         for( int i = 0; i < pInfo->nColumns; i++ ) {
             CControlUI* pControl = static_cast<CControlUI*>(pHeader->GetItemAt(i));
             if( !pControl->IsVisible() ) continue;
@@ -1215,10 +1215,10 @@ void CListBodyUI::SetPos(RECT rc, bool bNeedInvalidate)
         if( sz.cy > pControl->GetMaxHeight() ) sz.cy = pControl->GetMaxHeight();
         cyFixed += sz.cy + pControl->GetPadding().top + pControl->GetPadding().bottom;
 
-        sz.cx = MAX(sz.cx, 0);
+        sz.cx = DUILIB_MAX(sz.cx, 0);
         if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
         if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();
-        cxNeeded = MAX(cxNeeded, sz.cx);
+        cxNeeded = DUILIB_MAX(cxNeeded, sz.cx);
         nEstimateNum++;
     }
     cyFixed += (nEstimateNum - 1) * iChildPadding;
@@ -1226,7 +1226,7 @@ void CListBodyUI::SetPos(RECT rc, bool bNeedInvalidate)
     if( m_pOwner ) {
         CListHeaderUI* pHeader = m_pOwner->GetHeader();
         if( pHeader != NULL && pHeader->GetCount() > 0 ) {
-            cxNeeded = MAX(0, pHeader->EstimateSize(CDuiSize(rc.right - rc.left, rc.bottom - rc.top)).cx);
+            cxNeeded = DUILIB_MAX(0, pHeader->EstimateSize(CDuiSize(rc.right - rc.left, rc.bottom - rc.top)).cx);
         }
     }
 
@@ -1433,10 +1433,10 @@ SIZE CListHeaderUI::EstimateSize(SIZE szAvailable)
     SIZE cXY = {0, m_cxyFixed.cy};
 	if( cXY.cy == 0 && m_pManager != NULL ) {
 		for( int it = 0; it < m_items.GetSize(); it++ ) {
-			cXY.cy = MAX(cXY.cy,static_cast<CControlUI*>(m_items[it])->EstimateSize(szAvailable).cy);
-		}
-		int nMin = m_pManager->GetDefaultFontInfo()->tm.tmHeight + 8;
-		cXY.cy = MAX(cXY.cy,nMin);
+		cXY.cy = DUILIB_MAX(cXY.cy,static_cast<CControlUI*>(m_items[it])->EstimateSize(szAvailable).cy);
+	}
+	int nMin = m_pManager->GetDefaultFontInfo()->tm.tmHeight + 8;
+	cXY.cy = DUILIB_MAX(cXY.cy,nMin);
 	}
 
     for( int it = 0; it < m_items.GetSize(); it++ ) {

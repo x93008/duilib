@@ -410,7 +410,7 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 	SIZE szParent = {rcParent->right - rcParent->left, rcParent->bottom - rcParent->top};
 	SIZE szShadow = {szParent.cx + 2 * m_nSize, szParent.cy + 2 * m_nSize};
 	// Extra 2 lines (set to be empty) in ptAnchors are used in dilation
-	int nAnchors = max(szParent.cy, szShadow.cy);	// # of anchor points pares
+	int nAnchors = DUILIB_MAX(szParent.cy, szShadow.cy);	// # of anchor points pares
 	int (*ptAnchors)[2] = new int[nAnchors + 2][2];
 	int (*ptAnchorsOri)[2] = new int[szParent.cy][2];	// anchor points, will not modify during erosion
 	ptAnchors[0][0] = szParent.cx;
@@ -484,8 +484,8 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 		//ptAnchorsTmp[szParent.cy + 1][1] = 0;
 		for(int j = 1; j < nAnchors + 1; j++)
 		{
-			ptAnchorsTmp[j][0] = max(ptAnchors[j - 1][0], max(ptAnchors[j][0], ptAnchors[j + 1][0])) + 1;
-			ptAnchorsTmp[j][1] = min(ptAnchors[j - 1][1], min(ptAnchors[j][1], ptAnchors[j + 1][1])) - 1;
+		ptAnchorsTmp[j][0] = DUILIB_MAX(ptAnchors[j - 1][0], DUILIB_MAX(ptAnchors[j][0], ptAnchors[j + 1][0])) + 1;
+		ptAnchorsTmp[j][1] = DUILIB_MIN(ptAnchors[j - 1][1], DUILIB_MIN(ptAnchors[j][1], ptAnchors[j + 1][1])) - 1;
 		}
 		// Exchange ptAnchors and ptAnchorsTmp;
 		int (*ptAnchorsXange)[2] = ptAnchorsTmp;
@@ -528,7 +528,7 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 
 			// Start of line
 			for(j = ptAnchors[i][0];
-				j < min(max(ptAnchors[i - 1][0], ptAnchors[i + 1][0]) + 1, ptAnchors[i][1]);
+				j < DUILIB_MIN(DUILIB_MAX(ptAnchors[i - 1][0], ptAnchors[i + 1][0]) + 1, ptAnchors[i][1]);
 				j++)
 			{
 				for(int k = 0; k <= 2 * nKernelSize; k++)
@@ -547,7 +547,7 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 			}	// for() start of line
 
 			// End of line
-			for(j = max(j, min(ptAnchors[i - 1][1], ptAnchors[i + 1][1]) - 1);
+			for(j = DUILIB_MAX(j, DUILIB_MIN(ptAnchors[i - 1][1], ptAnchors[i + 1][1]) - 1);
 				j < ptAnchors[i][1];
 				j++)
 			{
@@ -571,8 +571,8 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 
 	// Erase unwanted parts and complement missing
 	UINT32 clCenter = m_nDarkness << 24 | PreMultiply(m_Color, m_nDarkness);
-	for(int i = min(nKernelSize, max(m_nSize - m_nyOffset, 0));
-		i < max(szShadow.cy - nKernelSize, min(szParent.cy + m_nSize - m_nyOffset, szParent.cy + 2 * m_nSize));
+	for(int i = DUILIB_MIN(nKernelSize, DUILIB_MAX(m_nSize - m_nyOffset, 0));
+		i < DUILIB_MAX(szShadow.cy - nKernelSize, DUILIB_MIN(szParent.cy + m_nSize - m_nyOffset, szParent.cy + 2 * m_nSize));
 		i++)
 	{
 		UINT32 *pLine = pShadBits + (szShadow.cy - i - 1) * szShadow.cx;
@@ -585,15 +585,15 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 		}
 		else
 		{
-			for(int j = ptAnchors[i][0];
-				j < min(ptAnchorsOri[i - m_nSize + m_nyOffset][0] + m_nSize - m_nxOffset, ptAnchors[i][1]);
-				j++)
-				*(pLine + j) = clCenter;
-			for(int j = max(ptAnchorsOri[i - m_nSize + m_nyOffset][0] + m_nSize - m_nxOffset, 0);
-				j < min(ptAnchorsOri[i - m_nSize + m_nyOffset][1] + m_nSize - m_nxOffset, szShadow.cx);
-				j++)
-				*(pLine + j) = 0;
-			for(int j = max(ptAnchorsOri[i - m_nSize + m_nyOffset][1] + m_nSize - m_nxOffset, ptAnchors[i][0]);
+		for(int j = ptAnchors[i][0];
+			j < DUILIB_MIN(ptAnchorsOri[i - m_nSize + m_nyOffset][0] + m_nSize - m_nxOffset, ptAnchors[i][1]);
+			j++)
+			*(pLine + j) = clCenter;
+		for(int j = DUILIB_MAX(ptAnchorsOri[i - m_nSize + m_nyOffset][0] + m_nSize - m_nxOffset, 0);
+			j < DUILIB_MIN(ptAnchorsOri[i - m_nSize + m_nyOffset][1] + m_nSize - m_nxOffset, szShadow.cx);
+			j++)
+			*(pLine + j) = 0;
+		for(int j = DUILIB_MAX(ptAnchorsOri[i - m_nSize + m_nyOffset][1] + m_nSize - m_nxOffset, ptAnchors[i][0]);
 				j < ptAnchors[i][1];
 				j++)
 				*(pLine + j) = clCenter;

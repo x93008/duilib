@@ -119,8 +119,8 @@ static void RGBtoHSL(DWORD ARGB, float* H, float* S, float* L) {
         nR = (R<0?0:(R>255?255:R))/255,
         nG = (G<0?0:(G>255?255:G))/255,
         nB = (B<0?0:(B>255?255:B))/255,
-        m = min(min(nR,nG),nB),
-        M = max(max(nR,nG),nB);
+        m = DUILIB_MIN(DUILIB_MIN(nR,nG),nB),
+        M = DUILIB_MAX(DUILIB_MAX(nR,nG),nB);
     *L = (m + M)/2;
     if (M==m) *H = *S = 0;
     else {
@@ -1414,7 +1414,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
             if( bLineEnd ) bLineEnd = false;
             if( !bLineDraw ) {
                 if( bInLink && iLinkIndex < nLinkRects ) {
-                    ::SetRect(&prcLinks[iLinkIndex++], ptLinkStart.x, ptLinkStart.y, MIN(pt.x, rc.right), pt.y + cyLine);
+                    ::SetRect(&prcLinks[iLinkIndex++], ptLinkStart.x, ptLinkStart.y, DUILIB_MIN(pt.x, rc.right), pt.y + cyLine);
                     CDuiString *pStr1 = (CDuiString*)(sLinks + iLinkIndex - 1);
                     CDuiString *pStr2 = (CDuiString*)(sLinks + iLinkIndex);
                     *pStr2 = *pStr1;
@@ -1499,7 +1499,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                         aFontArray.Add(pFontInfo);
                         pTm = &pFontInfo->tm;
                         ::SelectObject(hDC, pFontInfo->hFont);
-                        cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+                        cyLine = DUILIB_MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
                     }
                     ptLinkStart = pt;
                     bInLink = true;
@@ -1520,7 +1520,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                         aFontArray.Add(pFontInfo);
                         pTm = &pFontInfo->tm;
                         ::SelectObject(hDC, pFontInfo->hFont);
-                        cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+                        cyLine = DUILIB_MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
                     }
                 }
                 break;
@@ -1618,7 +1618,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                             aFontArray.Add(pFontInfo);
                             pTm = &pFontInfo->tm;
                             ::SelectObject(hDC, pFontInfo->hFont);
-                            cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+                            cyLine = DUILIB_MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
                         }
                     }
                     else {
@@ -1733,7 +1733,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                     while( *pstrText > _T('\0') && *pstrText <= _T(' ') ) pstrText = ::CharNext(pstrText);
                     int cyLineExtra = (int)_tcstol(pstrText, const_cast<LPTSTR*>(&pstrText), 10);
                     aPIndentArray.Add((LPVOID)cyLineExtra);
-                    cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + cyLineExtra);
+                    cyLine = DUILIB_MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + cyLineExtra);
                 }
                 break;
 			case _T('v'):  // Vertical Align
@@ -1785,7 +1785,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                         aFontArray.Add(pFontInfo);
                         pTm = &pFontInfo->tm;
                         ::SelectObject(hDC, pFontInfo->hFont);
-                        cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+                        cyLine = DUILIB_MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
                     }
                 }
                 break;
@@ -1849,7 +1849,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
             case _T('a'):
                 {
                     if( iLinkIndex < nLinkRects ) {
-                        if( !bLineDraw ) ::SetRect(&prcLinks[iLinkIndex], ptLinkStart.x, ptLinkStart.y, MIN(pt.x, rc.right), pt.y + pTm->tmHeight + pTm->tmExternalLeading);
+                        if( !bLineDraw ) ::SetRect(&prcLinks[iLinkIndex], ptLinkStart.x, ptLinkStart.y, DUILIB_MIN(pt.x, rc.right), pt.y + pTm->tmHeight + pTm->tmExternalLeading);
                         iLinkIndex++;
                     }
                     aColorArray.Remove(aColorArray.GetSize() - 1);
@@ -1893,7 +1893,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
 				else ::TextOut(hDC, pt.x + cxOffset, pt.y + cyLineHeight - pTm->tmHeight - pTm->tmExternalLeading, &pstrText[1], 1);
 			}
 			pt.x += szSpace.cx;
-			cxMaxWidth = MAX(cxMaxWidth, pt.x);
+			cxMaxWidth = DUILIB_MAX(cxMaxWidth, pt.x);
             cxLine = pt.x - rc.left;
             pstrText++;pstrText++;pstrText++;
         }
@@ -1909,7 +1909,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
 				else ::TextOut(hDC, pt.x + cxOffset, pt.y + cyLineHeight - pTm->tmHeight - pTm->tmExternalLeading, &pstrText[1], 1);
 			}
 			pt.x += szSpace.cx;
-			cxMaxWidth = MAX(cxMaxWidth, pt.x);
+			cxMaxWidth = DUILIB_MAX(cxMaxWidth, pt.x);
             cxLine = pt.x - rc.left;
             pstrText++;pstrText++;pstrText++;
         }
@@ -1927,7 +1927,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
 				else ::TextOut(hDC, pt.x + cxOffset, pt.y + cyLineHeight - pTm->tmHeight - pTm->tmExternalLeading, _T(" "), 1);
 			}
             pt.x += szSpace.cx;
-			cxMaxWidth = MAX(cxMaxWidth, pt.x);
+			cxMaxWidth = DUILIB_MAX(cxMaxWidth, pt.x);
             cxLine = pt.x - rc.left;
             pstrText++;
         }
@@ -1986,7 +1986,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
                         pt.x = rc.right;
                     }
                     bLineEnd = true;
-					cxMaxWidth = MAX(cxMaxWidth, pt.x);
+					cxMaxWidth = DUILIB_MAX(cxMaxWidth, pt.x);
                     cxLine = pt.x - rc.left;
                     break;
                 }
@@ -2016,7 +2016,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
 				}
             }
             pt.x += szText.cx;
-			cxMaxWidth = MAX(cxMaxWidth, pt.x);
+			cxMaxWidth = DUILIB_MAX(cxMaxWidth, pt.x);
             cxLine = pt.x - rc.left;
             pstrText += cchSize;
         }
@@ -2071,8 +2071,8 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
 
     // Return size of text when requested
     if( (uStyle & DT_CALCRECT) != 0 ) {
-        rc.bottom = MAX(cyMinHeight, pt.y + cyLine);
-        rc.right = MIN(rc.right, cxMaxWidth);
+        rc.bottom = DUILIB_MAX(cyMinHeight, pt.y + cyLine);
+        rc.right = DUILIB_MIN(rc.right, cxMaxWidth);
     }
 
     if( bDraw ) ::SelectClipRgn(hDC, hOldRgn);

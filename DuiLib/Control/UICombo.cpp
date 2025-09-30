@@ -460,8 +460,8 @@ bool CComboUI::SetItemIndex(CControlUI* pControl, int iNewIndex)
     if( m_iCurSel >= 0 ) pSelectedListItem = 
         static_cast<IListItemUI*>(GetItemAt(m_iCurSel)->GetInterface(DUI_CTR_ILISTITEM));
     if( !CContainerUI::SetItemIndex(pControl, iNewIndex) ) return false;
-    int iMinIndex = min(iOrginIndex, iNewIndex);
-    int iMaxIndex = max(iOrginIndex, iNewIndex);
+    int iMinIndex = DUILIB_MIN(iOrginIndex, iNewIndex);
+    int iMaxIndex = DUILIB_MAX(iOrginIndex, iNewIndex);
     for(int i = iMinIndex; i < iMaxIndex + 1; ++i) {
         CControlUI* p = GetItemAt(i);
         IListItemUI* pListItem = static_cast<IListItemUI*>(p->GetInterface(DUI_CTR_ILISTITEM));
@@ -485,8 +485,8 @@ bool CComboUI::SetMultiItemIndex(CControlUI* pStartControl, int iCount, int iNew
     if( m_iCurSel >= 0 ) pSelectedListItem = 
         static_cast<IListItemUI*>(GetItemAt(m_iCurSel)->GetInterface(DUI_CTR_ILISTITEM));
     if( !CContainerUI::SetMultiItemIndex(pStartControl, iCount, iNewStartIndex) ) return false;
-    int iMinIndex = min(iStartIndex, iNewStartIndex);
-    int iMaxIndex = max(iStartIndex + iCount, iNewStartIndex + iCount);
+    int iMinIndex = DUILIB_MIN(iStartIndex, iNewStartIndex);
+    int iMaxIndex = DUILIB_MAX(iStartIndex + iCount, iNewStartIndex + iCount);
     for(int i = iMinIndex; i < iMaxIndex + 1; ++i) {
         CControlUI* p = GetItemAt(i);
         IListItemUI* pListItem = static_cast<IListItemUI*>(p->GetInterface(DUI_CTR_ILISTITEM));

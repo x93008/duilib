@@ -8,15 +8,9 @@
 
 #pragma once
 
-#ifdef __GNUC__
-// 怎么都没找到min和max的头文件-_-
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
-#endif
+// DuiLib自定义min/max宏，避免与系统宏冲突
+#define DUILIB_MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define DUILIB_MAX(a,b) (((a) > (b)) ? (a) : (b))
 
 #ifndef __FILET__
 #define __DUILIB_STR2WSTR(str)	L##str
@@ -57,9 +51,9 @@
 #include <olectl.h>
 
 #define lengthof(x) (sizeof(x)/sizeof(*x))
-#define MAX max
-#define MIN min
-#define CLAMP(x,a,b) (MIN(b,MAX(a,x)))
+#define MAX DUILIB_MAX
+#define MIN DUILIB_MIN
+#define CLAMP(x,a,b) (DUILIB_MIN(b,DUILIB_MAX(a,x)))
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

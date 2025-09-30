@@ -47,7 +47,7 @@ ChatDialog::ChatDialog(const CDuiString& bgimage, DWORD bkcolor, const FriendLis
 , italic_(false)
 , underline_(false)
 , font_size_(12)
-, font_face_name_(_T("΢���ź�"))
+, font_face_name_(_T("微软雅黑"))
 {}
 
 ChatDialog::~ChatDialog()
@@ -85,7 +85,7 @@ BOOL ChatDialog::Receive(SkinChangedParam param)
 #if defined(UNDER_WINCE)
 			_stprintf(szBuf, _T("file='%s' corner='600,200,1,1'"), param.bgimage.c_str());
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("file='%s' corner='600,200,1,1'"), param.bgimage);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("file='%s' corner='600,200,1,1'"), param.bgimage.GetData());
 #endif
 			background->SetBkImage(szBuf);
 		}
@@ -188,7 +188,7 @@ void ChatDialog::OnPrepare(TNotifyUI& msg)
 #if defined(UNDER_WINCE)
 		_stprintf(szBuf, _T("file='%s' corner='600,200,1,1'"), bgimage_.c_str());
 #else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("file='%s' corner='600,200,1,1'"), bgimage_);
+		_stprintf_s(szBuf, MAX_PATH - 1, _T("file='%s' corner='600,200,1,1'"), bgimage_.GetData());
 #endif
 		background->SetBkImage(szBuf);
 		background->SetBkColor(bkcolor_);
@@ -200,7 +200,7 @@ void ChatDialog::OnPrepare(TNotifyUI& msg)
 #if defined(UNDER_WINCE)
 		_stprintf(szBuf, _T("%s"), friend_.logo.c_str());
 #else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), friend_.logo);
+		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), friend_.logo.GetData());
 #endif
 		log_button->SetNormalImage(szBuf);
 	}
@@ -224,9 +224,9 @@ CDuiString GetCurrentTimeString()
 	TCHAR szTime[MAX_PATH] = {0};
 	::GetLocalTime( &time );
 #if defined(UNDER_CE)
-	_stprintf( szTime, _T("%04d��%02d��%02d�� %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+	_stprintf( szTime, _T("%04d年%02d月%02d日 %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
 #else
-	_stprintf_s( szTime, MAX_PATH, _T("%04d��%02d��%02d�� %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+	_stprintf_s( szTime, MAX_PATH, _T("%04d年%02d月%02d日 %02d:%02d:%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
 #endif
 
 	return szTime;
@@ -255,7 +255,7 @@ void ChatDialog::SendMsg()
 
     lSelEnd = lSelBegin = pRichEdit->GetTextLength();
     pRichEdit->SetSel(lSelEnd, lSelEnd);
-    pRichEdit->ReplaceSel(_T("ĳ��"), false);
+    pRichEdit->ReplaceSel(_T("某人"), false);
 
     lSelEnd = pRichEdit->GetTextLength();
     pRichEdit->SetSel(lSelBegin, lSelEnd);

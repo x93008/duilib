@@ -243,7 +243,7 @@ Node* CGroupsUI::AddNode(const GroupsListItemInfo& item, Node* parent)
 #if defined(UNDER_WINCE)
 			_stprintf(szBuf, _T("%s"), item.logo);
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.logo);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.logo.GetData());
 #endif
 			log_button->SetNormalImage(szBuf);
 		}
@@ -282,7 +282,7 @@ Node* CGroupsUI::AddNode(const GroupsListItemInfo& item, Node* parent)
 #if defined(UNDER_WINCE)
 		_stprintf(szBuf, _T("%s"), item.nick_name);
 #else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.nick_name);
+		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.nick_name.GetData());
 #endif
 		html_text += szBuf;
 	}
@@ -305,7 +305,7 @@ Node* CGroupsUI::AddNode(const GroupsListItemInfo& item, Node* parent)
 #if defined(UNDER_WINCE)
 			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.description);
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.description);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.description.GetData());
 #endif
 			description->SetShowHtml(true);
 			description->SetText(szBuf);

@@ -552,7 +552,7 @@ public:
 
     LRESULT OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
     {
-        // ��ʱ�����յ�WM_NCDESTROY���յ�wParamΪSC_CLOSE��WM_SYSCOMMAND
+        // 此时才会收到WM_NCDESTROY，收到wParam为SC_CLOSE的WM_SYSCOMMAND
         if( wParam == SC_CLOSE ) {
             ::PostQuitMessage(0L);
             bHandled = TRUE;
@@ -628,7 +628,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
     CGameFrameWnd* pFrame = new CGameFrameWnd();
     if( pFrame == NULL ) return 0;
 	pFrame->SetIcon(IDI_ICON_DUILIB);
-    pFrame->Create(NULL, _T("��Ϸ����"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 1024, 738);
+    pFrame->Create(NULL, _T("游戏演示"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 1024, 738);
     pFrame->CenterWindow();
     ::ShowWindow(*pFrame, SW_SHOWMAXIMIZED);
 

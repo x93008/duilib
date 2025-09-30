@@ -38,7 +38,7 @@ private:
 
 	RECT m_rcWindow;
 	RECT m_rcClipPadding;
-	POINT m_ptClipBasePoint; // µ÷Õû»ù×¼µã
-	bool m_bClipChoiced; // ÊÇ·ñÒÑÑ¡Ôñ½ØÍ¼ÇøÓò
+	POINT m_ptClipBasePoint; // é¼ æ ‡åŸºå‡†ç‚¹
+	bool m_bClipChoiced; // æ˜¯å¦å·²ç»é€‰æ‹©äº†å›¾åƒåŒºåŸŸ
 	TCHAR m_sClipDrawStringBuf[MAX_PATH];
 };

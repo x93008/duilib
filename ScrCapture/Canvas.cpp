@@ -24,5 +24,5 @@ LPVOID CCanvasUI::GetInterface(LPCTSTR pstrName)
 
 void CCanvasUI::DoEvent(TEventUI& event) 
 {
-	// if m_rcItem.left < 20 左边可以修改
+	// if m_rcItem.left < 20 杈规淇敼
 }

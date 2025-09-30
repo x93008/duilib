@@ -19,6 +19,6 @@ public:
 protected:
 	int m_iCursor;
 	UINT m_uButtonState;
-	POINT m_ptClipBasePoint; // µ÷Õû»ù×¼µã
+	POINT m_ptClipBasePoint; // é¼ æ ‡åŸºå‡†ç‚¹
 	POINT m_ptLastMouse; // 
 };

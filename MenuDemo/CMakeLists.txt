@@ -2,14 +2,33 @@
 #Author: Qi Gao(monkgau@gmail.com)
 #Created: 2012/9/17
 
-aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRC)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})                           
+set(source_files 
+    About.cpp
+    debug.cpp
+    main_frame.cpp
+    main.cpp
+    MenuNotify.cpp
+    SkinSetting.cpp
+    StdAfx.cpp
+    UICrack.cpp
+    UIMenu.cpp
+)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/DuiLib)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-add_executable(MenuDemo ${SRC} MenuDemo.rc)
+add_executable(MenuDemo ${source_files})
+add_dependencies(MenuDemo duilib)
 set_target_properties(MenuDemo PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 target_link_libraries(MenuDemo duilib)
+
+# Set UTF-8 encoding and runtime library
+if(WIN32 AND MSVC)
+    target_compile_options(MenuDemo PRIVATE /utf-8)
+    target_compile_options(MenuDemo PRIVATE /MT$<$<CONFIG:Debug>:d>)
+endif()
 
 install(
   TARGETS MenuDemo

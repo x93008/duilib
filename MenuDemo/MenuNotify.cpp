@@ -35,7 +35,8 @@ void CMenuNotify::Notify(TNotifyUI& msg)
 					switch (index)
 					{
 					case 0:
-						PostMessage(pMainFrame->m_hWnd,WM_CLICKABOUT,0,0);
+						// TODO: 实现关于对话框的消息处理
+						// PostMessage(pMainFrame->m_hWnd,WM_CLICKABOUT,0,0);
 						break;
 					}
 

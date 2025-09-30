@@ -410,7 +410,7 @@ TImageInfo* CRenderEngine::LoadImage(STRINGorID bitmap, LPCTSTR type, DWORD mask
 
 	while (!pData)
 	{
-		//������ͼƬ, ��ֱ��ȥ��ȡbitmap.m_lpstrָ���·��
+		//普通图片, 就直接去获取bitmap.m_lpstr指向的路径
 		HANDLE hFile = ::CreateFile(bitmap.m_lpstr, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, \
 			FILE_ATTRIBUTE_NORMAL, NULL);
 		if( hFile == INVALID_HANDLE_VALUE ) break;
@@ -434,7 +434,7 @@ TImageInfo* CRenderEngine::LoadImage(STRINGorID bitmap, LPCTSTR type, DWORD mask
 	}
 	if (!pData)
 	{
-		//::MessageBox(0, _T("��ȡͼƬ����ʧ�ܣ�"), _T("ץBUG"), MB_OK);
+		//::MessageBox(0, _T("获取图片数据失败！"), _T("抓BUG"), MB_OK);
 		return NULL;
 	}
 
@@ -444,7 +444,7 @@ TImageInfo* CRenderEngine::LoadImage(STRINGorID bitmap, LPCTSTR type, DWORD mask
         pImage = stbi_load_from_memory(pData, dwSize, &x, &y, &n, 4);
         delete[] pData;
         if( !pImage ) {
-            //::MessageBox(0, _T("����ͼƬʧ��"), _T("ץBUG"), MB_OK);
+            //::MessageBox(0, _T("解码图片失败"), _T("抓BUG"), MB_OK);
             return NULL;
         }
     }
@@ -462,7 +462,7 @@ TImageInfo* CRenderEngine::LoadImage(STRINGorID bitmap, LPCTSTR type, DWORD mask
     LPBYTE pDest = NULL;
     HBITMAP hBitmap = ::CreateDIBSection(NULL, &bmi, DIB_RGB_COLORS, (void**)&pDest, NULL, 0);
 	if( !hBitmap ) {
-		//::MessageBox(0, _T("CreateDIBSectionʧ��"), _T("ץBUG"), MB_OK);
+		//::MessageBox(0, _T("CreateDIBSection失败"), _T("抓BUG"), MB_OK);
 		return NULL;
 	}
 
@@ -993,8 +993,8 @@ void CRenderEngine::DrawImage(HDC hDC, HBITMAP hBitmap, const RECT& rc, const RE
 bool CRenderEngine::DrawImage(HDC hDC, CPaintManagerUI* pManager, const RECT& rcItem, const RECT& rcPaint, 
 					  TDrawInfo& drawInfo)
 {
-	// 1��aaa.jpg
-	// 2��file='aaa.jpg' res='' restype='0' dest='0,0,0,0' source='0,0,0,0' scale9='0,0,0,0' 
+	// 1、aaa.jpg
+	// 2、file='aaa.jpg' res='' restype='0' dest='0,0,0,0' source='0,0,0,0' scale9='0,0,0,0' 
 	// mask='#FF0000' fade='255' hole='false' xtiled='false' ytiled='false' hsl='false'
 	if( pManager == NULL ) return true;
 	if( drawInfo.pImageInfo == NULL ) {
@@ -1296,8 +1296,8 @@ void CRenderEngine::DrawText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, LPCTS
 
 void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, LPCTSTR pstrText, DWORD dwTextColor, RECT* prcLinks, CDuiString* sLinks, int& nLinkRects, int iDefaultFont, UINT uStyle)
 {
-    // ���ǵ���xml�༭����ʹ��<>���Ų����㣬����ʹ��{}���Ŵ���
-    // ֧�ֱ�ǩǶ�ף���<l><b>text</b></l>�������ǽ���Ƕ����Ӧ�ñ���ģ���<l><b>text</l></b>��
+    // 注意当调用xml编辑器，使用<>符号会产生错误，所以使用{}符号代替
+    // 支持标签嵌套，如：<l><b>text</b></l>，但是这种嵌套不应该被允许：<l><b>text</l></b>
     // The string formatter supports a kind of "mini-html" that consists of various short tags:
     //
     //   Bold:             <b>text</b>
@@ -1394,7 +1394,7 @@ void CRenderEngine::DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, L
     bool bInSelected = false;
     int iLineLinkIndex = 0;
 
-    // �Ű�ϰ����ͼ�ĵײ����룬����ÿ�л��ƶ�Ҫ���������ȼ���߶ȣ��ٻ���
+    // 第九种做法：自动背景图的底层填充，这样每次绘制都要计算容器的宽度和高度，再绘制
     CDuiPtrArray aLineFontArray;
     CDuiPtrArray aLineColorArray;
     CDuiPtrArray aLinePIndentArray;

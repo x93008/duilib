@@ -1,6 +1,6 @@
 /*
 * Code By Tojen (qq:342269237)
-* �������ͼƬ��Դ80%ԭ����������ȫԭ��,ѧϰ��Ʒ����������ש
+* 本程序所有图片资源80%原创，请大家完全原创,学习产品并纯属学习交流
 */
 #include <objbase.h>
 #include <zmouse.h>
@@ -15,11 +15,11 @@ using namespace DuiLib;
 
 #define WM_ADDLISTITEM WM_USER + 50
 /*
-* ��ŵڶ�������
+* 域名第二部分数组
 */
 std::vector<std::string> domain;
 /*
-* ��ŵ���������
+* 域名描述部分数组
 */
 std::vector<std::string> desc;
 /*
@@ -79,7 +79,7 @@ public:
             CDuiString tDomain = prama->tDomain;
             //-------------------------------------
             /*
-            * ��������ѭ��
+            * 生成数据循环
             */
             for(int i=0; i<100; i++)
             {
@@ -96,7 +96,7 @@ public:
                     ::PostMessage(prama->hWnd, WM_ADDLISTITEM, 0L, (LPARAM)pListElement);
                 }
                 /*
-                *	Sleep Ϊ��չʾ���ӵĶ�̬Ч�����ʷ����������ٶȣ�ͬʱ���Կ������ӹ����н�����Ȼ������Ӧ
+                *	Sleep 为了展示列表项的动态效果，控制刷新添加的速度，同时可以看到网络列表项加载的过程然后有交互响应
                 */
                 ::Sleep(100);
             }
@@ -121,10 +121,8 @@ public:
         CDuiString input = pEdit->GetText();
         m_pSearch->SetEnabled(false);
         pList->RemoveAll();
-        domain.empty();
-        domain.resize(0);
-        desc.empty();
-        desc.resize(0);
+        domain.clear();
+        desc.clear();
         DWORD dwThreadID = 0;
         pList->SetTextCallback(this);//[1]
 
@@ -136,7 +134,7 @@ public:
         HANDLE hThread = CreateThread(NULL,0,&ListMainForm::Search, (LPVOID)prama,  0,&dwThreadID);
     }
     /*
-    * �ؼ��Ļص�������IListCallbackUI �е�һ���麯������Ⱦʱ������,��[1]�������˻ص�����
+    * 控件的回调函数实现IListCallbackUI 中的一个虚函数，在渲染时调用此函数,第[1]列调用了此回调函数
     */
     LPCTSTR GetItemText(CControlUI* pControl, int iIndex, int iSubItem)
     {
@@ -229,7 +227,7 @@ public:
             sMessage += domain[iIndex].c_str();
 
 #endif
-            ::MessageBox(NULL, sMessage.GetData(), _T("��ʾ(by tojen)"), MB_OK);
+            ::MessageBox(NULL, sMessage.GetData(), _T("提示(by tojen)"), MB_OK);
         }
         else if(msg.sType == _T("menu")) 
         {
@@ -381,7 +379,7 @@ public:
 
     LRESULT OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
     {
-        // ��ʱ�����յ�WM_NCDESTROY���յ�wParamΪSC_CLOSE��WM_SYSCOMMAND
+        // 此时才会收到WM_NCDESTROY，收到wParam为SC_CLOSE的WM_SYSCOMMAND
         if( wParam == SC_CLOSE ) {
             ::PostQuitMessage(0L);
             bHandled = TRUE;

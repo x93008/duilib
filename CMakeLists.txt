@@ -23,6 +23,11 @@ if(WIN32 AND MSVC)
     add_compile_options(/utf-8)
 endif()
 
+# platform config
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "default install prefix" FORCE)
+endif()
+
 # add each CMake file
 add_subdirectory(duilib)
 
@@ -31,9 +36,12 @@ if (DUILIB_BUILD_EXAMPLES)
     add_subdirectory(FlashDemo)
     add_subdirectory(GameDemo)
     add_subdirectory(ListDemo)
-    # add_subdirectory(MenuDemo) the sources in this project has error
+    add_subdirectory(MenuDemo)
     add_subdirectory(QQDemo)
     add_subdirectory(RichListDemo)
+    add_subdirectory(FileTree)
+    add_subdirectory(ScrCapture)
+    add_subdirectory(TestApp1)
 endif()
 
 install(FILES ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION share/${PROJECT_NAME})

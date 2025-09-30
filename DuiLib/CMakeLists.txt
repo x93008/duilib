@@ -15,20 +15,35 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Layout)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Utils)
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
-add_library(duilib SHARED ${Control_src} ${Core_src} ${Layout_src} ${Utils_src} ${Root_src})
 
-add_definitions(-DUILIB_EXPORTS)
+# Use CMake's standard BUILD_SHARED_LIBS option
+add_library(duilib ${Control_src} ${Core_src} ${Layout_src} ${Utils_src} ${Root_src})
+
+# Set appropriate compile definitions based on library type
+get_target_property(DUILIB_TYPE duilib TYPE)
+if(DUILIB_TYPE STREQUAL "STATIC_LIBRARY")
+    target_compile_definitions(duilib PUBLIC UILIB_STATIC)
+    message(STATUS "Building DuiLib as STATIC library")
+else()
+    target_compile_definitions(duilib PRIVATE UILIB_EXPORTS)
+    message(STATUS "Building DuiLib as SHARED library")
+endif()
 
 # Set UTF-8 encoding for source files and runtime library to MT for static linking
 if(WIN32 AND MSVC)
     target_compile_options(duilib PRIVATE /utf-8)
-    # Set runtime library to MT (MultiThreaded) for static linking
-    target_compile_options(duilib PRIVATE /MT$<$<CONFIG:Debug>:d>)
 endif()
 
-target_link_libraries(duilib comctl32)
+# Link system libraries that DuiLib depends on
+target_link_libraries(duilib PUBLIC 
+    winmm           # Multimedia API
+    comctl32        # Common Controls
+    shlwapi         # Shell Lightweight API
+    imm32           # Input Method Manager
+    gdiplus         # GDI+ Graphics
+    uuid            # GUID support
+)
 target_include_directories(duilib PUBLIC $<INSTALL_INTERFACE:include>)
-target_compile_definitions(duilib PRIVATE UILIB_EXPORTS)
 set_target_properties(duilib PROPERTIES OUTPUT_NAME "duilib")
 
 # Install headers

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #ifdef _USEIMM
 #include <imm.h>
-#pragma comment(lib, "imm32.lib")
+// imm32.lib is now linked via CMake target_link_libraries
 #endif
 // These constants are for backward compatibility. They are the 
 // sizes used for initialization and reset in RichEdit 1.0

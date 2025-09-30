@@ -7,7 +7,7 @@
 
 #ifdef _USE_GDIPLUS
 #include <GdiPlus.h>
-#pragma comment( lib, "GdiPlus.lib" )
+// GdiPlus.lib is now linked via CMake target_link_libraries
 // UMU: DO NOT use "using namespace" in .h file
 //using namespace Gdiplus;
 class DUILIB_API Gdiplus::RectF;

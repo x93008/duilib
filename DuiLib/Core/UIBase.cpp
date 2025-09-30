@@ -2,7 +2,7 @@
 
 #ifdef _DEBUG
 #include <shlwapi.h>
-#pragma comment(lib, "shlwapi.lib")
+// shlwapi.lib is now linked via CMake target_link_libraries
 #endif
 
 namespace DuiLib {

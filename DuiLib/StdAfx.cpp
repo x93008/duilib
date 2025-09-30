@@ -5,5 +5,4 @@
 #include "StdAfx.h"
 
 
-#pragma comment( lib, "winmm.lib" )
-#pragma comment( lib, "comctl32.lib" )
+// System libraries are now linked via CMake target_link_libraries

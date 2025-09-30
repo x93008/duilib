@@ -4,7 +4,16 @@ Duilib是一个Windows下免费开源的DirectUI界面库，由于简约易扩�
 
 欢迎为Duilib提供功能改进、代码修补、bug反馈、使用文档和献计献策，让我们一起把Duilib做的更好！
 
-# 快速安装
+# Fork后的改动
+
+* 强制源码使用utf-8编码，并修复所有非utf-8导致的编码错误及警告
+* 所有内容全部使用CMake构建
+* 增加版本号文件 version.properties
+* 将资源文件从bin目录修改到assets目录，并修改demo中资源读取文件的路径
+* 如果未指定--prefix, install 目录设置为二进制产物目录的install子目录
+* 默认构建静态库，当BUILD_SHARED_LIBS=ON时会构建动态库并隐藏符号
+
+# ~~快速安装~~
 
 您可以使用[vcpkg](https://github.com/Microsoft/vcpkg)库管理器下载并安装duilib:
 

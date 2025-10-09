@@ -43,7 +43,6 @@
 
 #ifndef NO_USING_DUILIB_NAMESPACE
 	using namespace DuiLib;
-	using namespace std;
 #endif
 
 #include "debug.hpp"

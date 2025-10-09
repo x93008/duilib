@@ -2,7 +2,6 @@
 #define __UITREEVIEW_H__
 
 #include <vector>
-using namespace std;
 
 #pragma once
 

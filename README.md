@@ -13,6 +13,19 @@ Duilib是一个Windows下免费开源的DirectUI界面库，由于简约易扩�
 * 如果未指定--prefix, install 目录设置为二进制产物目录的install子目录
 * 默认构建静态库，当BUILD_SHARED_LIBS=ON时会构建动态库并隐藏符号
 
+# 编译
+
+这里使用CMake编译，默认会install到`build/install`目录下面，下面的命令编译了Release的动态库，并且编译了所有Demo，
+
+```powershell
+mkdir build && cd build
+
+# 编译动态库，并编译所有demo
+cmake .. -A Win32 -DCMAKE_BUILD_TYPE=Release -DDUILIB_BUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=ON && cmake --build . --config Release && cmake --install .
+```
+
+这里的BUILD_SHARED_LIBS、CMAKE_BUILD_TYPE都是cmake本身支持的变量，方便conan直接拉取源码进行编译
+
 # ~~快速安装~~
 
 您可以使用[vcpkg](https://github.com/Microsoft/vcpkg)库管理器下载并安装duilib:

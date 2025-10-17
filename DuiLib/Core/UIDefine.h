@@ -249,6 +249,7 @@ protected:                                                                \
 #define  DUI_CTR_FLASH							 (_T("Flash"))
 
 #define  DUI_CTR_BUTTON                          (_T("Button"))
+#define  DUI_CTR_CONTAINERBUTTON                (_T("ContainerButton"))
 #define  DUI_CTR_OPTION                          (_T("Option"))
 #define  DUI_CTR_SLIDER                          (_T("Slider"))
 

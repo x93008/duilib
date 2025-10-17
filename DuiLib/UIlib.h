@@ -97,6 +97,7 @@
 #include "Control/UIEdit.h"
 
 #include "Control/UIButton.h"
+#include "Control/UIContainerButton.h"
 #include "Control/UIOption.h"
 #include "Control/UICheckBox.h"
 

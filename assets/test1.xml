@@ -64,5 +64,18 @@
 			<CheckBox text="扩展复选框" width="100" />
 			</TreeNode>
 		</TreeView>
+		<ContainerButton name="navSettings" height="48" width="200"
+                 normalbkcolor="#FFFF4400"
+                 hotbkcolor="#FFD0D0D0"
+                 pushedbkcolor="#FFC0C0C0"
+                 normaltextcolor="#FFFFFFFF"
+                 hottextcolor="#FF0000FF"
+                 pushedtextcolor="#FF008000">
+			<HorizontalLayout inset="16,0,16,0">
+				<Label text="布局按钮" font="0" />
+				<Label text="布局按钮" font="0" />
+				<Control />
+			</HorizontalLayout>
+		</ContainerButton>
 	</VerticalLayout>
 </Window>

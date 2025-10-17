@@ -341,6 +341,7 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
                 break;
             case 15:
                 if( _tcsicmp(pstrClass, DUI_CTR_LISTTEXTELEMENT) == 0 )       pControl = new CListTextElementUI;
+                else if( _tcsicmp(pstrClass, DUI_CTR_CONTAINERBUTTON) == 0 )  pControl = new CContainerButtonUI;
                 else if( _tcsicmp(pstrClass, DUI_CTR_LISTHBOXELEMENT) == 0 )  pControl = new CListHBoxElementUI;
                 break;
             case 16:

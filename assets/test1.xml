@@ -71,10 +71,10 @@
                  normaltextcolor="#FFFFFFFF"
                  hottextcolor="#FF0000FF"
                  pushedtextcolor="#FF008000">
-			<HorizontalLayout inset="16,0,16,0">
-				<Label text="布局按钮" font="0" />
-				<Label text="布局按钮" font="0" />
-				<Control />
+			<HorizontalLayout inset="16,0,16,0" mouse="false">
+				<Label text="布局按钮" font="0" mouse="false"/>
+				<Label text="布局按钮" font="0" mouse="false"/>
+				<Control mouse="false"/>
 			</HorizontalLayout>
 		</ContainerButton>
 	</VerticalLayout>

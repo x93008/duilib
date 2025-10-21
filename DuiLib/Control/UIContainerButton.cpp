@@ -32,6 +32,11 @@ LPVOID CContainerButtonUI::GetInterface(LPCTSTR pstrName)
     return CContainerUI::GetInterface(pstrName);
 }
 
+UINT CContainerButtonUI::GetControlFlags() const
+{
+    return (IsKeyboardEnabled() ? UIFLAG_TABSTOP : 0) | (IsEnabled() ? UIFLAG_SETCURSOR : 0);
+}
+
 void CContainerButtonUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 {
     if (_tcscmp(pstrName, _T("normalbkcolor")) == 0) {
@@ -155,7 +160,7 @@ void CContainerButtonUI::DoEvent(TEventUI& event)
         
     case UIEVENT_SETCURSOR:
         if (IsEnabled()) {
-            ::SetCursor(::LoadCursor(NULL, IDC_HAND));
+            ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
             return;
         }
         break;

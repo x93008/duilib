@@ -12,6 +12,7 @@ public:
     
     virtual LPCTSTR GetClass() const override;
     virtual LPVOID GetInterface(LPCTSTR pstrName) override;
+    virtual UINT GetControlFlags() const override;
     
     virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue) override;
     virtual void DoEvent(TEventUI& event) override;

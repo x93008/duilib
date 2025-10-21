@@ -122,8 +122,8 @@ void CContainerButtonUI::DoEvent(TEventUI& event)
             Invalidate();
             
             // 触发点击事件
-            if (m_pManager && ::PtInRect(&m_rcItem, event.ptMouse)) {
-                m_pManager->SendNotify(this, DUI_MSGTYPE_CLICK);
+            if (::PtInRect(&m_rcItem, event.ptMouse) && IsEnabled()) {
+                Activate();
             }
         }
         break;

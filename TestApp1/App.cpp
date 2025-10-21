@@ -382,6 +382,8 @@ public:
                 else
                     CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("assets\\"));
                 CPaintManagerUI::ReloadSkin();
+            } else if( msg.pSender->GetName() == _T("navSettings") ) {
+                MessageBox(m_hWnd, _T("这是一个测试消息框"), _T("测试消息框"), MB_OK);
             }
         }
     }

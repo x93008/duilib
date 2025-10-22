@@ -45,8 +45,6 @@
 	using namespace DuiLib;
 #endif
 
-#include "debug.hpp"
-
 #include <olectl.h>
 
 #define lengthof(x) (sizeof(x)/sizeof(*x))

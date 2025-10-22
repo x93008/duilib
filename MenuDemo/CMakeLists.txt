@@ -3,12 +3,8 @@
 #Created: 2012/9/17
 
 set(source_files 
-    About.cpp
-    debug.cpp
     main_frame.cpp
     main.cpp
-    MenuNotify.cpp
-    SkinSetting.cpp
     StdAfx.cpp
     UICrack.cpp
     UIMenu.cpp

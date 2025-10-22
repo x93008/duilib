@@ -39,8 +39,6 @@
 
 #include "..\DuiLib\UIlib.h"
 
-#include "UICrack.h"
-
 #ifndef NO_USING_DUILIB_NAMESPACE
 	using namespace DuiLib;
 #endif

@@ -1,5 +1,4 @@
 #include "StdAfx.h"
-#include "UICrack.h"
 #include "UIMenu.h"
 
 namespace DuiLib {
@@ -11,6 +10,8 @@ ContextMenuObserver s_context_menu_observer;
 // MenuUI
 const TCHAR* const kMenuUIClassName = _T("MenuUI");
 const TCHAR* const kMenuUIInterfaceName = _T("Menu");
+const TCHAR* const kMenuElementUIClassName = _T("MenuElement");
+const TCHAR* const kMenuElementUIInterfaceName = _T("MenuElement");
 
 CMenuUI::CMenuUI()
 {
@@ -463,9 +464,6 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 //
 
 // MenuElementUI
-const TCHAR* const kMenuElementUIClassName = _T("MenuElement");
-const TCHAR* const kMenuElementUIInterfaceName = _T("MenuElement");
-
 CMenuElementUI::CMenuElementUI():
 m_pWindow(NULL)
 {

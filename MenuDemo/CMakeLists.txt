@@ -6,7 +6,6 @@ set(source_files
     main_frame.cpp
     main.cpp
     StdAfx.cpp
-    UICrack.cpp
     UIMenu.cpp
 )
 

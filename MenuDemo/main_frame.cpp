@@ -26,12 +26,6 @@
 #include "main_frame.hpp"
 #include "UIMenu.h"
 
-const TCHAR* const kTitleControlName = _T("apptitle");
-const TCHAR* const kCloseButtonControlName = _T("closebtn");
-const TCHAR* const kMinButtonControlName = _T("minbtn");
-const TCHAR* const kMaxButtonControlName = _T("maxbtn");
-const TCHAR* const kRestoreButtonControlName = _T("restorebtn");
-
 MainFrame::MainFrame()
 {}
 
@@ -82,16 +76,16 @@ LRESULT MainFrame::OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& b
 	{
 		if (!bZoomed)
 		{
-			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kMaxButtonControlName));
+			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("maxbtn")));
 			if( pControl ) pControl->SetVisible(false);
-			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kRestoreButtonControlName));
+			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("restorebtn")));
 			if( pControl ) pControl->SetVisible(true);
 		}
 		else 
 		{
-			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kMaxButtonControlName));
+			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("maxbtn")));
 			if( pControl ) pControl->SetVisible(true);
-			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kRestoreButtonControlName));
+			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("restorebtn")));
 			if( pControl ) pControl->SetVisible(false);
 		}
 	}
@@ -137,17 +131,17 @@ void MainFrame::OnPrepare(TNotifyUI& msg)
 
 void MainFrame::Notify(TNotifyUI& msg)
 {
-	if (_tcsicmp(msg.sType, kWindowInit) == 0)
+	if (_tcsicmp(msg.sType, _T("windowinit")) == 0)
 	{
 		OnPrepare(msg);
 	}
-	else if (_tcsicmp(msg.sType, kClick) == 0)
+	else if (_tcsicmp(msg.sType, _T("click")) == 0)
 	{
-		if (_tcsicmp(msg.pSender->GetName(), kCloseButtonControlName) == 0)
+		if (_tcsicmp(msg.pSender->GetName(), _T("closebtn")) == 0)
 		{
 			OnExit(msg);
 		}
-		else if (_tcsicmp(msg.pSender->GetName(), kMinButtonControlName) == 0)
+		else if (_tcsicmp(msg.pSender->GetName(), _T("minbtn")) == 0)
 		{
 #if defined(UNDER_CE)
 			::ShowWindow(m_hWnd, SW_MINIMIZE);
@@ -155,25 +149,25 @@ void MainFrame::Notify(TNotifyUI& msg)
 			SendMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0);
 #endif
 		}
-		else if (_tcsicmp(msg.pSender->GetName(), kMaxButtonControlName) == 0)
+		else if (_tcsicmp(msg.pSender->GetName(), _T("maxbtn")) == 0)
 		{
 #if defined(UNDER_CE)
 			::ShowWindow(m_hWnd, SW_MAXIMIZE);
-			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kMaxButtonControlName));
+			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("maxbtn")));
 			if( pControl ) pControl->SetVisible(false);
-			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kRestoreButtonControlName));
+			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("restorebtn")));
 			if( pControl ) pControl->SetVisible(true);
 #else
 			SendMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 #endif
 		}
-		else if (_tcsicmp(msg.pSender->GetName(), kRestoreButtonControlName) == 0)
+		else if (_tcsicmp(msg.pSender->GetName(), _T("restorebtn")) == 0)
 		{
 #if defined(UNDER_CE)
 			::ShowWindow(m_hWnd, SW_RESTORE);
-			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kMaxButtonControlName));
+			CControlUI* pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("maxbtn")));
 			if( pControl ) pControl->SetVisible(true);
-			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(kRestoreButtonControlName));
+			pControl = static_cast<CControlUI*>(m_PaintManager.FindControl(_T("restorebtn")));
 			if( pControl ) pControl->SetVisible(false);
 #else
 			SendMessage(WM_SYSCOMMAND, SC_RESTORE, 0);
@@ -188,7 +182,7 @@ void MainFrame::Notify(TNotifyUI& msg)
 			pMenu->Init(NULL, xml, _T("xml"), point);
 		}
 	}
-	else if (_tcsicmp(msg.sType, kTimer) == 0)
+	else if (_tcsicmp(msg.sType, _T("timer")) == 0)
 	{
 		return OnTimer(msg);
 	}

@@ -30,11 +30,7 @@ enum MenuAlignment
 typedef class ObserverImpl<BOOL, ContextMenuParam> ContextMenuObserver;
 typedef class ReceiverImpl<BOOL, ContextMenuParam> ContextMenuReceiver;
 
-extern ContextMenuObserver s_context_menu_observer;
-
 // MenuUI
-extern const TCHAR* const kMenuUIClassName;// = _T("MenuUI");
-extern const TCHAR* const kMenuUIInterfaceName;// = _T("Menu");
 
 class CListUI;
 class CMenuUI : public CListUI
@@ -62,10 +58,6 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-
-// MenuElementUI
-extern const TCHAR* const kMenuElementUIClassName;// = _T("MenuElement");
-extern const TCHAR* const kMenuElementUIInterfaceName;// = _T("MenuElement);
 
 class CMenuElementUI;
 class CMenuWnd : public CWindowWnd, public ContextMenuReceiver

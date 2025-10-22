@@ -140,21 +140,36 @@ void CContainerButtonUI::DoEvent(TEventUI& event)
                 m_bHot = true;
                 UpdateChildrenState();
                 Invalidate();
+
+                // 发送鼠标进入消息
+                if (m_pManager) {
+                    m_pManager->SendNotify(this, DUI_MSGTYPE_MOUSEENTER);
+                }
             }
             else if (!bInRect && m_bHot) {
                 m_bHot = false;
                 UpdateChildrenState();
                 Invalidate();
+
+                // 发送鼠标离开消息
+                if (m_pManager) {
+                    m_pManager->SendNotify(this, DUI_MSGTYPE_MOUSELEAVE);
+                }
             }
         }
         break;
-        
+
     case UIEVENT_MOUSELEAVE:
         if (IsEnabled()) {
             m_bHot = false;
             m_bPushed = false;
             UpdateChildrenState();
             Invalidate();
+
+            // 发送鼠标离开消息
+            if (m_pManager) {
+                m_pManager->SendNotify(this, DUI_MSGTYPE_MOUSELEAVE);
+            }
         }
         break;
         

@@ -386,6 +386,24 @@ public:
                 MessageBox(m_hWnd, _T("这是一个测试消息框"), _T("测试消息框"), MB_OK);
             }
         }
+        else if( msg.sType == _T("mouseenter") ) {
+            if( msg.pSender->GetName() == _T("navSettings") ) {
+                // 鼠标进入navSettings，修改buttonhover的文本
+                CLabelUI* pLabel = static_cast<CLabelUI*>(m_pm.FindControl(_T("buttonhover")));
+                if( pLabel ) {
+                    pLabel->SetText(_T("鼠标进入"));
+                }
+            }
+        }
+        else if( msg.sType == _T("mouseleave") ) {
+            if( msg.pSender->GetName() == _T("navSettings") ) {
+                // 鼠标离开navSettings，修改buttonhover的文本
+                CLabelUI* pLabel = static_cast<CLabelUI*>(m_pm.FindControl(_T("buttonhover")));
+                if( pLabel ) {
+                    pLabel->SetText(_T("鼠标离开"));
+                }
+            }
+        }
     }
 
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)

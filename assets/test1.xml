@@ -77,5 +77,6 @@
 				<Control mouse="false"/>
 			</HorizontalLayout>
 		</ContainerButton>
+		<Label name="buttonhover" text="鼠标离开" mouse="false"/>
 	</VerticalLayout>
 </Window>

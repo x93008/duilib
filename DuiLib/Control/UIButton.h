@@ -49,6 +49,10 @@ namespace DuiLib
 		SIZE EstimateSize(SIZE szAvailable);
 		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
 
+		// 按钮状态获取（重写基类虚方法）
+		virtual bool IsHot() const override { return (m_uButtonState & UISTATE_HOT) != 0; }
+		virtual bool IsPushed() const override { return (m_uButtonState & UISTATE_PUSHED) != 0; }
+
 		void PaintText(HDC hDC);
 		void PaintStatusImage(HDC hDC);
 

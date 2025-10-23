@@ -29,9 +29,9 @@ public:
     void SetPushedTextColor(DWORD dwColor);
     void SetDisabledTextColor(DWORD dwColor);
     
-    // 按钮状态获取
-    bool IsHot() const { return m_bHot; }
-    bool IsPushed() const { return m_bPushed; }
+    // 按钮状态获取（重写基类虚方法）
+    virtual bool IsHot() const override { return m_bHot; }
+    virtual bool IsPushed() const override { return m_bPushed; }
     
 protected:
     virtual void PaintBkColor(HDC hDC);

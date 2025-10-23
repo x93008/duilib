@@ -49,6 +49,10 @@ public:
     void SetBkImage(LPCTSTR pStrImage);
 	DWORD GetFocusBorderColor() const;
 	void SetFocusBorderColor(DWORD dwBorderColor);
+	DWORD GetHotBorderColor() const;
+	void SetHotBorderColor(DWORD dwBorderColor);
+	DWORD GetPushedBorderColor() const;
+	void SetPushedBorderColor(DWORD dwBorderColor);
     bool IsColorHSL() const;
     void SetColorHSL(bool bColorHSL);
     SIZE GetBorderRound() const;
@@ -128,6 +132,10 @@ public:
     virtual void SetFocus();
     virtual bool IsFloat() const;
     virtual void SetFloat(bool bFloat = true);
+
+    // 状态查询（用于绘制状态相关的属性，如hotbordercolor等）
+    virtual bool IsHot() const { return false; }
+    virtual bool IsPushed() const { return false; }
 
 	// �Զ���(δ������)����
 	void AddCustomAttribute(LPCTSTR pstrName, LPCTSTR pstrAttr);
@@ -217,6 +225,8 @@ protected:
 	TDrawInfo m_diFore;
     DWORD m_dwBorderColor;
 	DWORD m_dwFocusBorderColor;
+	DWORD m_dwHotBorderColor;
+	DWORD m_dwPushedBorderColor;
     bool m_bColorHSL;
 	int m_nBorderStyle;
 	int m_nTooltipWidth;

@@ -78,5 +78,26 @@
 			</HorizontalLayout>
 		</ContainerButton>
 		<Label name="buttonhover" text="鼠标离开" mouse="false"/>
+
+		<!-- 测试按钮边框颜色 -->
+		<Button name="testborderbtn" text="测试边框颜色" height="40"
+				borderround="8,8"
+		        bkcolor="#FFF0F0F0"
+		        bordersize="2" 
+		        bordercolor="0xFF000000"
+		        hotbordercolor="0xFF0000FF"
+		        pushedbordercolor="0xFF00FF00" />
+
+		<ContainerButton name="testbordercbtn" text="容器按钮边框测试" height="40"
+		                 borderround="8,8"
+		                 normalbkcolor="0xFFFFFFFF"
+		                 hotbkcolor="0xFFFFFFFF"
+		                 pushedbkcolor="0xFFFFFFFF"
+		                 bordersize="2"
+		                 bordercolor="0xFF000000"
+		                 hotbordercolor="0xFF0000FF"
+		                 pushedbordercolor="0xFF00FF00">
+			<Label text="容器按钮" align="center" mouse="false"/>
+		</ContainerButton>
 	</VerticalLayout>
 </Window>

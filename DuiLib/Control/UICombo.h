@@ -32,6 +32,11 @@ public:
     int GetCurSel() const;
 	bool GetSelectCloseFlag();
 	void SetSelectCloseFlag(bool flag);
+
+	// 鼠标滚轮是否自动选择项目
+	bool GetScrollSelect() const;
+	void SetScrollSelect(bool bScrollSelect);
+
     bool SelectItem(int iIndex, bool bTakeFocus = false, bool bTriggerEvent=true);
     bool ExpandItem(int iIndex, bool bExpand = true);
     int GetExpandedItem() const;
@@ -130,6 +135,7 @@ protected:
     int m_iCurSel;
 	bool m_bShowText;
 	bool m_bSelectCloseFlag;
+	bool m_bScrollSelect;            // 滚轮是否自动选择项目
     RECT m_rcTextPadding;
     CDuiString m_sPlaceholder;       // Placeholder 文本
     DWORD m_dwPlaceholderColor;      // Placeholder 颜色

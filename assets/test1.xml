@@ -26,6 +26,8 @@
 		<RichEdit name="testrichedit1" bordercolor="#FF0000" bordersize="2" borderround="8,8" inset="4,2,4,2" bkcolor="#FFE2E5EA" bkcolor2="#FF00F5DA" bkcolor3="#FFF2F5FA" font="1" multiline="false" rich="false" hscrollbar="true" autohscroll="true"/>
 		<DateTime name="DateTime" width="200" height="30" bkcolor="#FFE2E5EA" padding="0,5,0,0" />
 		<CheckBox name="CheckBox1" width="20" height="20" bkcolor="#FFEA679F" />
+
+		<!-- 默认行为：滚轮会自动选择项目 -->
 		<ComboBox name="ComboBox1" width="200" height="30" bkcolor="#FFEA679F" bordersize="1" bordercolor="0xFFFF0000" placeholder="请选择一个选项..." placeholdercolor="0xFF0000FF">
 			<ListLabelElement text="11111111111111"/>
 			<ListLabelElement text="22222222222222"/>
@@ -38,6 +40,21 @@
 			</ComboBox>
 			<Edit text="{a www.baidu.com}ddd{/a}" />
 		</ComboBox>
+
+		<!-- 禁用滚轮选择：滚轮仅滚动下拉列表，不自动选择 -->
+		<ComboBox name="ComboBox2" width="200" height="30" dropboxsize="200,100" bkcolor="#FF679FEA" bordersize="1" bordercolor="0xFF00FF00" placeholder="滚轮不选择..." scrollselect="false">
+			<ListLabelElement text="Item A"/>
+			<ListLabelElement text="Item B"/>
+			<ListLabelElement text="Item C"/>
+			<ListLabelElement text="Item D"/>
+			<ListLabelElement text="Item E"/>
+			<ListLabelElement text="Item F"/>
+			<ListLabelElement text="Item G"/>
+			<ListLabelElement text="Item H"/>
+			<ListLabelElement text="Item I"/>
+			<ListLabelElement text="Item J"/>
+		</ComboBox>
+
 		<TreeView bkcolor="#ffffffff" visiblefolderbtn="true" visiblecheckbtn="true" vscrollbar="true" >
 			<TreeNode text="A1" folderattr="padding=&quot;0,1,0,0&quot; width=&quot;16&quot; height=&quot;16&quot; normalimage=&quot;file='Icon/treeview_b.png' source='0,0,16,16' &quot; hotimage=&quot;file='Icon/treeview_b.png' source='16,0,32,16' &quot; selectedimage=&quot;file='Icon/treeview_a.png' source='0,0,16,16' &quot; selectedhotimage=&quot;file='Icon/treeview_a.png' source='16,0,32,16' &quot;" checkboxattr="width=&quot;16&quot; height=&quot;16&quot; normalimage=&quot;file='Icon/unchecked.png' &quot; selectedimage=&quot;file='Icon/checked.png' &quot;" >
 			<TreeNode text="B1" folderattr="padding=&quot;0,1,0,0&quot; width=&quot;16&quot; height=&quot;16&quot; normalimage=&quot;file='Icon/treeview_b.png' source='0,0,16,16' &quot; hotimage=&quot;file='Icon/treeview_b.png' source='16,0,32,16' &quot; selectedimage=&quot;file='Icon/treeview_a.png' source='0,0,16,16' &quot; selectedhotimage=&quot;file='Icon/treeview_a.png' source='16,0,32,16' &quot;" checkboxattr="width=&quot;16&quot; height=&quot;16&quot; normalimage=&quot;file='Icon/unchecked.png' &quot; selectedimage=&quot;file='Icon/checked.png' &quot;" >

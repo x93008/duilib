@@ -373,6 +373,7 @@ CComboUI::CComboUI() : m_pWindow(NULL), m_iCurSel(-1), m_uButtonState(0)
 
 	m_bShowText = true;
 	m_bSelectCloseFlag = true;
+	m_bScrollSelect = true;  // 默认启用滚轮选择
     ::ZeroMemory(&m_ListInfo.rcTextPadding, sizeof(m_ListInfo.rcTextPadding));
     ::ZeroMemory(&m_ListInfo.rcColumn, sizeof(m_ListInfo.rcColumn));
 }
@@ -411,6 +412,16 @@ bool CComboUI::GetSelectCloseFlag()
 void CComboUI::SetSelectCloseFlag(bool flag)
 {
 	m_bSelectCloseFlag = flag;
+}
+
+bool CComboUI::GetScrollSelect() const
+{
+	return m_bScrollSelect;
+}
+
+void CComboUI::SetScrollSelect(bool bScrollSelect)
+{
+	m_bScrollSelect = bScrollSelect;
 }
 
 bool CComboUI::SelectItem(int iIndex, bool bTakeFocus, bool bTriggerEvent)
@@ -654,11 +665,22 @@ void CComboUI::DoEvent(TEventUI& event)
     if( event.Type == UIEVENT_SCROLLWHEEL )
     {
         if (IsEnabled()) {
-            bool bDownward = LOWORD(event.wParam) == SB_LINEDOWN;
-            SetSelectCloseFlag(false);
-            SelectItem(FindSelectable(m_iCurSel + (bDownward ? 1 : -1), bDownward));
-            SetSelectCloseFlag(true);
-            return;
+            // 如果启用了滚轮选择功能，则自动选择项目
+            if (m_bScrollSelect) {
+                bool bDownward = LOWORD(event.wParam) == SB_LINEDOWN;
+                SetSelectCloseFlag(false);
+                SelectItem(FindSelectable(m_iCurSel + (bDownward ? 1 : -1), bDownward));
+                SetSelectCloseFlag(true);
+                return;
+            }
+            else {
+                // 如果禁用滚轮选择，且下拉窗口已打开，则让下拉窗口的布局容器处理滚动
+                if (m_pWindow != NULL && m_pWindow->m_pLayout != NULL) {
+                    // 将滚轮事件传递给下拉窗口的布局容器来处理滚动
+                    m_pWindow->m_pLayout->DoEvent(event);
+                }
+                return;
+            }
         }
     }
     if( event.Type == UIEVENT_CONTEXTMENU )
@@ -1121,6 +1143,7 @@ void CComboUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
         SetTextPadding(rcTextPadding);
     }
 	else if( _tcscmp(pstrName, _T("showtext")) == 0 ) SetShowText(_tcscmp(pstrValue, _T("true")) == 0);
+    else if( _tcscmp(pstrName, _T("scrollselect")) == 0 ) SetScrollSelect(_tcscmp(pstrValue, _T("true")) == 0);
     else if( _tcscmp(pstrName, _T("placeholder")) == 0 ) SetPlaceholder(pstrValue);
     else if( _tcscmp(pstrName, _T("placeholdercolor")) == 0 ) {
         if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);

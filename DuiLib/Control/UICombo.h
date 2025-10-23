@@ -50,6 +50,13 @@ public:
 	void SetShowText(bool flag);
     RECT GetTextPadding() const;
     void SetTextPadding(RECT rc);
+
+    // Placeholder 相关
+    CDuiString GetPlaceholder() const;
+    void SetPlaceholder(LPCTSTR pstrText);
+    DWORD GetPlaceholderColor() const;
+    void SetPlaceholderColor(DWORD dwColor);
+
     LPCTSTR GetNormalImage() const;
     void SetNormalImage(LPCTSTR pStrImage);
     LPCTSTR GetHotImage() const;
@@ -112,7 +119,7 @@ public:
 	void Move(SIZE szOffset, bool bNeedInvalidate = true);
     void DoEvent(TEventUI& event);
     void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
-    
+
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
     void PaintText(HDC hDC);
     void PaintStatusImage(HDC hDC);
@@ -124,6 +131,8 @@ protected:
 	bool m_bShowText;
 	bool m_bSelectCloseFlag;
     RECT m_rcTextPadding;
+    CDuiString m_sPlaceholder;       // Placeholder 文本
+    DWORD m_dwPlaceholderColor;      // Placeholder 颜色
     CDuiString m_sDropBoxAttributes;
     SIZE m_szDropBox;
     UINT m_uButtonState;

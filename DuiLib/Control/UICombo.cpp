@@ -349,6 +349,7 @@ CComboUI::CComboUI() : m_pWindow(NULL), m_iCurSel(-1), m_uButtonState(0)
 {
     m_szDropBox = CDuiSize(0, 150);
     ::ZeroMemory(&m_rcTextPadding, sizeof(m_rcTextPadding));
+    m_dwPlaceholderColor = 0xFFAAAAAA; // 默认灰色
 
     m_ListInfo.nColumns = 0;
     m_ListInfo.uFixedHeight = 0;
@@ -767,6 +768,28 @@ void CComboUI::SetTextPadding(RECT rc)
     Invalidate();
 }
 
+CDuiString CComboUI::GetPlaceholder() const
+{
+    return m_sPlaceholder;
+}
+
+void CComboUI::SetPlaceholder(LPCTSTR pstrText)
+{
+    m_sPlaceholder = pstrText;
+    Invalidate();
+}
+
+DWORD CComboUI::GetPlaceholderColor() const
+{
+    return m_dwPlaceholderColor;
+}
+
+void CComboUI::SetPlaceholderColor(DWORD dwColor)
+{
+    m_dwPlaceholderColor = dwColor;
+    Invalidate();
+}
+
 LPCTSTR CComboUI::GetNormalImage() const
 {
     return m_diNormal.sDrawString;
@@ -1098,6 +1121,13 @@ void CComboUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
         SetTextPadding(rcTextPadding);
     }
 	else if( _tcscmp(pstrName, _T("showtext")) == 0 ) SetShowText(_tcscmp(pstrValue, _T("true")) == 0);
+    else if( _tcscmp(pstrName, _T("placeholder")) == 0 ) SetPlaceholder(pstrValue);
+    else if( _tcscmp(pstrName, _T("placeholdercolor")) == 0 ) {
+        if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+        LPTSTR pstr = NULL;
+        DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+        SetPlaceholderColor(clrColor);
+    }
     else if( _tcscmp(pstrName, _T("normalimage")) == 0 ) SetNormalImage(pstrValue);
     else if( _tcscmp(pstrName, _T("hotimage")) == 0 ) SetHotImage(pstrValue);
     else if( _tcscmp(pstrName, _T("pushedimage")) == 0 ) SetPushedImage(pstrValue);
@@ -1261,6 +1291,16 @@ void CComboUI::PaintText(HDC hDC)
             pControl->SetPos(rcText, false);
             pControl->Paint(hDC, rcText, NULL);
             pControl->SetPos(rcOldPos, false);
+        }
+    }
+    else {
+        // 未选择时，显示 placeholder
+        if( !m_sPlaceholder.IsEmpty() ) {
+            DWORD dwTextColor = m_dwPlaceholderColor;
+            if( m_pManager ) {
+                CRenderEngine::DrawText(hDC, m_pManager, rcText, m_sPlaceholder, dwTextColor,
+                    m_ListInfo.nFont, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+            }
         }
     }
 }

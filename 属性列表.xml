@@ -312,7 +312,16 @@
 		<Attribute name="pushedimage" default="" type="STRING" comment="鼠标按下的状态图片"/>
 		<Attribute name="focusedimage" default="" type="STRING" comment="获得焦点时的状态图片"/>
 		<Attribute name="disabledimage" default="" type="STRING" comment="禁用的状态图片"/>
+		<Attribute name="showtext" default="true" type="BOOL" comment="入口处是否显示文字"/>
+		<Attribute name="placeholder" default="" type="STRING" comment="未选择内容时默认显示的提示文案，如(请选择一个选项...)"/>
+		<Attribute name="placeholdercolor" default="0xFF000000" type="DWORD" comment="placeholder的颜色，如(0xFF1A1A1A)"/>
+		<Attribute name="dropbox" default="" type="STRING" comment="弹出框的属性列表，如(bordercolor=&quot;#FF4A90E2&quot; bordersize=&quot;2&quot;)"/>
 		<Attribute name="dropboxsize" default="0,150" type="STRING" comment="弹出框大小设置"/>
+		<Attribute name="itemheight" default="0" type="INT" comment="单个选项的高度，如(100)"/>
+		<Attribute name="itemhlinesize" default="0" type="INT" comment="item之间的水平分割线粗细，如(1)"/>
+		<Attribute name="itemhlinecolor" default="0x00000000" type="DWORD" comment="item直接的水平分割线的颜色，如(0xFF1A1A1A)"/>
+		<Attribute name="itemvlinesize" default="0" type="INT" comment="item之间的垂直分割线粗细，如(1)"/>
+		<Attribute name="itemvlinecolor" default="0x00000000" type="DWORD" comment="item直接的垂直分割线的颜色，如(0xFF1A1A1A)"/>
 		<Attribute name="itemfont" default="-1" type="INT" comment="item的字体id,如(0)"/>
 		<Attribute name="itemalign" default="center" type="STRING" comment="item对齐方式,取值left、right、center，如(center)"/>
 		<Attribute name="itemendellipsis" default="false" type="BOOL" comment="item句末显示不全是否使用...代替,如(true)"/>

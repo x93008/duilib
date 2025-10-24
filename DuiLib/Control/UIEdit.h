@@ -35,6 +35,11 @@ namespace DuiLib
 		int GetWindowStyls() const;
 		HWND GetNativeEditHWND() const;
 
+		void SetPlaceholder(LPCTSTR pstrPlaceholder);
+		LPCTSTR GetPlaceholder() const;
+		void SetPlaceholderColor(DWORD dwColor);
+		DWORD GetPlaceholderColor() const;
+
 		LPCTSTR GetNormalImage();
 		void SetNormalImage(LPCTSTR pStrImage);
 		LPCTSTR GetHotImage();
@@ -73,10 +78,13 @@ namespace DuiLib
 		DWORD m_dwEditbkColor;
 		int m_iWindowStyls;
 
+		CDuiString m_sPlaceholder;
+		DWORD m_dwPlaceholderColor;
+
 		TDrawInfo m_diNormal;
 		TDrawInfo m_diHot;
 		TDrawInfo m_diFocused;
 		TDrawInfo m_diDisabled;
-	};
+};
 }
 #endif // __UIEDIT_H__

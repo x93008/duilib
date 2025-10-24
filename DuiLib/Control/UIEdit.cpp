@@ -245,7 +245,7 @@ namespace DuiLib
 
 	CEditUI::CEditUI() : m_pWindow(NULL), m_uMaxChar(255), m_bReadOnly(false), 
 		m_bPasswordMode(false), m_cPasswordChar(_T('*')), m_bAutoSelAll(false), m_uButtonState(0), 
-		m_dwEditbkColor(0xFFFFFFFF), m_iWindowStyls(0)
+		m_dwEditbkColor(0xFFFFFFFF), m_iWindowStyls(0), m_dwPlaceholderColor(0xFFBBBBBB)
 	{
 		SetTextPadding(CDuiRect(4, 3, 4, 3));
 		SetBkColor(0xFFFFFFFF);
@@ -476,6 +476,32 @@ namespace DuiLib
 		m_bAutoSelAll = bAutoSelAll;
 	}
 
+	void CEditUI::SetPlaceholder(LPCTSTR pstrPlaceholder)
+	{
+		m_sPlaceholder = pstrPlaceholder;
+		if (!IsFocused() && m_sText.IsEmpty()) {
+			Invalidate();
+		}
+	}
+
+	LPCTSTR CEditUI::GetPlaceholder() const
+	{
+		return m_sPlaceholder.GetData();
+	}
+
+	void CEditUI::SetPlaceholderColor(DWORD dwColor)
+	{
+		m_dwPlaceholderColor = dwColor;
+		if (!IsFocused() && m_sText.IsEmpty()) {
+			Invalidate();
+		}
+	}
+
+	DWORD CEditUI::GetPlaceholderColor() const
+	{
+		return m_dwPlaceholderColor;
+	}
+
 	LPCTSTR CEditUI::GetNormalImage()
 	{
 		return m_diNormal.sDrawString;
@@ -603,6 +629,13 @@ namespace DuiLib
 		else if( _tcscmp(pstrName, _T("password")) == 0 ) SetPasswordMode(_tcscmp(pstrValue, _T("true")) == 0);
 		else if( _tcscmp(pstrName, _T("autoselall")) == 0 ) SetAutoSelAll(_tcscmp(pstrValue, _T("true")) == 0);	
 		else if( _tcscmp(pstrName, _T("maxchar")) == 0 ) SetMaxChar(_ttoi(pstrValue));
+		else if( _tcscmp(pstrName, _T("placeholder")) == 0 ) SetPlaceholder(pstrValue);
+		else if( _tcscmp(pstrName, _T("placeholdercolor")) == 0 ) {
+			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+			LPTSTR pstr = NULL;
+			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+			SetPlaceholderColor(clrColor);
+		}
 		else if( _tcscmp(pstrName, _T("normalimage")) == 0 ) SetNormalImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("hotimage")) == 0 ) SetHotImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("focusedimage")) == 0 ) SetFocusedImage(pstrValue);
@@ -641,16 +674,28 @@ namespace DuiLib
 		if( m_dwTextColor == 0 ) m_dwTextColor = m_pManager->GetDefaultFontColor();
 		if( m_dwDisabledTextColor == 0 ) m_dwDisabledTextColor = m_pManager->GetDefaultDisabledColor();
 
-		if( m_sText.IsEmpty() ) return;
-
 		CDuiString sText = m_sText;
-		if( m_bPasswordMode ) {
-			sText.Empty();
+		DWORD dwTextColor = m_dwTextColor;
+		bool bShowPlaceholder = false;
+
+		// 如果文本为空且有placeholder，并且未获得焦点，则显示placeholder
+		if( sText.IsEmpty() && !m_sPlaceholder.IsEmpty() && !IsFocused() ) {
+			sText = m_sPlaceholder;
+			dwTextColor = m_dwPlaceholderColor;
+			bShowPlaceholder = true;
+		}
+
+		if( sText.IsEmpty() ) return;
+
+		// 如果不是显示placeholder且是密码模式，则将文本替换为密码字符
+		if( !bShowPlaceholder && m_bPasswordMode ) {
+			CDuiString sTempText;
 			LPCTSTR p = m_sText.GetData();
 			while( *p != _T('\0') ) {
-				sText += m_cPasswordChar;
+				sTempText += m_cPasswordChar;
 				p = ::CharNext(p);
 			}
+			sText = sTempText;
 		}
 
 		RECT rc = m_rcItem;
@@ -659,7 +704,7 @@ namespace DuiLib
 		rc.top += m_rcTextPadding.top;
 		rc.bottom -= m_rcTextPadding.bottom;
 		if( IsEnabled() ) {
-			CRenderEngine::DrawText(hDC, m_pManager, rc, sText, m_dwTextColor, \
+			CRenderEngine::DrawText(hDC, m_pManager, rc, sText, dwTextColor, \
 				m_iFont, DT_SINGLELINE | m_uTextStyle);
 		}
 		else {

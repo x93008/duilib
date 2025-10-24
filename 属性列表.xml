@@ -307,6 +307,7 @@
 		<Attribute name="hscrollbar" default="false" type="BOOL" comment="是否使用横向滚动条,如(true)"/>
 		<Attribute name="childpadding" default="0" type="INT" comment="子控件之间的额外距离,如(4)"/>
 		<Attribute name="textpadding" default="0,0,0,0" type="RECT" comment="文字显示的边距,如(2,2,2,2)"/>
+		<Attribute name="textcolor" default="0" type="DWORD" comment="入口出文案的颜色，如(0xFF1A1A1A)，如果不设置则会使用itemselectedtextcolor的颜色"/>
 		<Attribute name="normalimage" default="" type="STRING" comment="普通状态图片"/>
 		<Attribute name="hotimage" default="" type="STRING" comment="鼠标悬浮的状态图片"/>
 		<Attribute name="pushedimage" default="" type="STRING" comment="鼠标按下的状态图片"/>

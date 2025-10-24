@@ -286,7 +286,10 @@ LRESULT CComboWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         event.lParam = lParam;
         event.dwTimestamp = ::GetTickCount();
         m_pOwner->DoEvent(event);
-        EnsureVisible(m_pOwner->GetCurSel());
+        // 只有在启用滚轮选择时，才强制显示选中项
+        if (m_pOwner->GetScrollSelect()) {
+            EnsureVisible(m_pOwner->GetCurSel());
+        }
         return 0;
     }
     else if( uMsg == WM_KILLFOCUS ) {

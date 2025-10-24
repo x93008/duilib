@@ -42,7 +42,19 @@
 		</ComboBox>
 
 		<!-- 禁用滚轮选择：滚轮仅滚动下拉列表，不自动选择 -->
-		<ComboBox name="ComboBox2" width="200" height="30" dropboxsize="200,100" bkcolor="#FF679FEA" bordersize="1" bordercolor="0xFF00FF00" placeholder="滚轮不选择..." scrollselect="false">
+        <ComboBox name="type" width="382" height="32"
+               bordercolor="0xFFBFBFBF" bordersize="1" borderround="4,4"
+               placeholder="鼠标滚动不选择"
+               placeholdercolor="0xFF808080"
+               textcolor="0xFF1A1A1A"
+               textpadding="8,0,8,0"
+               itemtextpadding="8,0,8,0"
+               bkcolor="0xFFFFFFFF"
+               itemtextcolor="0xFF1A1A1A"
+               itemselectedtextcolor="0xFF468AFF"
+               itemhotbkcolor="0xFFF2F2F2"
+               itemheight="32"
+               scrollselect="false">
 			<ListLabelElement text="Item A"/>
 			<ListLabelElement text="Item B"/>
 			<ListLabelElement text="Item C"/>

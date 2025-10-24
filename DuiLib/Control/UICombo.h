@@ -62,6 +62,10 @@ public:
     DWORD GetPlaceholderColor() const;
     void SetPlaceholderColor(DWORD dwColor);
 
+    // 入口文本颜色（不同于下拉列表项的颜色）
+    DWORD GetTextColor() const;
+    void SetTextColor(DWORD dwTextColor);
+
     LPCTSTR GetNormalImage() const;
     void SetNormalImage(LPCTSTR pStrImage);
     LPCTSTR GetHotImage() const;
@@ -139,6 +143,7 @@ protected:
     RECT m_rcTextPadding;
     CDuiString m_sPlaceholder;       // Placeholder 文本
     DWORD m_dwPlaceholderColor;      // Placeholder 颜色
+    DWORD m_dwTextColor;             // 入口文本颜色
     CDuiString m_sDropBoxAttributes;
     SIZE m_szDropBox;
     UINT m_uButtonState;

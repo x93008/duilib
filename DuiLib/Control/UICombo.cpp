@@ -350,6 +350,7 @@ CComboUI::CComboUI() : m_pWindow(NULL), m_iCurSel(-1), m_uButtonState(0)
     m_szDropBox = CDuiSize(0, 150);
     ::ZeroMemory(&m_rcTextPadding, sizeof(m_rcTextPadding));
     m_dwPlaceholderColor = 0xFFAAAAAA; // 默认灰色
+    m_dwTextColor = 0; // 0 表示使用默认颜色（0则会跟随 itemselectedtextcolor）
 
     m_ListInfo.nColumns = 0;
     m_ListInfo.uFixedHeight = 0;
@@ -812,6 +813,17 @@ void CComboUI::SetPlaceholderColor(DWORD dwColor)
     Invalidate();
 }
 
+DWORD CComboUI::GetTextColor() const
+{
+    return m_dwTextColor;
+}
+
+void CComboUI::SetTextColor(DWORD dwTextColor)
+{
+    m_dwTextColor = dwTextColor;
+    Invalidate();
+}
+
 LPCTSTR CComboUI::GetNormalImage() const
 {
     return m_diNormal.sDrawString;
@@ -1151,6 +1163,12 @@ void CComboUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
         DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
         SetPlaceholderColor(clrColor);
     }
+    else if( _tcscmp(pstrName, _T("textcolor")) == 0 ) {
+        if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+        LPTSTR pstr = NULL;
+        DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+        SetTextColor(clrColor);
+    }
     else if( _tcscmp(pstrName, _T("normalimage")) == 0 ) SetNormalImage(pstrValue);
     else if( _tcscmp(pstrName, _T("hotimage")) == 0 ) SetHotImage(pstrValue);
     else if( _tcscmp(pstrName, _T("pushedimage")) == 0 ) SetPushedImage(pstrValue);
@@ -1307,7 +1325,31 @@ void CComboUI::PaintText(HDC hDC)
         CControlUI* pControl = static_cast<CControlUI*>(m_items[m_iCurSel]);
         IListItemUI* pElement = static_cast<IListItemUI*>(pControl->GetInterface(DUI_CTR_ILISTITEM));
         if( pElement != NULL ) {
-            pElement->DrawItemText(hDC, rcText);
+            // 如果设置了 textcolor，直接绘制文本，不使用 DrawItemText（避免使用 selectedtextcolor）
+            if( m_dwTextColor != 0 ) {
+                CDuiString sText = pControl->GetText();
+                if( !sText.IsEmpty() ) {
+                    RECT rcTextDraw = rcText;
+                    rcTextDraw.left += m_ListInfo.rcTextPadding.left;
+                    rcTextDraw.right -= m_ListInfo.rcTextPadding.right;
+                    rcTextDraw.top += m_ListInfo.rcTextPadding.top;
+                    rcTextDraw.bottom -= m_ListInfo.rcTextPadding.bottom;
+
+                    if( m_ListInfo.bShowHtml ) {
+                        int nLinks = 0;
+                        CRenderEngine::DrawHtmlText(hDC, m_pManager, rcTextDraw, sText, m_dwTextColor, 
+                            NULL, NULL, nLinks, m_ListInfo.nFont, m_ListInfo.uTextStyle);
+                    }
+                    else {
+                        CRenderEngine::DrawText(hDC, m_pManager, rcTextDraw, sText, m_dwTextColor, 
+                            m_ListInfo.nFont, m_ListInfo.uTextStyle);
+                    }
+                }
+            }
+            else {
+                // 未设置 textcolor，使用原有的 DrawItemText 方法
+                pElement->DrawItemText(hDC, rcText);
+            }
         }
         else {
             RECT rcOldPos = pControl->GetPos();

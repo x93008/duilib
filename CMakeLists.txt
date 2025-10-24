@@ -52,6 +52,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO")
 endif()
 
+include_directories(${CMAKE_SOURCE_DIR})
+
 # add each CMake file
 add_subdirectory(duilib)
 
@@ -66,6 +68,7 @@ if (DUILIB_BUILD_EXAMPLES)
     add_subdirectory(FileTree)
     add_subdirectory(ScrCapture)
     add_subdirectory(TestApp1)
+    add_subdirectory(EditDemo)
 endif()
 
 install(FILES ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION share/${PROJECT_NAME})

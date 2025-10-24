@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="600,550" caption="0,0,0,35">
+    <Font shared="true" id="0" name="微软雅黑" size="12" default="true" />
+    <Font shared="true" id="1" name="微软雅黑" size="14" bold="true" />
+    <Font shared="true" id="2" name="微软雅黑" size="16" bold="true" />
+
+    <VerticalLayout bkcolor="#FFF5F5F5">
+        <!-- 标题栏 -->
+        <HorizontalLayout height="35" bkcolor="#FF2C8BED">
+            <Label text="Edit 控件演示" font="1" textcolor="#FFFFFFFF" padding="10,0,0,0"/>
+            <Control />
+            <Button name="btn_close" text="×" width="35" height="35"
+                    textcolor="#FFFFFFFF" hottextcolor="#FFFF0000"
+                    normalimage="" hotimage="" pushedimage=""
+                    font="2"/>
+        </HorizontalLayout>
+
+        <!-- 内容区域 -->
+        <VerticalLayout padding="20,20,20,20">
+            <!-- 说明 -->
+            <Label text="Edit 控件演示程序" font="1" textcolor="#FF333333" height="30"/>
+            <Label text="展示不同类型的 Edit 控件用法" textcolor="#FF666666" height="25"/>
+
+            <Control height="10"/>
+
+            <!-- 普通编辑框 -->
+            <HorizontalLayout height="35">
+                <Label text="普通编辑框：" width="120" textcolor="#FF333333"/>
+                <Edit name="edit_normal"
+                      bordercolor="#FFD0D0D0"
+                      bordersize="1"
+                      borderround="4,4"
+                      padding="8,0,8,0"
+                      bkcolor="#FFFFFFFF"
+                      textcolor="#FF333333"/>
+            </HorizontalLayout>
+
+            <Control height="10"/>
+
+            <!-- 密码框 -->
+            <HorizontalLayout height="35">
+                <Label text="密码输入框：" width="120" textcolor="#FF333333"/>
+                <Edit name="edit_password"
+                      password="true"
+                      bordercolor="#FFD0D0D0"
+                      bordersize="1"
+                      borderround="4,4"
+                      padding="8,0,8,0"
+                      bkcolor="#FFFFFFFF"
+                      textcolor="#FF333333"/>
+            </HorizontalLayout>
+
+            <Control height="10"/>
+
+            <!-- 数字输入框 -->
+            <HorizontalLayout height="35">
+                <Label text="数字输入框：" width="120" textcolor="#FF333333"/>
+                <Edit name="edit_number"
+                      numberonly="true"
+                      bordercolor="#FFD0D0D0"
+                      bordersize="1"
+                      borderround="4,4"
+                      padding="8,0,8,0"
+                      bkcolor="#FFFFFFFF"
+                      textcolor="#FF333333"
+                      tipvalue="只能输入数字"
+                      tipvaluecolor="#FF999999"/>
+            </HorizontalLayout>
+
+            <Control height="10"/>
+
+            <!-- 只读编辑框 -->
+            <HorizontalLayout height="35">
+                <Label text="只读编辑框：" width="120" textcolor="#FF333333"/>
+                <Edit name="edit_readonly"
+                      text="这是只读内容，不能修改"
+                      readonly="true"
+                      bordercolor="#FFD0D0D0"
+                      bordersize="1"
+                      borderround="4,4"
+                      padding="8,0,8,0"
+                      bkcolor="#FFF0F0F0"
+                      textcolor="#FF666666"/>
+            </HorizontalLayout>
+
+            <Control height="10"/>
+
+            <!-- 限制字符数的编辑框 -->
+            <VerticalLayout>
+                <HorizontalLayout height="35">
+                    <Label text="限制字符数：" width="120" textcolor="#FF333333"/>
+                    <Edit name="edit_maxchar"
+                          maxchar="20"
+                          bordercolor="#FFD0D0D0"
+                          bordersize="1"
+                          borderround="4,4"
+                          padding="8,0,8,0"
+                          bkcolor="#FFFFFFFF"
+                          textcolor="#FF333333"
+                          tipvalue="最多输入20个字符"
+                          tipvaluecolor="#FF999999"/>
+                </HorizontalLayout>
+                <Label name="label_charcount" text="当前字符数：0 / 20"
+                       padding="120,5,0,0" textcolor="#FF999999" height="20"/>
+            </VerticalLayout>
+
+            <Control height="20"/>
+
+            <!-- 按钮区域 -->
+            <HorizontalLayout height="40">
+                <Control />
+                <Button name="btn_get_text" text="获取文本" width="100" height="35"
+                        borderround="4,4"
+                        textcolor="#FFFFFFFF"
+                        normalimage="bkcolor=&quot;#FF2C8BED&quot;"
+                        hotimage="bkcolor=&quot;#FF1E7CD6&quot;"
+                        pushedimage="bkcolor=&quot;#FF1569BC&quot;"/>
+                <Control width="10"/>
+                <Button name="btn_clear" text="清空" width="100" height="35"
+                        borderround="4,4"
+                        textcolor="#FF333333"
+                        normalimage="bkcolor=&quot;#FFE0E0E0&quot;"
+                        hotimage="bkcolor=&quot;#FFD0D0D0&quot;"
+                        pushedimage="bkcolor=&quot;#FFC0C0C0&quot;"/>
+                <Control />
+            </HorizontalLayout>
+
+            <Control height="20"/>
+
+            <!-- 结果显示区域 -->
+            <VerticalLayout bordercolor="#FFD0D0D0" bordersize="1" borderround="4,4"
+                           bkcolor="#FFFAFAFA" padding="10,10,10,10">
+                <Label name="label_result" text="结果显示区域" textcolor="#FF666666"
+                       align="left"/>
+            </VerticalLayout>
+
+            <Control />
+        </VerticalLayout>
+    </VerticalLayout>
+</Window>
+

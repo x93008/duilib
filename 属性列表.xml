@@ -992,7 +992,7 @@
 		<Attribute name="childpadding" default="0" type="INT" comment="子控件之间的额外距离,如(4)"/>
 		<Attribute name="selected" default="false" type="BOOL" comment="是否选中,如(true)"/>
 	</ListContainerElement>
-	<RichEdit parent="Container" notifies="setfocus killfocus timer menu return windowinit(root)">
+	<RichEdit parent="Container" notifies="setfocus killfocus timer menu textchanged return windowinit(root)">
 		<Attribute name="name" default="" type="STRING" comment="控件名字，同一窗口内必须唯一，如(testbtn)"/>
 		<Attribute name="pos" default="0,0,0,0" type="RECT" comment="位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)"/>
 		<Attribute name="padding" default="0,0,0,0" type="RECT" comment="外边距,如(2,2,2,2)"/>
@@ -1038,6 +1038,7 @@
 		<Attribute name="multiline" default="true" type="BOOL" comment="是否使用多行,如(true)"/>
 		<Attribute name="readonly" default="false" type="BOOL" comment="是否只读,如(false)"/>
 		<Attribute name="password" default="false" type="BOOL" comment="是否显示密码符,如(true)"/>
+		<Attribute name="maxchar" default="255" type="INT" comment="输入字符最大长度，如(100)"/>
 		<Attribute name="align" default="left" type="STRING" comment="文字对齐方式,取值left、right、cente，如(center)"/>
 		<Attribute name="font" default="-1" type="INT" comment="字体id,如(0)"/>
 		<Attribute name="textcolor" default="0xFF000000" type="DWORD" comment="字体颜色，如(0xFFFF0000)"/>

@@ -1742,6 +1742,8 @@ void CRichEditUI::DoInit()
         if( m_bTransparent ) m_pTwh->SetTransparent(TRUE);
         LRESULT lResult;
         m_pTwh->GetTextServices()->TxSendMessage(EM_SETLANGOPTIONS, 0, 0, &lResult);
+        // 设置 EventMask 以接收文本变化通知
+        m_pTwh->GetTextServices()->TxSendMessage(EM_SETEVENTMASK, 0, ENM_CHANGE, &lResult);
         m_pTwh->OnTxInPlaceActivate(NULL);
         m_pManager->AddMessageFilter(this);
 		if( m_pManager->IsLayered() ) m_pManager->SetTimer(this, DEFAULT_TIMERID, ::GetCaretBlinkTime());
@@ -2328,6 +2330,9 @@ void CRichEditUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 		rcTextPadding.right = _tcstol(pstr + 1, &pstr, 10);  ASSERT(pstr);    
 		rcTextPadding.bottom = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);    
 		SetTextPadding(rcTextPadding);
+	}
+	else if( _tcscmp(pstrName, _T("maxchar")) == 0 ) {
+		SetLimitText(_ttoi(pstrValue));
 	}
 	else if( _tcscmp(pstrName, _T("placeholder")) == 0 ) {
 		SetPlaceholder(pstrValue);

@@ -37,6 +37,9 @@ public:
         if (pRichEdit) {
             pRichEdit->SetText(_T("这是一个多行文本编辑器示例。\r\n\r\n支持换行、复制、粘贴等功能。"));
         }
+
+        // 初始化字符计数 Label
+        UpdateCharCount();
     }
 
     // 消息响应
@@ -77,6 +80,9 @@ public:
 
             CLabelUI* pLabel = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("label_length")));
             if (pLabel) pLabel->SetText(_T("文本长度：0 字符，行数：0"));
+
+            // 更新字符计数
+            UpdateCharCount();
         }
         else if (sName == _T("btn_readonly"))
         {
@@ -118,6 +124,36 @@ public:
                 CDuiString strCount;
                 strCount.Format(_T("文本长度：%d 字符，行数：%d"), strText.GetLength(), pRichEdit->GetLineCount());
                 pLabel->SetText(strCount);
+            }
+
+            // 更新字符计数
+            UpdateCharCount();
+        }
+    }
+
+    // 更新字符计数显示
+    void UpdateCharCount()
+    {
+        CRichEditUI* pRichEdit = static_cast<CRichEditUI*>(m_PaintManager.FindControl(_T("richedit_main")));
+        CLabelUI* pCharCountLabel = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("label_char_count")));
+
+        if (pRichEdit && pCharCountLabel) {
+            int currentLength = pRichEdit->GetTextLength();
+            int maxLength = pRichEdit->GetLimitText();
+
+            CDuiString strCount;
+            strCount.Format(_T("%d/%d"), currentLength, maxLength);
+            pCharCountLabel->SetText(strCount);
+
+            // 根据字符数量改变颜色（可选）
+            if (currentLength >= maxLength) {
+                pCharCountLabel->SetTextColor(0xFFFF0000);  // 红色：达到上限
+            }
+            else if (currentLength >= maxLength * 0.9) {
+                pCharCountLabel->SetTextColor(0xFFFF9900);  // 橙色：接近上限
+            }
+            else {
+                pCharCountLabel->SetTextColor(0xFF999999);  // 灰色：正常
             }
         }
     }

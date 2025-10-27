@@ -25,10 +25,11 @@
 
             <!-- RichEdit 编辑器 -->
             <VerticalLayout>
-                <Label text="多行文本编辑器：" textcolor="#FF333333" height="25"/>
+                <Label text="多行文本编辑器（最多 200 字符）：" textcolor="#FF333333" height="25"/>
                 <RichEdit name="richedit_main"
                           placeholder="请输入文本内容..."
                           placeholdercolor="#FFAAAAAA"
+                          maxchar="200"
                           bordercolor="#FFD0D0D0"
                           bordersize="1"
                           borderround="4,4"
@@ -41,7 +42,9 @@
                           wantreturn="true"
                           rich="false"
                           readonly="false"
-                          font="0"/>        
+                          font="0"/>
+                <Label name="label_char_count" text="0/200" textcolor="#FF999999" height="20"
+                       align="right" padding="0,5,10,0"/>
             </VerticalLayout>
 
             <Control height="10"/>

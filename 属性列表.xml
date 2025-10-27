@@ -693,6 +693,8 @@
 		<Attribute name="textcolor" default="0x00000000" type="DWORD" comment="字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)"/>
 		<Attribute name="disabledtextcolor" default="0x00000000" type="DWORD" comment="disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)"/>
 		<Attribute name="textpadding" default="0,0,0,0" type="RECT" comment="文字显示的边距,如(2,2,2,2)"/>
+		<Attribute name="placeholder" default="" type="STRING" comment="未输入内容时默认显示的提示文案，如(请选择一个选项...)"/>
+		<Attribute name="placeholdercolor" default="0xFF000000" type="DWORD" comment="placeholder的颜色，如(0xFF1A1A1A)"/>
 		<Attribute name="showhtml" default="false" type="BOOL" comment="是否使用类html富文本绘制,如(false)"/>
 		<Attribute name="readonly" default="false" type="BOOL" comment="是否只读,如(false)"/>
 		<Attribute name="password" default="false" type="BOOL" comment="是否显示密码字符,如(false)"/>
@@ -1025,6 +1027,8 @@
 		<Attribute name="autovscroll" default="false" type="BOOL" comment="是否随输入竖向滚动,如(true)"/>
 		<Attribute name="hscrollbar" default="false" type="BOOL" comment="是否使用横向滚动条,如(true)"/>
 		<Attribute name="autohscroll" default="false" type="BOOL" comment="是否随输入横向滚动,如(true)"/>
+		<Attribute name="placeholder" default="" type="STRING" comment="未输入内容时默认显示的提示文案，如(请选择一个选项...)"/>
+		<Attribute name="placeholdercolor" default="0xFF000000" type="DWORD" comment="placeholder的颜色，如(0xFF1A1A1A)"/>
 		<Attribute name="childpadding" default="0" type="INT" comment="子控件之间的额外距离,如(4)"/>
 		<Attribute name="wanttab" default="true" type="BOOL" comment="是否接受tab按键消息,如(true)"/>
 		<Attribute name="wantreturn" default="true" type="BOOL" comment="是否接受return按键消息,如(true)"/>

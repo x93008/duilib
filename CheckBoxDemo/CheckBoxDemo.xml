@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="500,700" sizebox="4,4,4,4" caption="0,0,0,35" mininfo="400,500">
+    <Font shared="true" id="0" name="微软雅黑" size="12" default="true" />
+    <Font shared="true" id="1" name="微软雅黑" size="14" bold="true" />
+    <Font shared="true" id="2" name="微软雅黑" size="16" bold="true" />
+
+    <VerticalLayout bkcolor="#FFF5F5F5">
+        <!-- 标题栏 -->
+        <HorizontalLayout height="35" bkcolor="#FF2C8BED">
+            <Label text="CheckBox 复选框控件演示" font="1" textcolor="#FFFFFFFF" padding="10,0,0,0"/>
+            <Control />
+            <Button name="btn_close" text="×" width="35" height="35"
+                    textcolor="#FFFFFFFF" hottextcolor="#FFFF0000"
+                    normalimage="" hotimage="" pushedimage=""
+                    font="2"/>
+        </HorizontalLayout>
+
+        <!-- 内容区域 -->
+        <VerticalLayout padding="20,20,20,20">
+            <!-- 说明 -->
+            <Label text="CheckBox 复选框控件演示" font="1" textcolor="#FF333333" height="30"/>
+            <Label text="支持单选、多选、三态等多种模式" textcolor="#FF666666" height="25"/>
+
+            <Control height="15"/>
+
+            <!-- 基础示例和分组示例水平排列 -->
+            <HorizontalLayout height="210">
+                <!-- 基础示例 -->
+                <VerticalLayout>
+                    <Label text="基础复选框：" font="1" textcolor="#FF333333" height="30"/>
+                    <Control height="10"/>
+
+                    <CheckBox name="chk_option1" text="选项 1" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC" hottextcolor="#FFFF6600"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_option2" text="选项 2" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC" hottextcolor="#FFFF6600"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_option3" text="选项 3" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC" hottextcolor="#FFFF6600" selected="true"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_option4" text="选项 4（禁用）" height="25" textcolor="#FF999999"
+                              enabled="false"/>
+                    <Control />
+                </VerticalLayout>
+
+                <Control width="20"/>
+
+                <!-- 分组示例 -->
+                <VerticalLayout bordercolor="#FFD0D0D0" bordersize="1" borderround="5,5"
+                               bkcolor="#FFFFFFFF" padding="15,15,15,15">
+                    <Label text="兴趣爱好（多选）：" font="1" textcolor="#FF333333" height="30"/>
+                    <Control height="10"/>
+
+                    <CheckBox name="chk_hobby1" text="🎵 音乐" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_hobby2" text="🎬 电影" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_hobby3" text="📚 阅读" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_hobby4" text="🏃 运动" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC"/>
+                    <Control height="5"/>
+                    <CheckBox name="chk_hobby5" text="🎮 游戏" height="25" textcolor="#FF333333"
+                              selectedtextcolor="#FF0066CC"/>
+                </VerticalLayout>
+            </HorizontalLayout>
+
+            <Control height="20"/>
+
+            <!-- 协议同意 -->
+            <HorizontalLayout height="30">
+                <CheckBox name="chk_agree" text="我已阅读并同意" height="25" textcolor="#FF333333"
+                          hottextcolor="#FF0066CC"
+                          align="left"
+                          normalimage="file='Icon/unchecked.png' dest='0,4,16,20'"
+                          selectedimage="file='Icon/checked.png' dest='0,4,16,20'"
+                          textpadding="20,0,0,0"/>
+                <Label text="《用户协议》和《隐私政策》" textcolor="#FF0066CC" height="25"/>
+            </HorizontalLayout>
+
+            <Control height="20"/>
+
+            <!-- 按钮区域 -->
+            <HorizontalLayout height="40">
+                <Control />
+                <Button name="btn_get_selected" text="获取选中状态" width="120" height="35"
+                        borderround="4,4" bordersize="1" bordercolor="#FF2C8BED"
+                        textcolor="#FF2C8BED" hottextcolor="#FFFFFFFF"
+                        bkcolor="#FFFFFFFF" hotbkcolor="#FF2C8BED"/>
+                <Control width="10"/>
+                <Button name="btn_select_all" text="全选兴趣" width="100" height="35"
+                        borderround="4,4" bordersize="1" bordercolor="#FF28A745"
+                        textcolor="#FF28A745" hottextcolor="#FFFFFFFF"
+                        bkcolor="#FFFFFFFF" hotbkcolor="#FF28A745"/>
+                <Control width="10"/>
+                <Button name="btn_clear_all" text="清除全部" width="100" height="35"
+                        borderround="4,4" bordersize="1" bordercolor="#FFAAAAAA"
+                        textcolor="#FF666666" hottextcolor="#FFFFFFFF"
+                        bkcolor="#FFFFFFFF" hotbkcolor="#FFAAAAAA"/>
+                <Control />
+            </HorizontalLayout>
+
+            <Control height="15"/>
+
+            <!-- 结果显示区域 -->
+            <Container bordercolor="#FFD0D0D0" bordersize="1" borderround="4,4"
+                           bkcolor="#FFFAFAFA" inset="10,10,10,10">
+                <Text name="label_result" text="选中状态：无" textcolor="#FF666666"/>
+            </Container>
+
+            <Control />
+        </VerticalLayout>
+    </VerticalLayout>
+</Window>
+

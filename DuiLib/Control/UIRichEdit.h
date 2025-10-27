@@ -41,6 +41,10 @@ public:
     int GetLimitText();
     void SetLimitText(int iChars);
     long GetTextLength(DWORD dwFlags = GTL_DEFAULT) const;
+    void SetPlaceholder(LPCTSTR pstrPlaceholder);
+    LPCTSTR GetPlaceholder() const;
+    void SetPlaceholderColor(DWORD dwColor);
+    DWORD GetPlaceholderColor() const;
     CDuiString GetText() const;
     void SetText(LPCTSTR pstrText);
     bool IsModify() const;
@@ -151,6 +155,8 @@ protected:
 	bool m_bDrawCaret;
 	bool m_bInited;
 	RECT	m_rcTextPadding;
+	CDuiString m_sPlaceholder;
+	DWORD m_dwPlaceholderColor;
 };
 
 } // namespace DuiLib

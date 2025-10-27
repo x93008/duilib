@@ -27,6 +27,8 @@
             <VerticalLayout>
                 <Label text="多行文本编辑器：" textcolor="#FF333333" height="25"/>
                 <RichEdit name="richedit_main"
+                          placeholder="请输入文本内容..."
+                          placeholdercolor="#FFAAAAAA"
                           bordercolor="#FFD0D0D0"
                           bordersize="1"
                           borderround="4,4"
@@ -48,7 +50,9 @@
             <VerticalLayout height="120">
                 <Label text="只读文本区域：" textcolor="#FF333333" height="25"/>
                 <RichEdit name="richedit_readonly"
-                          text="这是一个只读的多行文本区域。&#x0D;&#x0A;&#x0D;&#x0A;您可以选择和复制文本，但不能编辑。"
+                          text="这是一个只读的多行文本区域。
+
+您可以选择和复制文本，但不能编辑。"
                           bordercolor="#FFD0D0D0"
                           bordersize="1"
                           borderround="4,4"

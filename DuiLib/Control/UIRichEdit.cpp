@@ -1078,7 +1078,7 @@ void CTxtWinHost::SetParaFormat(PARAFORMAT2 &p)
 
 CRichEditUI::CRichEditUI() : m_pTwh(NULL), m_bVScrollBarFixing(false), m_bWantTab(true), m_bWantReturn(true), 
     m_bWantCtrlReturn(true), m_bTransparent(true), m_bRich(true), m_bReadOnly(false), m_bWordWrap(false), m_dwTextColor(0), m_iFont(-1), 
-	m_iLimitText(cInitTextMax), m_lTwhStyle(ES_MULTILINE), m_bDrawCaret(true), m_bInited(false)
+	m_iLimitText(cInitTextMax), m_lTwhStyle(ES_MULTILINE), m_bDrawCaret(true), m_bInited(false), m_dwPlaceholderColor(0xFFAAAAAA)
 {
 	::ZeroMemory(&m_rcTextPadding, sizeof(m_rcTextPadding));
 }
@@ -1248,6 +1248,28 @@ void CRichEditUI::SetLimitText(int iChars)
     if( m_pTwh ) {
         m_pTwh->LimitText(m_iLimitText);
     }
+}
+
+void CRichEditUI::SetPlaceholder(LPCTSTR pstrPlaceholder)
+{
+    m_sPlaceholder = pstrPlaceholder;
+    Invalidate();
+}
+
+LPCTSTR CRichEditUI::GetPlaceholder() const
+{
+    return m_sPlaceholder.GetData();
+}
+
+void CRichEditUI::SetPlaceholderColor(DWORD dwColor)
+{
+    m_dwPlaceholderColor = dwColor;
+    Invalidate();
+}
+
+DWORD CRichEditUI::GetPlaceholderColor() const
+{
+    return m_dwPlaceholderColor;
 }
 
 long CRichEditUI::GetTextLength(DWORD dwFlags) const
@@ -2119,21 +2141,34 @@ bool CRichEditUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl
     if( m_pTwh ) {
         RECT rc;
         m_pTwh->GetControlRect(&rc);
-        // Remember wparam is actually the hdc and lparam is the update
-        // rect because this message has been preprocessed by the window.
-        m_pTwh->GetTextServices()->TxDraw(
-            DVASPECT_CONTENT,  		// Draw Aspect
-            /*-1*/0,				// Lindex
-            NULL,					// Info for drawing optimazation
-            NULL,					// target device information
-            hDC,			        // Draw device HDC
-            NULL, 				   	// Target device HDC
-            (RECTL*)&rc,			// Bounding client rectangle
-            NULL, 		            // Clipping rectangle for metafiles
-            (RECT*)&rcPaint,		// Update rectangle
-            NULL, 	   				// Call back function
-            NULL,					// Call back parameter
-            0);				        // What view of the object
+        // 绘制 placeholder
+        long lTextLen = GetTextLength();
+        if( lTextLen == 0 && !m_sPlaceholder.IsEmpty() && !IsFocused() ) {
+            // 绘制 placeholder 文本
+            // 注意：GetControlRect 返回的 rc 已经包含了 textpadding 的调整，所以直接使用即可
+            DWORD dwPlaceholderColor = m_dwPlaceholderColor;
+            if( dwPlaceholderColor == 0 ) dwPlaceholderColor = 0xFFAAAAAA;
+            CRenderEngine::DrawText(hDC, m_pManager, rc, m_sPlaceholder, 
+                dwPlaceholderColor, m_iFont, DT_LEFT | DT_TOP | DT_WORDBREAK | DT_EDITCONTROL);
+        }
+        else {
+            // 绘制正常的文本内容
+            // Remember wparam is actually the hdc and lparam is the update
+            // rect because this message has been preprocessed by the window.
+            m_pTwh->GetTextServices()->TxDraw(
+                DVASPECT_CONTENT,  		// Draw Aspect
+                /*-1*/0,				// Lindex
+                NULL,					// Info for drawing optimazation
+                NULL,					// target device information
+                hDC,			        // Draw device HDC
+                NULL, 				   	// Target device HDC
+                (RECTL*)&rc,			// Bounding client rectangle
+                NULL, 		            // Clipping rectangle for metafiles
+                (RECT*)&rcPaint,		// Update rectangle
+                NULL, 	   				// Call back function
+                NULL,					// Call back parameter
+                0);				        // What view of the object
+        }
         if( m_bVScrollBarFixing ) {
             LONG lWidth = rc.right - rc.left + m_pVerticalScrollBar->GetFixedWidth();
             LONG lHeight = 0;
@@ -2293,6 +2328,16 @@ void CRichEditUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 		rcTextPadding.right = _tcstol(pstr + 1, &pstr, 10);  ASSERT(pstr);    
 		rcTextPadding.bottom = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);    
 		SetTextPadding(rcTextPadding);
+	}
+	else if( _tcscmp(pstrName, _T("placeholder")) == 0 ) {
+		SetPlaceholder(pstrValue);
+	}
+	else if( _tcscmp(pstrName, _T("placeholdercolor")) == 0 ) {
+		while( *pstrValue > _T('\0') && *pstrValue <= _T(' ') ) pstrValue = ::CharNext(pstrValue);
+		if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+		LPTSTR pstr = NULL;
+		DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+		SetPlaceholderColor(clrColor);
 	}
     else CContainerUI::SetAttribute(pstrName, pstrValue);
 }

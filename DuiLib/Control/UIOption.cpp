@@ -142,7 +142,8 @@ namespace DuiLib
 
 	DWORD COptionUI::GetSelectedTextColor()
 	{
-		if (m_dwSelectedTextColor == 0) m_dwSelectedTextColor = m_pManager->GetDefaultFontColor();
+		// if (m_dwSelectedTextColor == 0) m_dwSelectedTextColor = m_pManager->GetDefaultFontColor();
+		// 这里不使用默认颜色，如果没有设置selectedtextcolor，则使用普通颜色
 		return m_dwSelectedTextColor;
 	}
 
@@ -244,11 +245,25 @@ Label_ForeImage:
 			rc.top += m_rcTextPadding.top;
 			rc.bottom -= m_rcTextPadding.bottom;
 
+		// 确定文本颜色：优先级 selected > pushed > hot > focused > default
+		// 但当 selectedtextcolor 未设置时，保持 pushed > hot > focused > default
+		DWORD clrColor = IsEnabled()?m_dwTextColor:m_dwDisabledTextColor;
+
+		// 如果选中且设置了选中颜色，优先使用选中颜色
+		if( IsSelected() && (GetSelectedTextColor() != 0) )
+			clrColor = GetSelectedTextColor();
+		else if( ((m_uButtonState & UISTATE_PUSHED) != 0) && (GetPushedTextColor() != 0) )
+			clrColor = GetPushedTextColor();
+		else if( ((m_uButtonState & UISTATE_HOT) != 0) && (GetHotTextColor() != 0) )
+			clrColor = GetHotTextColor();
+		else if( ((m_uButtonState & UISTATE_FOCUSED) != 0) && (GetFocusedTextColor() != 0) )
+			clrColor = GetFocusedTextColor();
+
 			if( m_bShowHtml )
-				CRenderEngine::DrawHtmlText(hDC, m_pManager, rc, m_sText, IsEnabled()?m_dwTextColor:m_dwDisabledTextColor, \
+				CRenderEngine::DrawHtmlText(hDC, m_pManager, rc, m_sText, clrColor, \
 				NULL, NULL, nLinks, m_iFont, m_uTextStyle);
 			else
-				CRenderEngine::DrawText(hDC, m_pManager, rc, m_sText, IsEnabled()?m_dwTextColor:m_dwDisabledTextColor, \
+				CRenderEngine::DrawText(hDC, m_pManager, rc, m_sText, clrColor, \
 				m_iFont, m_uTextStyle);
 
 			m_dwTextColor = oldTextColor;

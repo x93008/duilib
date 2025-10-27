@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="700,600" caption="0,0,0,35">
+    <Font shared="true" id="0" name="微软雅黑" size="12" default="true" />
+    <Font shared="true" id="1" name="微软雅黑" size="14" bold="true" />
+    <Font shared="true" id="2" name="微软雅黑" size="16" bold="true" />
+
+    <VerticalLayout bkcolor="#FFF5F5F5">
+        <!-- 标题栏 -->
+        <HorizontalLayout height="35" bkcolor="#FF2C8BED">
+            <Label text="RichEdit 多行文本编辑器演示" font="1" textcolor="#FFFFFFFF" padding="10,0,0,0"/>
+            <Control />
+            <Button name="btn_close" text="×" width="35" height="35"
+                    textcolor="#FFFFFFFF" hottextcolor="#FFFF0000"
+                    normalimage="" hotimage="" pushedimage=""
+                    font="2"/>
+        </HorizontalLayout>
+
+        <!-- 内容区域 -->
+        <VerticalLayout padding="20,20,20,20">
+            <!-- 说明 -->
+            <Label text="RichEdit 多行文本编辑控件演示" font="1" textcolor="#FF333333" height="30"/>
+            <Label text="支持多行文本编辑、换行、复制、粘贴等功能" textcolor="#FF666666" height="25"/>
+
+            <Control height="10"/>
+
+            <!-- RichEdit 编辑器 -->
+            <VerticalLayout>
+                <Label text="多行文本编辑器：" textcolor="#FF333333" height="25"/>
+                <RichEdit name="richedit_main"
+                          bordercolor="#FFD0D0D0"
+                          bordersize="1"
+                          borderround="4,4"
+                          bkcolor="#FFFFFFFF"
+                          textcolor="#FF333333"
+                          textpadding="10,10,10,10"
+                          vscrollbar="true"
+                          autovscroll="true"
+                          multiline="true"
+                          wantreturn="true"
+                          rich="false"
+                          readonly="false"
+                          font="0"/>        
+            </VerticalLayout>
+
+            <Control height="10"/>
+
+            <!-- 只读的RichEdit -->
+            <VerticalLayout height="120">
+                <Label text="只读文本区域：" textcolor="#FF333333" height="25"/>
+                <RichEdit name="richedit_readonly"
+                          text="这是一个只读的多行文本区域。&#x0D;&#x0A;&#x0D;&#x0A;您可以选择和复制文本，但不能编辑。"
+                          bordercolor="#FFD0D0D0"
+                          bordersize="1"
+                          borderround="4,4"
+                          bkcolor="#FFF5F5F5"
+                          textcolor="#FF666666"
+                          textpadding="10,10,10,10"
+                          vscrollbar="true"
+                          autovscroll="true"
+                          multiline="true"
+                          rich="false"
+                          readonly="true"
+                          height="90"
+                          font="0">
+                </RichEdit>
+            </VerticalLayout>
+
+            <Control height="20"/>
+
+            <!-- 按钮区域 -->
+            <HorizontalLayout height="40">
+                <Control />
+                <Button name="btn_get_text" text="获取文本" width="100" height="35"
+                        borderround="4,4"
+                        textcolor="#FFFFFFFF"
+                        normalimage="bkcolor=&quot;#FF2C8BED&quot;"
+                        hotimage="bkcolor=&quot;#FF1E7CD6&quot;"
+                        pushedimage="bkcolor=&quot;#FF1569BC&quot;"/>
+                <Control width="10"/>
+                <Button name="btn_append" text="追加文本" width="100" height="35"
+                        borderround="4,4"
+                        textcolor="#FFFFFFFF"
+                        normalimage="bkcolor=&quot;#FF28A745&quot;"
+                        hotimage="bkcolor=&quot;#FF218838&quot;"
+                        pushedimage="bkcolor=&quot;#FF1E7E34&quot;"/>
+                <Control width="10"/>
+                <Button name="btn_readonly" text="设为只读" width="100" height="35"
+                        borderround="4,4"
+                        textcolor="#FFFFFFFF"
+                        normalimage="bkcolor=&quot;#FFFFC107&quot;"
+                        hotimage="bkcolor=&quot;#FFE0A800&quot;"
+                        pushedimage="bkcolor=&quot;#FFC69500&quot;"/>
+                <Control width="10"/>
+                <Button name="btn_clear" text="清空" width="100" height="35"
+                        borderround="4,4"
+                        textcolor="#FF333333"
+                        normalimage="bkcolor=&quot;#FFE0E0E0&quot;"
+                        hotimage="bkcolor=&quot;#FFD0D0D0&quot;"
+                        pushedimage="bkcolor=&quot;#FFC0C0C0&quot;"/>
+                <Control />
+            </HorizontalLayout>
+
+            <Control height="15"/>
+
+            <!-- 结果显示区域 -->
+            <VerticalLayout bordercolor="#FFD0D0D0" bordersize="1" borderround="4,4"
+                           bkcolor="#FFFAFAFA" padding="10,10,10,10" height="60">
+                <Label name="label_length" text="文本长度：0 字符，行数：0" textcolor="#FF666666"
+                       align="left"/>
+            </VerticalLayout>
+
+            <Control />
+        </VerticalLayout>
+    </VerticalLayout>
+</Window>
+
+

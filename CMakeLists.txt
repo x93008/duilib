@@ -69,6 +69,7 @@ if (DUILIB_BUILD_EXAMPLES)
     add_subdirectory(ScrCapture)
     add_subdirectory(TestApp1)
     add_subdirectory(EditDemo)
+    add_subdirectory(RichEditDemo)
 endif()
 
 install(FILES ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION share/${PROJECT_NAME})

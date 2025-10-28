@@ -405,6 +405,9 @@
 		<Attribute name="bkcolor" default="0x00000000" type="DWORD" comment="背景颜色,如(0xFFFF0000)"/>
 		<Attribute name="bkcolor2" default="0x00000000" type="DWORD" comment="背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)"/>
 		<Attribute name="bkcolor3" default="0x00000000" type="DWORD" comment="背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)"/>
+		<Attribute name="hotbkcolor" default="0x00000000" type="DWORD" comment="hover背景色,如(0xFFFF00FF)"/>
+		<Attribute name="pushedbkcolor" default="0x00000000" type="DWORD" comment="按下背景色,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)"/>
+		<Attribute name="disabledbkcolor" default="0x00000000" type="DWORD" comment="禁用背景色,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)"/>
 		<Attribute name="bordercolor" default="0x00000000" type="DWORD" comment="边框颜色,如(0xFF000000)"/>
 		<Attribute name="hotbordercolor" default="0x00000000" type="DWORD" comment="hover时边框的颜色,如(0xFFFF0000)"/>
 		<Attribute name="pushedbordercolor" default="0x00000000" type="DWORD" comment="按下时边框的颜色,如(0xFFFF0000)"/>
@@ -530,6 +533,7 @@
 		<Attribute name="childpadding" default="0" type="INT" comment="子控件之间的额外距离,如(4)"/>
 		<Attribute name="hotbkcolor" default="0x00000000" type="DWORD" comment="hover背景颜色,如(0xFFFF0000)"/>
 		<Attribute name="pushedbkcolor" default="0x00000000" type="DWORD" comment="按下背景颜色,如(0xFFFF0000)"/>
+		<Attribute name="disabledbkcolor" default="0x00000000" type="DWORD" comment="禁用背景色,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)"/>
 		<Attribute name="normaltextcolor" default="0xFF000000" type="DWORD" comment="字体颜色,如(0xFFFF0000)"/>
 		<Attribute name="hottextcolor" default="0xFF000000" type="DWORD" comment="hover字体颜色,如(0xFFFF0000)"/>
 		<Attribute name="pushedtextcolor" default="0xFF000000" type="DWORD" comment="按下字体颜色,如(0xFFFF0000)"/>

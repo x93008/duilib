@@ -8,7 +8,6 @@ namespace DuiLib
 		, m_dwHotTextColor(0)
 		, m_dwPushedTextColor(0)
 		, m_dwFocusedTextColor(0)
-		, m_dwHotBkColor(0)
 		, m_uFadeAlphaDelta(0)
 		, m_uFadeAlpha(255)
 	{
@@ -162,16 +161,6 @@ namespace DuiLib
 		if( !IsEnabled() ) {
 			m_uButtonState = 0;
 		}
-	}
-
-	void CButtonUI::SetHotBkColor( DWORD dwColor )
-	{
-		m_dwHotBkColor = dwColor;
-	}
-
-	DWORD CButtonUI::GetHotBkColor() const
-	{
-		return m_dwHotBkColor;
 	}
 
 	void CButtonUI::SetHotTextColor(DWORD dwColor)
@@ -376,13 +365,6 @@ namespace DuiLib
 		else if( _tcscmp(pstrName, _T("hotforeimage")) == 0 ) SetHotForeImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("fivestatusimage")) == 0 ) SetFiveStatusImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("fadedelta")) == 0 ) SetFadeAlphaDelta((BYTE)_ttoi(pstrValue));
-		else if( _tcscmp(pstrName, _T("hotbkcolor")) == 0 )
-		{
-			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
-			LPTSTR pstr = NULL;
-			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
-			SetHotBkColor(clrColor);
-		}
 		else if( _tcscmp(pstrName, _T("hottextcolor")) == 0 )
 		{
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
@@ -471,17 +453,13 @@ namespace DuiLib
 					DrawImage(hDC, m_diHot);
 				}
 			}
-			else {
-				if (!DrawImage(hDC, m_diHot))
-					DrawImage(hDC, m_diNormal);
-			}
+		else {
+			if (!DrawImage(hDC, m_diHot))
+				DrawImage(hDC, m_diNormal);
+		}
 
-			if (DrawImage(hDC, m_diHotFore)) return;
-			else if(m_dwHotBkColor != 0) {
-				CRenderEngine::DrawColor(hDC, m_rcPaint, GetAdjustColor(m_dwHotBkColor));
-				return;
-			}
-			else goto Label_ForeImage;
+		if (DrawImage(hDC, m_diHotFore)) return;
+		else goto Label_ForeImage;
 		}
 		else if( (m_uButtonState & UISTATE_FOCUSED) != 0 ) {
 			if (DrawImage(hDC, m_diFocused)) goto Label_ForeImage;;

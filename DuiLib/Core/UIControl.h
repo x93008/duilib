@@ -47,6 +47,12 @@ public:
     void SetBkColor3(DWORD dwBackColor);
     LPCTSTR GetBkImage();
     void SetBkImage(LPCTSTR pStrImage);
+	DWORD GetHotBkColor() const;
+	void SetHotBkColor(DWORD dwBackColor);
+	DWORD GetPushedBkColor() const;
+	void SetPushedBkColor(DWORD dwBackColor);
+	DWORD GetDisabledBkColor() const;
+	void SetDisabledBkColor(DWORD dwBackColor);
 	DWORD GetFocusBorderColor() const;
 	void SetFocusBorderColor(DWORD dwBorderColor);
 	DWORD GetHotBorderColor() const;
@@ -227,6 +233,9 @@ protected:
 	DWORD m_dwFocusBorderColor;
 	DWORD m_dwHotBorderColor;
 	DWORD m_dwPushedBorderColor;
+	DWORD m_dwHotBkColor;
+	DWORD m_dwPushedBkColor;
+	DWORD m_dwDisabledBkColor;
     bool m_bColorHSL;
 	int m_nBorderStyle;
 	int m_nTooltipWidth;

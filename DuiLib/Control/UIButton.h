@@ -38,8 +38,6 @@ namespace DuiLib
 		void SetFadeAlphaDelta(BYTE uDelta);
 		BYTE GetFadeAlphaDelta();
 
-		void SetHotBkColor(DWORD dwColor);
-		DWORD GetHotBkColor() const;
 		void SetHotTextColor(DWORD dwColor);
 		DWORD GetHotTextColor() const;
 		void SetPushedTextColor(DWORD dwColor);
@@ -65,7 +63,6 @@ namespace DuiLib
 
 		UINT m_uButtonState;
 
-		DWORD m_dwHotBkColor;
 		DWORD m_dwHotTextColor;
 		DWORD m_dwPushedTextColor;
 		DWORD m_dwFocusedTextColor;

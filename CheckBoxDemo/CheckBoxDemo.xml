@@ -89,18 +89,18 @@
                 <Control />
                 <Button name="btn_get_selected" text="获取选中状态" width="120" height="35"
                         borderround="4,4" bordersize="1" bordercolor="#FF2C8BED"
-                        textcolor="#FF2C8BED" hottextcolor="#FFFFFFFF"
-                        bkcolor="#FFFFFFFF" hotbkcolor="#FF2C8BED"/>
+                        textcolor="#FF2C8BED" hottextcolor="#FFFFFFFF" pushedtextcolor="#FFFF0000"
+                        bkcolor="#FFFFFFFF" hotbkcolor="#FF2C8BED" pushedbkcolor="#FF1E7ACC"/>
                 <Control width="10"/>
                 <Button name="btn_select_all" text="全选兴趣" width="100" height="35"
                         borderround="4,4" bordersize="1" bordercolor="#FF28A745"
-                        textcolor="#FF28A745" hottextcolor="#FFFFFFFF"
-                        bkcolor="#FFFFFFFF" hotbkcolor="#FF28A745"/>
+                        textcolor="#FF28A745" hottextcolor="#FFFFFFFF" pushedtextcolor="#FFFFFFFF"
+                        bkcolor="#FFFFFFFF" hotbkcolor="#FF28A745" pushedbkcolor="#FF1E8535"/>
                 <Control width="10"/>
                 <Button name="btn_clear_all" text="清除全部" width="100" height="35"
                         borderround="4,4" bordersize="1" bordercolor="#FFAAAAAA"
-                        textcolor="#FF666666" hottextcolor="#FFFFFFFF"
-                        bkcolor="#FFFFFFFF" hotbkcolor="#FFAAAAAA"/>
+                        textcolor="#FF666666" hottextcolor="#FFFFFFFF" pushedtextcolor="#FFFFFFFF"
+                        bkcolor="#FFFFFFFF" hotbkcolor="#FFAAAAAA" pushedbkcolor="#FF888888"/>
                 <Control />
             </HorizontalLayout>
 

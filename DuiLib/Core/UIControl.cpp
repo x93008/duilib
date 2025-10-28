@@ -26,6 +26,9 @@ m_dwBorderColor(0),
 m_dwFocusBorderColor(0),
 m_dwHotBorderColor(0),
 m_dwPushedBorderColor(0),
+m_dwHotBkColor(0),
+m_dwPushedBkColor(0),
+m_dwDisabledBkColor(0),
 m_bColorHSL(false),
 m_nBorderStyle(PS_SOLID),
 m_nTooltipWidth(300)
@@ -256,6 +259,45 @@ void CControlUI::SetPushedBorderColor(DWORD dwBorderColor)
     if( m_dwPushedBorderColor == dwBorderColor ) return;
 
     m_dwPushedBorderColor = dwBorderColor;
+    Invalidate();
+}
+
+DWORD CControlUI::GetHotBkColor() const
+{
+    return m_dwHotBkColor;
+}
+
+void CControlUI::SetHotBkColor(DWORD dwBackColor)
+{
+    if( m_dwHotBkColor == dwBackColor ) return;
+
+    m_dwHotBkColor = dwBackColor;
+    Invalidate();
+}
+
+DWORD CControlUI::GetPushedBkColor() const
+{
+    return m_dwPushedBkColor;
+}
+
+void CControlUI::SetPushedBkColor(DWORD dwBackColor)
+{
+    if( m_dwPushedBkColor == dwBackColor ) return;
+
+    m_dwPushedBkColor = dwBackColor;
+    Invalidate();
+}
+
+DWORD CControlUI::GetDisabledBkColor() const
+{
+    return m_dwDisabledBkColor;
+}
+
+void CControlUI::SetDisabledBkColor(DWORD dwBackColor)
+{
+    if( m_dwDisabledBkColor == dwBackColor ) return;
+
+    m_dwDisabledBkColor = dwBackColor;
     Invalidate();
 }
 
@@ -987,6 +1029,24 @@ void CControlUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
         DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
         SetPushedBorderColor(clrColor);
     }
+    else if( _tcscmp(pstrName, _T("hotbkcolor")) == 0 ) {
+        if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+        LPTSTR pstr = NULL;
+        DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+        SetHotBkColor(clrColor);
+    }
+    else if( _tcscmp(pstrName, _T("pushedbkcolor")) == 0 ) {
+        if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+        LPTSTR pstr = NULL;
+        DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+        SetPushedBkColor(clrColor);
+    }
+    else if( _tcscmp(pstrName, _T("disabledbkcolor")) == 0 ) {
+        if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
+        LPTSTR pstr = NULL;
+        DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
+        SetDisabledBkColor(clrColor);
+    }
     else if( _tcscmp(pstrName, _T("colorhsl")) == 0 ) SetColorHSL(_tcscmp(pstrValue, _T("true")) == 0);
 	else if( _tcscmp(pstrName, _T("bordersize")) == 0 ) {
 		CDuiString nValue = pstrValue;
@@ -1129,21 +1189,43 @@ bool CControlUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl)
 
 void CControlUI::PaintBkColor(HDC hDC)
 {
-    if( m_dwBackColor != 0 ) {
-        if( m_dwBackColor2 != 0 ) {
-            if( m_dwBackColor3 != 0 ) {
+    // 根据控件状态选择背景颜色（优先级：Disabled > Pushed > Hot > Normal）
+    DWORD dwBackColor = m_dwBackColor;
+    DWORD dwBackColor2 = m_dwBackColor2;
+    DWORD dwBackColor3 = m_dwBackColor3;
+
+    // 根据状态覆盖背景颜色
+    if (!IsEnabled() && m_dwDisabledBkColor != 0) {
+        dwBackColor = m_dwDisabledBkColor;
+        dwBackColor2 = 0;  // 禁用状态下只使用单色
+        dwBackColor3 = 0;
+    }
+    else if (IsPushed() && m_dwPushedBkColor != 0) {
+        dwBackColor = m_dwPushedBkColor;
+        dwBackColor2 = 0;  // 交互状态下只使用单色
+        dwBackColor3 = 0;
+    }
+    else if (IsHot() && m_dwHotBkColor != 0) {
+        dwBackColor = m_dwHotBkColor;
+        dwBackColor2 = 0;  // 交互状态下只使用单色
+        dwBackColor3 = 0;
+    }
+
+    if( dwBackColor != 0 ) {
+        if( dwBackColor2 != 0 ) {
+            if( dwBackColor3 != 0 ) {
                 RECT rc = m_rcItem;
                 rc.bottom = (rc.bottom + rc.top) / 2;
-                CRenderEngine::DrawGradient(hDC, rc, GetAdjustColor(m_dwBackColor), GetAdjustColor(m_dwBackColor2), true, 8);
+                CRenderEngine::DrawGradient(hDC, rc, GetAdjustColor(dwBackColor), GetAdjustColor(dwBackColor2), true, 8);
                 rc.top = rc.bottom;
                 rc.bottom = m_rcItem.bottom;
-                CRenderEngine::DrawGradient(hDC, rc, GetAdjustColor(m_dwBackColor2), GetAdjustColor(m_dwBackColor3), true, 8);
+                CRenderEngine::DrawGradient(hDC, rc, GetAdjustColor(dwBackColor2), GetAdjustColor(dwBackColor3), true, 8);
             }
             else 
-                CRenderEngine::DrawGradient(hDC, m_rcItem, GetAdjustColor(m_dwBackColor), GetAdjustColor(m_dwBackColor2), true, 16);
+                CRenderEngine::DrawGradient(hDC, m_rcItem, GetAdjustColor(dwBackColor), GetAdjustColor(dwBackColor2), true, 16);
         }
-        else if( m_dwBackColor >= 0xFF000000 ) CRenderEngine::DrawColor(hDC, m_rcPaint, GetAdjustColor(m_dwBackColor));
-        else CRenderEngine::DrawColor(hDC, m_rcItem, GetAdjustColor(m_dwBackColor));
+        else if( dwBackColor >= 0xFF000000 ) CRenderEngine::DrawColor(hDC, m_rcPaint, GetAdjustColor(dwBackColor));
+        else CRenderEngine::DrawColor(hDC, m_rcItem, GetAdjustColor(dwBackColor));
     }
 }
 

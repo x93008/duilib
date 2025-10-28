@@ -7,10 +7,6 @@ namespace DuiLib
     : m_bHot(false)
     , m_bPushed(false)
     , m_bFocused(false)
-    , m_dwNormalBkColor(0x00000000)
-    , m_dwHotBkColor(0x10000000)
-    , m_dwPushedBkColor(0x20000000)
-    , m_dwDisabledBkColor(0x08000000)
     , m_dwNormalTextColor(0xFF000000)
     , m_dwHotTextColor(0xFF000000)
     , m_dwPushedTextColor(0xFF000000)
@@ -39,19 +35,8 @@ UINT CContainerButtonUI::GetControlFlags() const
 
 void CContainerButtonUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 {
-    if (_tcscmp(pstrName, _T("normalbkcolor")) == 0) {
-        SetNormalBkColor(ParseColor(pstrValue));
-    }
-    else if (_tcscmp(pstrName, _T("hotbkcolor")) == 0) {
-        SetHotBkColor(ParseColor(pstrValue));
-    }
-    else if (_tcscmp(pstrName, _T("pushedbkcolor")) == 0) {
-        SetPushedBkColor(ParseColor(pstrValue));
-    }
-    else if (_tcscmp(pstrName, _T("disabledbkcolor")) == 0) {
-        SetDisabledBkColor(ParseColor(pstrValue));
-    }
-    else if (_tcscmp(pstrName, _T("normaltextcolor")) == 0) {
+    // 文本颜色属性（用于子控件）
+    if (_tcscmp(pstrName, _T("normaltextcolor")) == 0) {
         SetNormalTextColor(ParseColor(pstrValue));
     }
     else if (_tcscmp(pstrName, _T("hottextcolor")) == 0) {
@@ -64,7 +49,7 @@ void CContainerButtonUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
         SetDisabledTextColor(ParseColor(pstrValue));
     }
     else {
-        // 其他属性传递给基类
+        // 其他属性（包括 hotbkcolor、pushedbkcolor、disabledbkcolor）传递给基类
         CContainerUI::SetAttribute(pstrName, pstrValue);
     }
 }
@@ -206,30 +191,6 @@ DWORD CContainerButtonUI::ParseColor(LPCTSTR pstrColor)
     return clrColor;
 }
 
-void CContainerButtonUI::SetNormalBkColor(DWORD dwColor)
-{
-    m_dwNormalBkColor = dwColor;
-    Invalidate();
-}
-
-void CContainerButtonUI::SetHotBkColor(DWORD dwColor)
-{
-    m_dwHotBkColor = dwColor;
-    Invalidate();
-}
-
-void CContainerButtonUI::SetPushedBkColor(DWORD dwColor)
-{
-    m_dwPushedBkColor = dwColor;
-    Invalidate();
-}
-
-void CContainerButtonUI::SetDisabledBkColor(DWORD dwColor)
-{
-    m_dwDisabledBkColor = dwColor;
-    Invalidate();
-}
-
 void CContainerButtonUI::SetNormalTextColor(DWORD dwColor)
 {
     m_dwNormalTextColor = dwColor;
@@ -252,29 +213,6 @@ void CContainerButtonUI::SetDisabledTextColor(DWORD dwColor)
 {
     m_dwDisabledTextColor = dwColor;
     UpdateChildrenState();
-}
-
-void CContainerButtonUI::PaintBkColor(HDC hDC)
-{
-    // 先调用基类的PaintBkColor，绘制基础背景
-    CContainerUI::PaintBkColor(hDC);
-    
-    // 然后绘制按钮状态背景色
-    DWORD dwBackColor = m_dwNormalBkColor;
-    
-    if (!IsEnabled()) {
-        dwBackColor = m_dwDisabledBkColor;
-    }
-    else if (m_bPushed) {
-        dwBackColor = m_dwPushedBkColor;
-    }
-    else if (m_bHot) {
-        dwBackColor = m_dwHotBkColor;
-    }
-    
-    if (dwBackColor != 0) {
-        CRenderEngine::DrawColor(hDC, m_rcItem, dwBackColor);
-    }
 }
 
 void CContainerButtonUI::PaintText(HDC hDC)

@@ -528,7 +528,6 @@
 		<Attribute name="vscrollbar" default="false" type="BOOL" comment="是否使用竖向滚动条,如(true)"/>
 		<Attribute name="hscrollbar" default="false" type="BOOL" comment="是否使用横向滚动条,如(true)"/>
 		<Attribute name="childpadding" default="0" type="INT" comment="子控件之间的额外距离,如(4)"/>
-		<Attribute name="normalbkcolor" default="0x00000000" type="DWORD" comment="背景颜色,如(0xFFFF0000)"/>
 		<Attribute name="hotbkcolor" default="0x00000000" type="DWORD" comment="hover背景颜色,如(0xFFFF0000)"/>
 		<Attribute name="pushedbkcolor" default="0x00000000" type="DWORD" comment="按下背景颜色,如(0xFFFF0000)"/>
 		<Attribute name="normaltextcolor" default="0xFF000000" type="DWORD" comment="字体颜色,如(0xFFFF0000)"/>

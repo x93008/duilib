@@ -18,12 +18,7 @@ public:
     virtual void DoEvent(TEventUI& event) override;
     virtual bool Activate() override;
     
-    // 按钮状态设置
-    void SetNormalBkColor(DWORD dwColor);
-    void SetHotBkColor(DWORD dwColor);
-    void SetPushedBkColor(DWORD dwColor);
-    void SetDisabledBkColor(DWORD dwColor);
-    
+    // 文本颜色设置（用于子控件）
     void SetNormalTextColor(DWORD dwColor);
     void SetHotTextColor(DWORD dwColor);
     void SetPushedTextColor(DWORD dwColor);
@@ -34,7 +29,6 @@ public:
     virtual bool IsPushed() const override { return m_bPushed; }
     
 protected:
-    virtual void PaintBkColor(HDC hDC);
     virtual void PaintText(HDC hDC);
     void UpdateChildrenState();
     void UpdateContainerTextColor(CContainerUI* pContainer, DWORD dwColor);
@@ -46,21 +40,11 @@ protected:
     bool m_bPushed;
     bool m_bFocused;
     
-    // 背景颜色
-    DWORD m_dwNormalBkColor;
-    DWORD m_dwHotBkColor;
-    DWORD m_dwPushedBkColor;
-    DWORD m_dwDisabledBkColor;
-    
-    // 文字颜色
+    // 文字颜色（用于子控件）
     DWORD m_dwNormalTextColor;
     DWORD m_dwHotTextColor;
     DWORD m_dwPushedTextColor;
     DWORD m_dwDisabledTextColor;
-    
-    // 缓存原始颜色（用于恢复）
-    CDuiPtrArray m_OriginalTextColors;
-    CDuiPtrArray m_OriginalBkColors;
 };
 
 }	// namespace DuiLib

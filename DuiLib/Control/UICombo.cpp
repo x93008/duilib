@@ -1332,19 +1332,15 @@ void CComboUI::PaintText(HDC hDC)
             if( m_dwTextColor != 0 ) {
                 CDuiString sText = pControl->GetText();
                 if( !sText.IsEmpty() ) {
-                    RECT rcTextDraw = rcText;
-                    rcTextDraw.left += m_ListInfo.rcTextPadding.left;
-                    rcTextDraw.right -= m_ListInfo.rcTextPadding.right;
-                    rcTextDraw.top += m_ListInfo.rcTextPadding.top;
-                    rcTextDraw.bottom -= m_ListInfo.rcTextPadding.bottom;
-
+                    // 注意：rcText 已经应用过 m_rcTextPadding，这里直接使用即可
+                    // 不应该再叠加 m_ListInfo.rcTextPadding（itemtextpadding）
                     if( m_ListInfo.bShowHtml ) {
                         int nLinks = 0;
-                        CRenderEngine::DrawHtmlText(hDC, m_pManager, rcTextDraw, sText, m_dwTextColor, 
+                        CRenderEngine::DrawHtmlText(hDC, m_pManager, rcText, sText, m_dwTextColor, 
                             NULL, NULL, nLinks, m_ListInfo.nFont, m_ListInfo.uTextStyle);
                     }
                     else {
-                        CRenderEngine::DrawText(hDC, m_pManager, rcTextDraw, sText, m_dwTextColor, 
+                        CRenderEngine::DrawText(hDC, m_pManager, rcText, sText, m_dwTextColor, 
                             m_ListInfo.nFont, m_ListInfo.uTextStyle);
                     }
                 }

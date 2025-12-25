@@ -75,6 +75,11 @@ namespace DuiLib
 	void CRotateImageUI::DoInit()
 	{
 		InitImage();
+		// 如果设置了 autoplay 属性，自动启动旋转
+		if (m_bIsAutoPlay && IsVisible() && m_pImage)
+		{
+			StartRotation();
+		}
 	}
 
 	bool CRotateImageUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl)
@@ -213,13 +218,6 @@ namespace DuiLib
 	void CRotateImageUI::InitImage()
 	{
 		m_pImage = LoadImageFromFile(GetBkImage());
-		if (NULL == m_pImage) return;
-
-		// 如果设置了 autoplay 属性，自动启动旋转
-		if (m_bIsAutoPlay && IsVisible())
-		{
-			StartRotation();
-		}
 	}
 
 	void CRotateImageUI::DeleteImage()

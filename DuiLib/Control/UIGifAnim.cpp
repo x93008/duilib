@@ -5,7 +5,7 @@
 DECLARE_HANDLE(HZIP);	// An HZIP identifies a zip file that has been opened
 typedef DWORD ZRESULT;
 typedef struct
-{ 
+{
 	int index;                 // index of this file within the zip
 	char name[MAX_PATH];       // filename within the zip
 	DWORD attr;                // attributes, as in GetFileAttributes.
@@ -14,7 +14,7 @@ typedef struct
 	long unc_size;             // may be -1 if not yet known (e.g. being streamed in)
 } ZIPENTRY;
 typedef struct
-{ 
+{
 	int index;                 // index of this file within the zip
 	TCHAR name[MAX_PATH];      // filename within the zip
 	DWORD attr;                // attributes, as in GetFileAttributes.
@@ -48,8 +48,8 @@ namespace DuiLib
 	{
 		m_pGifImage			=	NULL;
 		m_pPropertyItem		=	NULL;
-		m_nFrameCount		=	0;	
-		m_nFramePosition	=	0;	
+		m_nFrameCount		=	0;
+		m_nFramePosition	=	0;
 		m_bIsAutoPlay		=	true;
 		m_bIsAutoSize		=	false;
 		m_bIsPlaying		=	false;
@@ -84,7 +84,7 @@ namespace DuiLib
 	bool CGifAnimUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl)
 	{
 		if ( NULL == m_pGifImage )
-		{		
+		{
 			InitGifImage();
 		}
 		DrawFrame( hDC );
@@ -243,8 +243,8 @@ namespace DuiLib
 			free( m_pPropertyItem );
 			m_pPropertyItem = NULL;
 		}
-		m_nFrameCount		=	0;	
-		m_nFramePosition	=	0;	
+		m_nFrameCount		=	0;
+		m_nFramePosition	=	0;
 	}
 
 	void CGifAnimUI::OnTimer( UINT_PTR idEvent )
@@ -266,7 +266,7 @@ namespace DuiLib
 		if ( NULL == hDC || NULL == m_pGifImage ) return;
 		GUID pageGuid = Gdiplus::FrameDimensionTime;
 		m_pGifImage->SelectActiveFrame( &pageGuid, m_nFramePosition );
-		
+
 		Gdiplus::Graphics graphics( hDC );
 		// 根据属性设置决定是否开启抗锯齿
 		if (m_bEnableAntiAlias)
@@ -277,7 +277,7 @@ namespace DuiLib
 			graphics.SetPixelOffsetMode(Gdiplus::PixelOffsetModeHighQuality);
 			graphics.SetCompositingQuality(Gdiplus::CompositingQualityHighQuality);
 		}
-		
+
 		// 检查是否有圆角设置
 		SIZE borderRound = GetBorderRound();
 		if (borderRound.cx > 0 || borderRound.cy > 0)
@@ -286,13 +286,13 @@ namespace DuiLib
 			Gdiplus::GraphicsPath path;
 			int radiusX = borderRound.cx;
 			int radiusY = borderRound.cy;
-			
+
 			// 确保圆角不超过控件大小的一半
 			int width = m_rcItem.right - m_rcItem.left;
 			int height = m_rcItem.bottom - m_rcItem.top;
 			if (radiusX * 2 > width) radiusX = width / 2;
 			if (radiusY * 2 > height) radiusY = height / 2;
-			
+
 			// 创建圆角矩形路径（从左上角开始，顺时针）
 			float left = (float)m_rcItem.left;
 			float top = (float)m_rcItem.top;
@@ -300,7 +300,7 @@ namespace DuiLib
 			float bottom = (float)m_rcItem.bottom;
 			float diameterX = (float)(radiusX * 2);
 			float diameterY = (float)(radiusY * 2);
-			
+
 			// 左上角
 			path.AddArc(left, top, diameterX, diameterY, 180, 90);
 			// 右上角
@@ -310,14 +310,14 @@ namespace DuiLib
 			// 左下角
 			path.AddArc(left, bottom - diameterY, diameterX, diameterY, 90, 90);
 			path.CloseFigure();
-			
+
 			// 设置裁剪区域
 			graphics.SetClip(&path);
 		}
-		
-		graphics.DrawImage( m_pGifImage, (float)m_rcItem.left, (float)m_rcItem.top, 
+
+		graphics.DrawImage( m_pGifImage, (float)m_rcItem.left, (float)m_rcItem.top,
 			(float)(m_rcItem.right-m_rcItem.left), (float)(m_rcItem.bottom-m_rcItem.top) );
-		
+
 		// 恢复裁剪区域
 		graphics.ResetClip();
 	}
@@ -327,7 +327,7 @@ namespace DuiLib
 		LPBYTE pData = NULL;
 		DWORD dwSize = 0;
 
-		do 
+		do
 		{
 			CDuiString sFile = CPaintManagerUI::GetResourcePath();
 			if( CPaintManagerUI::GetResourceZip().IsEmpty() ) {
@@ -359,8 +359,8 @@ namespace DuiLib
 				if( CPaintManagerUI::IsCachedResourceZip() ) hz = (HZIP)CPaintManagerUI::GetResourceZipHandle();
 				else hz = OpenZip((void*)sFile.GetData(), 0, 2);
 				if( hz == NULL ) break;
-				ZIPENTRY ze; 
-				int i; 
+				ZIPENTRY ze;
+				int i;
 				if( FindZipItem(hz, pstrGifPath, true, &i, &ze) != 0 ) break;
 				dwSize = ze.unc_size;
 				if( dwSize == 0 ) break;
@@ -379,7 +379,7 @@ namespace DuiLib
 
 		while (!pData)
 		{
-			//读不到图片, 则直接去读取bitmap.m_lpstr指向的路径 
+			//读不到图片, 则直接去读取bitmap.m_lpstr指向的路径
 			HANDLE hFile = ::CreateFile(pstrGifPath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, \
 				FILE_ATTRIBUTE_NORMAL, NULL);
 			if( hFile == INVALID_HANDLE_VALUE ) break;

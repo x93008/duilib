@@ -50,6 +50,7 @@ namespace DuiLib
 		bool			m_bIsAutoPlay;				// Auto play GIF
 		bool			m_bIsAutoSize;				// Auto resize to image size
 		bool			m_bIsPlaying;
+		bool			m_bEnableAntiAlias;		// Enable anti-aliasing
 		IStream*	m_pStream;
 	};
 }

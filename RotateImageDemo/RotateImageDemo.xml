@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="800,700" caption="0,0,0,35">
+    <Font shared="true" id="0" name="微软雅黑" size="12" default="true" />
+    <Font shared="true" id="1" name="微软雅黑" size="14" bold="true" />
+    <Font shared="true" id="2" name="微软雅黑" size="16" bold="true" />
+
+    <VerticalLayout bkcolor="#FFF5F5F5">
+        <!-- 标题栏 -->
+        <HorizontalLayout height="35" bkcolor="#FF2C8BED">
+            <Label text="RotateImage 旋转图片控件演示" font="1" textcolor="#FFFFFFFF" padding="10,0,0,0"/>
+            <Control />
+            <Button name="btn_close" text="×" width="35" height="35"
+                    textcolor="#FFFFFFFF" hottextcolor="#FFFF0000"
+                    normalimage="" hotimage="" pushedimage=""
+                    font="2"/>
+        </HorizontalLayout>
+
+        <!-- 说明 -->
+        <Label text="RotateImage 旋转图片控件演示" font="1" textcolor="#FF333333" height="30"/>
+        <Label text="支持自动旋转、切换图片、启用/禁用旋转、设置旋转速度和角度等功能" textcolor="#FF666666" height="25"/>
+
+        <Control height="10"/>
+
+        <!-- 旋转图片显示区域 -->
+        <Label text="旋转图片显示区域：" textcolor="#FF333333" height="25"/>
+        <HorizontalLayout height="50">
+            <Control />
+            <RotateImage name="rotateimage_main"
+                            bkimage="loading.png"
+                            rotationspeed="90"
+                            autoplay="true"
+                            rotationenabled="true"
+                            width="30"
+                            height="30"/>
+            <Control />
+        </HorizontalLayout>
+        <Control height="15" />
+
+        <!-- 状态显示区域 -->
+        <VerticalLayout bordercolor="#FFD0D0D0" bordersize="1" borderround="4,4"
+                        bkcolor="#FFFAFAFA" padding="10,10,10,10" height="80">
+            <Label name="label_status" text="状态：旋转启用=是, 自动播放=是, 当前角度=0.0°, 旋转速度=90.0°/秒" 
+                    textcolor="#FF666666" align="left" height="25"/>
+            <Label name="label_image" text="当前图片：loading.png" 
+                    textcolor="#FF666666" align="left" height="25"/>
+        </VerticalLayout>
+
+        <Control height="15"/>
+
+        <!-- 控制按钮区域 -->
+        <!-- 图片切换按钮 -->
+        <Label text="切换图片：" textcolor="#FF333333" height="25" font="1"/>
+        <HorizontalLayout height="50">
+            <Control />
+            <Button name="btn_image_loading" width="30" height="30"
+                    normalimage="loading.png"
+                    hotimage="loading.png"
+                    pushedimage="loading.png"
+                    borderround="4,4"/>
+            <Control width="10" />
+            <Button name="btn_image_success" width="30" height="30"
+                    normalimage="success.png"
+                    hotimage="success.png"
+                    pushedimage="success.png"
+                    borderround="4,4"/>
+            <Control width="10" />
+            <Button name="btn_image_fail" width="30" height="30"
+                    normalimage="fail.png"
+                    hotimage="fail.png"
+                    pushedimage="fail.png"
+                    borderround="4,4"/>
+            <Control width="10" />
+            <Button name="btn_change_image1" text="图片1" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF20C997" />
+            <Control width="10" />
+            <Button name="btn_change_image2" text="图片2" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF20C997" />
+            <Control width="10" />
+            <Button name="btn_change_image3" text="图片3" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF20C997" />
+            <Control />
+        </HorizontalLayout>
+
+        <Control height="10"/>
+
+        <!-- 旋转控制 -->
+        <Label text="旋转控制：" textcolor="#FF333333" height="25" font="1"/>
+        <HorizontalLayout height="40" bkcolor="#FFFF4400">
+            <Control />
+            <Button name="btn_start_rotate" text="开始旋转" width="120" height="40"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF28A745"
+                    font="1"/>
+            <Control width="10"/>
+            <Button name="btn_stop_rotate" text="停止旋转" width="120" height="40"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FFDC3545"
+                    font="1"/>
+            <Control width="10"/>
+            <Button name="btn_enable" text="禁用旋转" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FFFFC107"
+                    />
+            <Control />
+        </HorizontalLayout>
+
+        <Control height="10"/>
+
+        <!-- 旋转速度控制 -->
+        <Label text="旋转速度：" textcolor="#FF333333" height="25" font="1"/>
+        <!-- 预设速度 -->
+        <HorizontalLayout height="40">
+            <Control />
+            <Button name="btn_speed_slow" text="慢速 (30°/秒)" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FF000000"
+                    bkcolor="#FF17A2B8"
+                    />
+            <Control width="10"/>
+            <Button name="btn_speed_normal" text="正常 (90°/秒)" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FF000000"
+                    bkcolor="#FF2C8BED"
+                    />
+            <Control width="10"/>
+            <Button name="btn_speed_fast" text="快速 (180°/秒)" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FF000000"
+                    bkcolor="#FF6F42C1"
+                    />
+            <Control />
+        </HorizontalLayout>
+        <Control height="5"/>
+        <!-- 速度微调 -->
+        <HorizontalLayout height="40">
+            <Control />
+            <Button name="btn_speed_decrease" text="减速 (-10°/秒)" width="120" height="35"
+                    borderround="4,4"
+                    textcolor="#FF000000"
+                    bkcolor="#FF6C757D"
+                    />
+            <Control width="10"/>
+            <Button name="btn_speed_increase" text="加速 (+10°/秒)" width="120" height="35"
+                    borderround="4,4"
+                    textcolor="#FF000000"
+                    bkcolor="#FF6C757D"
+                    />
+            <Control />
+        </HorizontalLayout>
+
+        <Control height="10"/>
+
+        <!-- 角度设置 -->
+        <Label text="角度设置：" textcolor="#FF333333" height="25" font="1"/>
+        <HorizontalLayout height="40">
+            <Control />
+            <Button name="btn_angle_0" text="0°" width="80" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF6C757D" />
+            <Control width="10"/>
+            <Button name="btn_angle_90" text="90°" width="80" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF6C757D" />
+            <Control width="10"/>
+            <Button name="btn_angle_180" text="180°" width="80" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF6C757D" />
+            <Control width="10"/>
+            <Button name="btn_angle_270" text="270°" width="80" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF6C757D" />
+            <Control />
+        </HorizontalLayout>
+
+        <Control />
+    </VerticalLayout>
+</Window>
+

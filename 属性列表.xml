@@ -1167,5 +1167,7 @@
 		<Attribute name="bkimage" default="" type="STRING" comment="Gif动画图片路径(不支持source等属性设置)"/>
 		<Attribute name="autoplay" default="true" type="BOOL" comment="是否自动播放GIF动画"/>
 		<Attribute name="autosize" default="false" type="BOOL" comment="是否根据图片自动设置控件大小(开启后width和height属性失效)"/>
+		<Attribute name="antialias" default="false" type="BOOL" comment="是否开启抗锯齿操作(对图片存储缩放的场景才有用)"/>
+		<Attribute name="borderround" default="0,0" type="SIZE" comment="边框圆角半径,如(2,2)"/>
 	</GifAnim>
 </Controls>

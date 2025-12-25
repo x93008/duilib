@@ -53,7 +53,7 @@ namespace DuiLib
 		bool			m_bIsAutoPlay;			// 是否自动旋转
 		bool			m_bIsRotating;			// 是否正在旋转
 		bool			m_bRotationEnabled;		// 是否启用旋转
-		bool			m_needStartWhenShow;	// 当show时，是否需要启动旋转
+		bool			m_bShouldResumeOnShow;	// 当show时，是否需要启动旋转
 		IStream*		m_pStream;
 	};
 

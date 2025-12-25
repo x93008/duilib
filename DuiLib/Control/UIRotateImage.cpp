@@ -51,7 +51,7 @@ namespace DuiLib
 		m_fRotationSpeed	= 90.0f;		// 默认90度/秒
 		m_bIsAutoPlay		= true;
 		m_bIsRotating		= false;
-		m_needStartWhenShow	= false;
+		m_bShouldResumeOnShow	= false;
 		m_pStream			= NULL;
 	}
 
@@ -100,10 +100,10 @@ namespace DuiLib
 		if (!bVisible && m_bIsRotating) {
 			// 因为隐藏导致的结束旋转，需要在下一次show时重新启动旋转
 			StopRotation();
-			m_needStartWhenShow = true;
+			m_bShouldResumeOnShow = true;
 		}
-		else if (bVisible && m_needStartWhenShow) {
-			m_needStartWhenShow = false;
+		else if (bVisible && m_bShouldResumeOnShow) {
+			m_bShouldResumeOnShow = false;
 			StartRotation();
 		}
 	}
@@ -202,7 +202,7 @@ namespace DuiLib
 
 		m_pManager->KillTimer(this, ROTATE_IMAGE_TIMER_ID);
 		m_bIsRotating = false;
-		m_needStartWhenShow = false;
+		m_bShouldResumeOnShow = false;
 	}
 
 	bool CRotateImageUI::IsRotating() const

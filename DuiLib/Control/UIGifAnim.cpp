@@ -53,6 +53,7 @@ namespace DuiLib
 		m_bIsAutoPlay		=	true;
 		m_bIsAutoSize		=	false;
 		m_bIsPlaying		=	false;
+		m_bEnableAntiAlias	=	false;	// 默认关闭抗锯齿
 		m_pStream				=	NULL;
 	}
 
@@ -113,6 +114,9 @@ namespace DuiLib
 		}
 		else if( _tcscmp(pstrName, _T("autosize")) == 0 ) {
 			SetAutoSize(_tcscmp(pstrValue, _T("true")) == 0);
+		}
+		else if( _tcscmp(pstrName, _T("antialias")) == 0 ) {
+			m_bEnableAntiAlias = (_tcscmp(pstrValue, _T("true")) == 0);
 		}
 		else
 			CControlUI::SetAttribute(pstrName, pstrValue);
@@ -261,9 +265,61 @@ namespace DuiLib
 	{
 		if ( NULL == hDC || NULL == m_pGifImage ) return;
 		GUID pageGuid = Gdiplus::FrameDimensionTime;
-		Gdiplus::Graphics graphics( hDC );
-		graphics.DrawImage( m_pGifImage, m_rcItem.left, m_rcItem.top, m_rcItem.right-m_rcItem.left, m_rcItem.bottom-m_rcItem.top );
 		m_pGifImage->SelectActiveFrame( &pageGuid, m_nFramePosition );
+		
+		Gdiplus::Graphics graphics( hDC );
+		// 根据属性设置决定是否开启抗锯齿
+		if (m_bEnableAntiAlias)
+		{
+			// 设置高质量抗锯齿和插值模式
+			graphics.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+			graphics.SetInterpolationMode(Gdiplus::InterpolationModeHighQualityBicubic);
+			graphics.SetPixelOffsetMode(Gdiplus::PixelOffsetModeHighQuality);
+			graphics.SetCompositingQuality(Gdiplus::CompositingQualityHighQuality);
+		}
+		
+		// 检查是否有圆角设置
+		SIZE borderRound = GetBorderRound();
+		if (borderRound.cx > 0 || borderRound.cy > 0)
+		{
+			// 创建圆角路径
+			Gdiplus::GraphicsPath path;
+			int radiusX = borderRound.cx;
+			int radiusY = borderRound.cy;
+			
+			// 确保圆角不超过控件大小的一半
+			int width = m_rcItem.right - m_rcItem.left;
+			int height = m_rcItem.bottom - m_rcItem.top;
+			if (radiusX * 2 > width) radiusX = width / 2;
+			if (radiusY * 2 > height) radiusY = height / 2;
+			
+			// 创建圆角矩形路径（从左上角开始，顺时针）
+			float left = (float)m_rcItem.left;
+			float top = (float)m_rcItem.top;
+			float right = (float)m_rcItem.right;
+			float bottom = (float)m_rcItem.bottom;
+			float diameterX = (float)(radiusX * 2);
+			float diameterY = (float)(radiusY * 2);
+			
+			// 左上角
+			path.AddArc(left, top, diameterX, diameterY, 180, 90);
+			// 右上角
+			path.AddArc(right - diameterX, top, diameterX, diameterY, 270, 90);
+			// 右下角
+			path.AddArc(right - diameterX, bottom - diameterY, diameterX, diameterY, 0, 90);
+			// 左下角
+			path.AddArc(left, bottom - diameterY, diameterX, diameterY, 90, 90);
+			path.CloseFigure();
+			
+			// 设置裁剪区域
+			graphics.SetClip(&path);
+		}
+		
+		graphics.DrawImage( m_pGifImage, (float)m_rcItem.left, (float)m_rcItem.top, 
+			(float)(m_rcItem.right-m_rcItem.left), (float)(m_rcItem.bottom-m_rcItem.top) );
+		
+		// 恢复裁剪区域
+		graphics.ResetClip();
 	}
 
 	Gdiplus::Image* CGifAnimUI::LoadGifFromFile(LPCTSTR pstrGifPath)

@@ -1170,4 +1170,12 @@
 		<Attribute name="antialias" default="false" type="BOOL" comment="是否开启抗锯齿操作(对图片存储缩放的场景才有用)"/>
 		<Attribute name="borderround" default="0,0" type="SIZE" comment="边框圆角的椭圆宽高,如(2,2),每太大效果，播放一会儿之后就变成方角了"/>
 	</GifAnim>
+	<RotateImage parent="Control" notifies="setfocus killfocus timer menu windowinit(root)">
+		<Attribute name="bkimage" default="" type="STRING" comment="图片路径"/>
+		<Attribute name="autoplay" default="true" type="BOOL" comment="是否自动旋转"/>
+		<Attribute name="width" default="0" type="INT" comment="控件预设的宽度，如(100)"/>
+		<Attribute name="height" default="0" type="INT" comment="控件预设的高度，如(30)"/>
+        <Attribute name="rotationspeed" default="90" type="FLOAT" comment="旋转速度，默认90度每秒"/>
+        <Attribute name="angle" default="0" type="FLOAT" comment="初始角度"/>
+	</RotateImage>
 </Controls>

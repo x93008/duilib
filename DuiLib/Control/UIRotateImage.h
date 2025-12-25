@@ -28,18 +28,16 @@ namespace DuiLib
 		LPCTSTR GetBkImage();
 
 		// 旋转控制
-		void	SetRotationEnabled(bool bEnabled);
-		bool	IsRotationEnabled() const;
 		void	SetRotationSpeed(float fSpeed);		// 度/秒
 		float	GetRotationSpeed() const;
-		void	SetAutoPlay(bool bIsAuto = true);
-		bool	IsAutoPlay() const;
 		void	SetAngle(float fAngle);
 		float	GetAngle() const;
 		void	StartRotation();
 		void	StopRotation();
+		bool    IsRotating() const;
 
 	private:
+		void	SetAutoPlay(bool bIsAuto);
 		void	InitImage();
 		void	DeleteImage();
 		void	OnTimer(UINT_PTR idEvent);
@@ -55,6 +53,7 @@ namespace DuiLib
 		bool			m_bIsAutoPlay;			// 是否自动旋转
 		bool			m_bIsRotating;			// 是否正在旋转
 		bool			m_bRotationEnabled;		// 是否启用旋转
+		bool			m_needStartWhenShow;	// 当show时，是否需要启动旋转
 		IStream*		m_pStream;
 	};
 

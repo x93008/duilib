@@ -51,7 +51,7 @@ namespace DuiLib
 		m_fRotationSpeed	= 90.0f;		// 默认90度/秒
 		m_bIsAutoPlay		= true;
 		m_bIsRotating		= false;
-		m_bRotationEnabled	= true;
+		m_needStartWhenShow	= false;
 		m_pStream			= NULL;
 	}
 
@@ -97,10 +97,15 @@ namespace DuiLib
 	void CRotateImageUI::SetVisible(bool bVisible /* = true */)
 	{
 		CControlUI::SetVisible(bVisible);
-		if (bVisible && m_bIsAutoPlay && m_bRotationEnabled)
-			StartRotation();
-		else
+		if (!bVisible && m_bIsRotating) {
+			// 因为隐藏导致的结束旋转，需要在下一次show时重新启动旋转
 			StopRotation();
+			m_needStartWhenShow = true;
+		}
+		else if (bVisible && m_needStartWhenShow) {
+			m_needStartWhenShow = false;
+			StartRotation();
+		}
 	}
 
 	void CRotateImageUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
@@ -114,9 +119,6 @@ namespace DuiLib
 		}
 		else if (_tcscmp(pstrName, _T("angle")) == 0) {
 			SetAngle((float)_ttof(pstrValue));
-		}
-		else if (_tcscmp(pstrName, _T("rotationenabled")) == 0) {
-			SetRotationEnabled(_tcscmp(pstrValue, _T("true")) == 0);
 		}
 		else
 			CControlUI::SetAttribute(pstrName, pstrValue);
@@ -133,8 +135,8 @@ namespace DuiLib
 		m_sBkImage = pStrImage;
 		Invalidate();
 
-		// 如果之前是自动播放状态，重新启动旋转
-		if (bWasRotating && m_bIsAutoPlay && m_bRotationEnabled)
+		// 如果之前正在旋转，重新启动旋转
+		if (bWasRotating)
 		{
 			InitImage();
 			if (m_pImage)
@@ -145,30 +147,6 @@ namespace DuiLib
 	LPCTSTR CRotateImageUI::GetBkImage()
 	{
 		return m_sBkImage.GetData();
-	}
-
-	void CRotateImageUI::SetRotationEnabled(bool bEnabled)
-	{
-		if (m_bRotationEnabled == bEnabled) return;
-		m_bRotationEnabled = bEnabled;
-
-		if (bEnabled)
-		{
-			// 启用旋转：如果之前是自动播放状态，重新启动旋转
-			if (m_bIsAutoPlay && IsVisible())
-				StartRotation();
-		}
-		else
-		{
-			// 禁用旋转：停止定时器但保持当前角度
-			StopRotation();
-		}
-		Invalidate();
-	}
-
-	bool CRotateImageUI::IsRotationEnabled() const
-	{
-		return m_bRotationEnabled;
 	}
 
 	void CRotateImageUI::SetRotationSpeed(float fSpeed)
@@ -190,15 +168,8 @@ namespace DuiLib
 	void CRotateImageUI::SetAutoPlay(bool bIsAuto)
 	{
 		m_bIsAutoPlay = bIsAuto;
-		if (bIsAuto && m_bRotationEnabled && IsVisible())
-			StartRotation();
-		else if (!bIsAuto)
-			StopRotation();
-	}
-
-	bool CRotateImageUI::IsAutoPlay() const
-	{
-		return m_bIsAutoPlay;
+		// SetAutoPlay 仅作为标记，不自动启动/停止旋转
+		// 实际的启动/停止由 StartRotation/StopRotation 控制
 	}
 
 	void CRotateImageUI::SetAngle(float fAngle)
@@ -217,7 +188,7 @@ namespace DuiLib
 
 	void CRotateImageUI::StartRotation()
 	{
-		if (m_bIsRotating || m_pImage == NULL || !m_bRotationEnabled) return;
+		if (m_bIsRotating || m_pImage == NULL) return;
 
 		// 计算定时器间隔（约30fps，33ms）
 		UINT nInterval = 33;
@@ -231,6 +202,12 @@ namespace DuiLib
 
 		m_pManager->KillTimer(this, ROTATE_IMAGE_TIMER_ID);
 		m_bIsRotating = false;
+		m_needStartWhenShow = false;
+	}
+
+	bool CRotateImageUI::IsRotating() const
+	{
+		return m_bIsRotating;
 	}
 
 	void CRotateImageUI::InitImage()
@@ -238,7 +215,8 @@ namespace DuiLib
 		m_pImage = LoadImageFromFile(GetBkImage());
 		if (NULL == m_pImage) return;
 
-		if (m_bIsAutoPlay && m_bRotationEnabled && IsVisible())
+		// 如果设置了 autoplay 属性，自动启动旋转
+		if (m_bIsAutoPlay && IsVisible())
 		{
 			StartRotation();
 		}

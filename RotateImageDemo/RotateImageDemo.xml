@@ -29,7 +29,6 @@
                             bkimage="loading.png"
                             rotationspeed="90"
                             autoplay="true"
-                            rotationenabled="true"
                             width="30"
                             height="30"/>
             <Control />

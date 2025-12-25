@@ -105,11 +105,11 @@
                     bkcolor="#FFDC3545"
                     font="1"/>
             <Control width="10"/>
-            <Button name="btn_enable" text="禁用旋转" width="100" height="35"
+            <Button name="hide_btn" text="显示/隐藏" width="120" height="40"
                     borderround="4,4"
                     textcolor="#FFFFFFFF"
-                    bkcolor="#FFFFC107"
-                    />
+                    bkcolor="#FFDC3545"
+                    font="1"/>
             <Control />
         </HorizontalLayout>
 

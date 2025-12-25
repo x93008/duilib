@@ -102,19 +102,6 @@ public:
                 UpdateStatus();
             }
         }
-        else if (sName == _T("btn_enable"))
-        {
-            // 启用/禁用旋转
-            if (pRotateImage) {
-                bool bEnabled = !pRotateImage->IsRotationEnabled();
-                pRotateImage->SetRotationEnabled(bEnabled);
-                CButtonUI* pBtn = static_cast<CButtonUI*>(msg.pSender);
-                if (pBtn) {
-                    pBtn->SetText(bEnabled ? _T("禁用旋转") : _T("启用旋转"));
-                }
-                UpdateStatus();
-            }
-        }
         else if (sName == _T("btn_speed_slow"))
         {
             // 设置慢速旋转（30度/秒）
@@ -200,6 +187,14 @@ public:
                 UpdateStatus();
             }
         }
+        else if (sName == _T("hide_btn"))
+        {
+            // 显示/隐藏
+            if (pRotateImage) {
+                pRotateImage->SetVisible(!pRotateImage->IsVisible());
+                UpdateStatus();
+            }
+        }
         else if (sName == _T("btn_change_image2"))
         {
             // 切换图片2
@@ -231,9 +226,8 @@ public:
         CLabelUI* pStatusLabel = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("label_status")));
         if (pStatusLabel) {
             CDuiString strStatus;
-            strStatus.Format(_T("状态：旋转启用=%s, 自动播放=%s, 当前角度=%.1f°, 旋转速度=%.1f°/秒"),
-                pRotateImage->IsRotationEnabled() ? _T("是") : _T("否"),
-                pRotateImage->IsAutoPlay() ? _T("是") : _T("否"),
+            strStatus.Format(_T("状态：旋转启用=%s, 当前角度=%.1f°, 旋转速度=%.1f°/秒"),
+                pRotateImage->IsRotating() ? _T("是") : _T("否"),
                 pRotateImage->GetAngle(),
                 pRotateImage->GetRotationSpeed());
             pStatusLabel->SetText(strStatus);

@@ -71,6 +71,7 @@ if (DUILIB_BUILD_EXAMPLES)
     add_subdirectory(EditDemo)
     add_subdirectory(RichEditDemo)
     add_subdirectory(CheckBoxDemo)
+    add_subdirectory(RotateImageDemo)
 endif()
 
 install(FILES ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION share/${PROJECT_NAME})

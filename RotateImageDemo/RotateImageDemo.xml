@@ -83,6 +83,11 @@
                     borderround="4,4"
                     textcolor="#FFFFFFFF"
                     bkcolor="#FF20C997" />
+            <Control width="10" />
+            <Button name="btn_change_image4" text="切换并旋转" width="100" height="35"
+                    borderround="4,4"
+                    textcolor="#FFFFFFFF"
+                    bkcolor="#FF20C997" />
             <Control />
         </HorizontalLayout>
 

@@ -211,6 +211,15 @@ public:
                 UpdateStatus();
             }
         }
+        else if (sName == _T("btn_change_image4"))
+        {
+            // 切换图片3并立即旋转,用于验证立即旋转失败的bug
+            if (pRotateImage) {
+                pRotateImage->SetBkImage(_T("Icon\\list_icon_a.png"));
+                pRotateImage->StartRotation();
+                UpdateStatus();
+            }
+        }
         else if (sName == _T("btn_close"))
         {
             PostQuitMessage(0);

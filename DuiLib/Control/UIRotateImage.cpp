@@ -140,10 +140,10 @@ namespace DuiLib
 		m_sBkImage = pStrImage;
 		Invalidate();
 
+		InitImage();
 		// 如果之前正在旋转，重新启动旋转
 		if (bWasRotating)
 		{
-			InitImage();
 			if (m_pImage)
 				StartRotation();
 		}
